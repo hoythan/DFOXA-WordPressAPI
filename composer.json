@@ -1,0 +1,39 @@
+{
+  "name": "DFOXA WPAPI",
+  "require": {
+    "flc/alidayu": "^2.0",
+    "thenbsp/wechat": "^2.0",
+    "respect/validation": "^1.1",
+    "webmozart/path-util": "^2.3",
+    "intervention/image": "^2.4",
+    "jenssegers/agent": "^2.5",
+    "houdunwang/dir": "^1.0"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  },
+  "autoload": {
+    "files": [
+      "lib/inc/global.php",
+      "lib/inc/functions.php"
+    ],
+    "psr-4": {
+      "account\\sign\\": [
+        "lib/account/sign",
+        "lib/account/sign/modes"
+      ],
+      "account\\token\\": [
+        "lib/account/token",
+        "lib/account/token/modes"
+      ],
+      "gateway\\": "lib/gateway",
+      "tools\\sms\\": "lib/tools/sms",
+      "media\\":"lib/media",
+      "cached\\": "lib/cached",
+      "Tests\\":"lib/Tests"
+    }
+  }
+}
