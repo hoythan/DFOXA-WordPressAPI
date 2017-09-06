@@ -10,6 +10,7 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 >DFOXA 额外提供了一些优秀的功能,例如可使用SMS接口实现用户账号的注册,登录的短信验证码等功能。
 >DFOXA 提供的插件模式,弥补了接口的的不足,你可以基于 基础功能 或 WordPress（PHP） 的所有能力独立开发 API接口,例如 开发商城系统 等...。
 >DFOXA 为您解决了数据交互的安全性问题(使用RSA加密),以及跨域、数据缓存、日志记录问题。
+>DFOXA 配置使用了最新的 Composer ,你可以通过 Composer 进行丰富的功能扩展。
 
 ## 准备工作
 * 如果您的项目是一个完全独立的前后端分离项目,
@@ -35,3 +36,12 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 用于数据加密的加密密钥,建议您直接点击后方的 随机生成 来创建一个符合安全标准的密钥内容
 #### RSA加密 公钥/密钥
 请访问 [Rand RSA](http://web.chacuo.net/netrsakeypair) 生成RSA加密公钥私钥对 1024位(BIT) 和 PKCS#8 并粘帖至此处
+#### API 网关格式
+推荐使用默认设置,当然你也可以自定义它们 [ gateway.do => http://api.domain.com/gateway.do ]
+网关是一门"大学问" , 访问 [API 网关](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/md/api.md) 详细了解它
+#### 缓存系统设置
+暂时只支持 WordPress 自带缓存 ,它基于 Memcache（d）。
+未来将扩展开发基于 文件缓存、Redis 的缓存功能,但现阶段你只能这么选。
+你必须配置 Memcache（d）,并安装相关的 WordPress 内存缓存插件,因为接口将大量使用缓存系统,如果你不做这一步,你将无法继续使用该插件
+
+## 接口入门
