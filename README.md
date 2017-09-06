@@ -28,9 +28,10 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 ## 配置环境
 > 安装完插件后,您需要在后台先配置你的插件,配置的步骤非常容易,如下图
-![image](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/screenshots/admin_page_setting.png)
 
-####UniqueCode
+![image](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/screenshots/admin_page_setting_1.png)
+
+#### UniqueCode
 用于数据加密的加密密钥,建议您直接点击后方的 随机生成 来创建一个符合安全标准的密钥内容
 #### RSA加密 公钥/密钥
 请访问 [Rand RSA](http://web.chacuo.net/netrsakeypair) 生成RSA加密公钥私钥对 1024位(BIT) 和 PKCS#8 并粘帖至此处
