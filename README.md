@@ -25,12 +25,11 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
  ```
 * 为你的接口配置一个合格的域名,例如(api.domain.com)
 * 在微信小程序等相关项目开发时,你需要配置 [HTTPS](https://www.vpser.net/build/letsencrypt-certbot.html)
+* 固定链接,虽然可能你不需要对外展示你的 WordPress 主题相关内容,但是为了接口的正常使用,你还是得配置一个合适的固定链接,对于固定链接的格式并没有做要求,只要不是默认的<b>?p=123</b>即可,推荐使用的是<b>/%post_id%.html</b>
 
 
 ## 配置环境
-> 安装完插件后,您需要在后台先配置你的插件,配置的步骤非常容易,如下图
-
-![image](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/screenshots/admin_page_setting_1.png)
+> 安装完插件后,您需要在后台先配置你的插件,配置的步骤非常容易。
 
 #### UniqueCode
 用于数据加密的加密密钥,建议您直接点击后方的 随机生成 来创建一个符合安全标准的密钥内容
@@ -45,3 +44,5 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 你必须配置 Memcache（d）,并安装相关的 WordPress 内存缓存插件,因为接口将大量使用缓存系统,如果你不做这一步,你将无法继续使用该插件
 
 ## 接口入门
+
+#### 登录/注册
