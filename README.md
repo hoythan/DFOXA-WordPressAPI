@@ -49,4 +49,8 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 #### 登录/注册
 > 登录注册的方式有很多种,你可以选择使用账号密码登录,手机号+验证码登录,或一起使用它们.
+
 ![登录和注册](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/screenshots/admin_page_setting_account_login.png)
+
+
+接口文档会在 1-3个月内完善,插件用户请按照组内教程或组内提问.
