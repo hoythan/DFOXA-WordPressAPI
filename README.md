@@ -1,6 +1,10 @@
 # DFOXA-WordPressAPI
 WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基于 WordPress 的前后端分离项目实现便捷轻快的后端开发体验.
 
+
+> 接口文档会在 1-3个月内完善,英文文档会在中文文档完善后的1个月内发布,插件用户请按照组内教程或组内提问.
+> Interface documents will be improved within 1-3 months, the English document will be released within 1 month after the improvement of the Chinese document and plug-in users could ask questions in the group.
+
 ## 了解 DFOXA-WordPressAPI
 
 
@@ -43,14 +47,20 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 未来将扩展开发基于 文件缓存、Redis 的缓存功能,但现阶段你只能这么选。
 你必须配置 Memcache（d）,并安装相关的 WordPress 内存缓存插件,因为接口将大量使用缓存系统,如果你不做这一步,你将无法继续使用该插件
 
-## 接口入门
+## 接口调试
 
-> 在这里我只会列举一些简单的api接口调用方式,详细的接口使用请直接参考本页页脚相关链接
+你的接口必须经过详细调试后才能发布于线上,我们推荐您使用下列工具进行调试,并使用Chrome的相关json格式化插件
 
-#### 登录/注册
-> 登录注册的方式有很多种,你可以选择使用账号密码登录,手机号+验证码登录,或一起使用它们.
+工具: POSTMAN、PAW
 
-![登录和注册](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/screenshots/admin_page_setting_account_login.png)
+## 准备完毕
+
+访问你的接口测试地址,开始你的第一步
+
+https://api.domain.com/gateway.do?method=Tests.dfoxaState
+
+* gateway.do 是您在后台设置页面配置的 API 网关,所有的接口都通过它进行调用,所以你的其他页面不会收到接口影响。
+* 小窍门: DFOXA为你提供了多种接口使用方式,例如
 
 
-接口文档会在 1-3个月内完善,插件用户请按照组内教程或组内提问.
+> 详细的接口使用请参考本页页脚相关链接
