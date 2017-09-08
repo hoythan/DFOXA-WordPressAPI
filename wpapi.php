@@ -1,27 +1,36 @@
 <?php
 /*
-Plugin Name:	DFOXA WPAPI
-Plugin URI:		https://doofox.com
-Description:	WordPress API插件,集成基本文章管理,用户管理等接口,适用于微信\小程序\支付宝口碑等接口开发或自建WEBAPP单页组件调用开发.
-Version:		1.0.0
-Author:			@快叫我韩大人
-Author URI:  	https://doofox.com
-License:     	GPL2
-License URI: 	https://www.gnu.org/licenses/gpl-2.0.html
+Plugin Name: DFOXA-WordPressAPI
+Plugin URI: https://doofox.cn
+Description: WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基于 WordPress 的前后端分离项目实现便捷轻快的后端开发体验. 
+Version: 1.0.0
+Author: DooFox. Inc,
+Author URI: https://doofox.cm
+License:MIT License
 DFOXWP Version:	2.0
 
-DFOXW WechatGrab is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-any later version.
+MIT License
 
-DFOXW WechatGrab is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+Copyright (c) 2016 DooFox. Inc,
 
-You should have received a copy of the GNU General Public License
-along with DFOXW WechatGrab. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 */
 define('DFOXA_PLUGIN_URL', plugins_url('', __FILE__));
 define('DFOXA_PLUGIN_DIR', plugin_dir_path(__FILE__));
