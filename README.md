@@ -111,12 +111,14 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 > 为你的接口开发独一无二的功能（例如日历查询、商城系统、客资报名系统、电影查询、交通查询等...）,它的开发方式非常标准和简单,就像是开发 WordPress 插件一样,如果你开发过,那么它对你将是一件轻松的事情。</br>
 > 你甚至可以在网络上自由的分享你的插件。
 
+* 插件 Hooks
+* 用户角色和权限
 * 插件的开发
 
 
 ## Author
 
-&copy; 2016 DooFox,Inc. - hoythan@gmail.com - https://doofox.com</br>
+&copy; 2016 DooFox,Inc. - hoythan@gmail.com - https://doofox.cn</br>
 See also the list of [contributors](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/md/contributors.md) which participated in this project.
 
 ## License
