@@ -61,7 +61,7 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 
 * 直接通过浏览器访问你的这个接口,你会看到一条 JSON 格式的 返回值,他的内容如下
 
-```json
+```javascript
 {
   "code": 10000,
   "msg": "接口调用成功",
