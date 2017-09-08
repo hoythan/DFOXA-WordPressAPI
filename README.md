@@ -9,7 +9,7 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 
 >DFOXA 项目是为了快速开发基于 WordPress API接口所开发的 WordPress 插件。
->它适用于所有的前后端分离项目,例如使用 <a href="https://vuejs.org" target="_blank">Vue.js</a>、AngularJS、<a href="http://electron.atom.io" target="_blank">Electron</a>、<a herf="https://mp.weixin.qq.com/debug/wxadoc/introduction/" target="_blank">微信小程序</a>、支付宝小程序等框架开发的项目。
+>它适用于所有的前后端分离项目,例如使用 [Vue.js](https://vuejs.org)、AngularJS、[Electron](http://electron.atom.io)、[微信小程序](https://mp.weixin.qq.com/debug/wxadoc/introduction/)、支付宝小程序等框架开发的项目。
 >DFOXA 提供了 WordPress 的所有基本功能接口,包括用户授权、注册、登录、文章、分类、评论等...。
 >DFOXA 额外提供了一些优秀的功能,例如可使用SMS接口实现用户账号的注册,登录的短信验证码等功能。
 >DFOXA 提供的插件模式,弥补了接口的的不足,你可以基于 基础功能 或 WordPress（PHP） 的所有能力独立开发 API接口,例如 开发商城系统 等...。
@@ -28,7 +28,7 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
  define('WP_USE_THEMES', false);
  ```
 * 为你的接口配置一个合格的域名,例如(api.domain.com) 本文档所有用到的示例域名,都将使用 api.domain.com 作为演示域名,请留意
-* 在微信小程序等相关项目开发时,你需要配置 <a href="https://www.vpser.net/build/letsencrypt-certbot.html" target="_blank">HTTPS</a>
+* 在微信小程序等相关项目开发时,你需要配置 [HTTPS](https://www.vpser.net/build/letsencrypt-certbot.html)
 * 固定链接,虽然可能你不需要对外展示你的 WordPress 主题相关内容,但是为了接口的正常使用,你还是得配置一个合适的固定链接,对于固定链接的格式并没有做要求,只要不是默认的<b>?p=123</b>即可,推荐使用的是<b>/%post_id%.html</b>
 
 
@@ -36,9 +36,9 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 > 安装完插件后,您需要在后台先配置你的插件,配置的步骤非常容易。
 
 #### UniqueCode
-用于数据加密的加密密钥,建议您直接点击后方的 <b>随机生成</b> 来创建一个符合安全标准的密钥内容
+用于数据加密的加密密钥,建议您直接点击后方的 随机生成 来创建一个符合安全标准的密钥内容
 #### RSA加密 公钥/密钥
-请访问 <a href="http://web.chacuo.net/netrsakeypair" target="_blank">Rand RSA</a> 生成RSA加密公钥私钥对 1024位(BIT) 和 PKCS#8 并粘帖至此处
+请访问 [Rand RSA](http://web.chacuo.net/netrsakeypair) 生成RSA加密公钥私钥对 1024位(BIT) 和 PKCS#8 并粘帖至此处
 #### API 网关格式
 推荐使用默认设置,当然你也可以自定义它们 [ gateway.do => http://api.domain.com/gateway.do ]
 网关是一门"大学问" , 访问 [API 网关](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/md/api.md) 详细了解它
@@ -51,13 +51,27 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 你的接口必须经过详细调试后才能发布于线上,我们推荐您使用下列工具进行调试,并使用Chrome的相关json格式化插件
 
-工具: [POSTMAN](https://www.getpostman.com/apps)、[PAW](https://paw.cloud)、[JSONViewer插件](https://github.com/tulios/json-viewer)
+工具: [POSTMAN](https://www.getpostman.com/apps)、[PAW](https://paw.cloud)、[JSONViewer 插件](https://github.com/tulios/json-viewer)
 
 ## 准备完毕
 
 访问你的接口测试地址,开始你的第一步
 
 https://api.domain.com/gateway.do?method=Tests.dfoxaState
+
+* 直接通过浏览器访问你的这个接口,你会看到一条 JSON 格式的 返回值,他的内容如下
+
+```json
+{
+  "code": 10000,
+  "msg": "接口调用成功",
+  "sub_msg": "接口调用成功",
+  "solution": "",
+  "sub_code": "10000",
+  "hello": "看起来这个接口已经准备就绪了.",
+  "request": null
+}
+```
 
 * gateway.do 是您在后台设置页面配置的 API 网关,所有的接口都通过它进行调用,所以你的其他页面不会收到接口影响。
 * 小窍门: DFOXA网关请求格式还有另外一种方式,去除 ?method= 并将接口内容中的 . 改为 /
