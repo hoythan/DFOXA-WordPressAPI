@@ -35,17 +35,15 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 ## 简单设置
 > 安装完插件后,您需要在后台先配置你的插件,配置的步骤非常容易。
 
-#### UniqueCode
-用于数据加密的加密密钥,建议您直接点击后方的 随机生成 来创建一个符合安全标准的密钥内容
-#### RSA加密 公钥/密钥
-请访问 [Rand RSA](http://web.chacuo.net/netrsakeypair) 生成RSA加密公钥私钥对 1024位(BIT) 和 PKCS#8 并粘帖至此处
-#### API 网关格式
-推荐使用默认设置,当然你也可以自定义它们 [ gateway.do => http://api.domain.com/gateway.do ]
-网关是一门"大学问" , 访问 [API 网关](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/md/api.md) 详细了解它
 #### 缓存系统设置
-暂时只支持 WordPress 自带缓存 ,它基于 Memcache（d）。
+
+DFOXA 暂时只支持 WordPress 自带缓存 ,它基于 Memcache（d）。
 未来将扩展开发基于 文件缓存、Redis 的缓存功能,但现阶段你只能这么选。
 你必须配置 Memcache（d）,并安装相关的 WordPress 内存缓存插件,因为接口将大量使用缓存系统,如果你不做这一步,你将无法继续使用该插件
+
+#### 日志记录
+
+DFOXA 配置了日志记录插件 [Monolog](https://github.com/Seldaek/monolog),你需要在后台启用它,启用后你必须将插件目录下的 <b>logs</b> 目录配置对应的读写权限,他会自动记录所有的用户请求信息和相关错误信息,便于你的调试和问题排查。
 
 ## 接口调试
 
