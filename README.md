@@ -37,7 +37,7 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 #### 缓存系统设置
 
-DFOXA 暂时只支持 WordPress 自带缓存 ,它基于 Memcache（d）。
+DFOXA 暂时只支持 WordPress 自带缓存 ,它基于 <code>Memcache（d）</code>。
 未来将扩展开发基于 文件缓存、Redis 的缓存功能,但现阶段你只能这么选。
 你必须配置 Memcache（d）,并安装相关的 WordPress 内存缓存插件,因为接口将大量使用缓存系统,如果你不做这一步,你将无法继续使用该插件
 
@@ -92,7 +92,7 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 > <b>code:</b></br>当接口的 code === 10000 表示这个接口已经调用成功,在使用任意接口的时候,你应当使用 code 值 是否等于 10000 来判断这个接口是否执行成功。</br>
 > <b>msg / submsg:</b></br>接口的提示信息,如果接口请求错误,它们会返回请求错误的相关信息, msg 稍短一些 ,submsg 则更加详细一些,这些信息适合暴露给用户,例如账号密码错误等信息。</br>
 > <b>solution:</b></br>接口错误的解决办法,通常这个信息不暴露给用户,在你调试的时候使用,返回一些接口错误时的解决方案。</br>
-> <b>sub_code:</b></br>这个接口返回一些字符串格式的错误编号,和 code 是一一对应的。例如 code 10002 对应 gateway.empty-method</br>
+> <b>sub_code:</b></br>这个接口返回一些字符串格式的错误编号,和 code 是一一对应的。例如 <code>10002</code> 对应 <code>gateway.empty-method</code></br>
 > <b>request:</b></br>这个接口返回一些用户的请求内容,方便前端进行开发调试。
 
 ## 接口文档
@@ -111,3 +111,13 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 > 你甚至可以在网络上自由的分享你的插件。
 
 * 插件的开发
+
+
+## Author
+
+&copy; 2016 DooFox,Inc. - hoythan@gmail.com - https://doofox.com
+See also the list of [contributors](#) which participated in this project.
+
+License
+
+DFOXA-WordPressAPI is licensed under the MIT License - see the <code>LICENSE</code> file for details
