@@ -2,7 +2,7 @@
 // 阻止直接访问
 if (!defined('ABSPATH')) exit;
 if (isset($_POST['dfox_wp_save_field']) && wp_verify_nonce($_POST['dfox_wp_save_field'], 'dfox_wp_save')) {
-    $plugin = get_dfoxa_plugins($_POST['remove']);
+    $plugin = get_dfoxa_plugins();
     if(!$plugin)
         return;
 
@@ -105,7 +105,7 @@ function dfoxa_plugins_page()
             $plugins = get_dfoxa_plugins();
             foreach ($plugins as $plugin_name => $plugin) {
                 $plugin_key = 'dfoxa_' . $plugin_name;
-                $active = get_option($plugin_key) === '1' ? true : false;
+                $active = get_option($plugin_key) == '1' ? true : false;
                     ?>
                 <li>
                     <div class="plugin-row">

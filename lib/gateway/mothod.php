@@ -154,9 +154,6 @@ class mothod
             $bizContent = arrayToObject($_POST);
         }
 
-        if (!is_object($bizContent) || $bizContent === NULL)
-            throw new \Exception('gateway.empty-request');
-
         return true;
     }
 

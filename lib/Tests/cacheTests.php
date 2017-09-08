@@ -6,9 +6,11 @@ class cacheTests
 {
     public function run()
     {
-        $cache = new \cached\cache();
+//        add_crm_meta('1','bind_userid',2,false);
+//        add_crm_meta('1','bind_userid',1,false);
+//        $cache = new \cached\cache();
 
-//        $cache->set('test_key', 'test_group_test', 'test_group');
+//        $cache->set('crmids', 'test_group_test', 'test_group');
 //        $cache->set('test_key2', 'test_group_test2', 'test_group');
 
 //        var_dump($cache->get('test_ke111y','test_group',false));

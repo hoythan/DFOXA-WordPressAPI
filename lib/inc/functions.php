@@ -413,7 +413,7 @@ function get_dfoxa_active_plugins()
     $active_plugins = array();
     foreach ($plugins as $plugin_name => $plugin){
         $plugin_key = 'dfoxa_' . $plugin_name;
-        $active = get_option($plugin_key) === '1' ? true : false;
+        $active = get_option($plugin_key) == '1' ? true : false;
         if($active)
            $active_plugins[$plugin_name] = $plugin;
     }
