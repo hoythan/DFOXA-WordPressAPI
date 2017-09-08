@@ -115,9 +115,9 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 
 ## Author
 
-&copy; 2016 DooFox,Inc. - hoythan@gmail.com - https://doofox.com
+&copy; 2016 DooFox,Inc. - hoythan@gmail.com - https://doofox.com</br>
 See also the list of [contributors](#) which participated in this project.
 
-License
+## License
 
 DFOXA-WordPressAPI is licensed under the MIT License - see the <code>LICENSE</code> file for details
