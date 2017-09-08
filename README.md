@@ -2,7 +2,7 @@
 WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基于 WordPress 的前后端分离项目实现便捷轻快的后端开发体验.
 
 
-> 接口文档会在 1-3个月内完善,英文文档会在中文文档完善后的1个月内发布,插件用户请按照组内教程或组内提问.
+> 接口文档会在 1-3个月内完善,英文文档会在中文文档完善后的1个月内发布,插件用户请按照组内教程或组内提问.<b>不要提交 issues </b>
 > Interface documents will be improved within 1-3 months, the English document will be released within 1 month after the improvement of the Chinese document and plug-in users could ask questions in the group.
 
 ## 了解 DFOXA-WordPressAPI
