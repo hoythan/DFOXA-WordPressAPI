@@ -51,7 +51,7 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 你的接口必须经过详细调试后才能发布于线上,我们推荐您使用下列工具进行调试,并使用Chrome的相关json格式化插件
 
-工具: POSTMAN、PAW
+工具: [POSTMAN](https://www.getpostman.com/apps)、[PAW](https://paw.cloud)、[JSONViewer插件](https://github.com/tulios/json-viewer)
 
 ## 准备完毕
 
@@ -60,7 +60,11 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 https://api.domain.com/gateway.do?method=Tests.dfoxaState
 
 * gateway.do 是您在后台设置页面配置的 API 网关,所有的接口都通过它进行调用,所以你的其他页面不会收到接口影响。
-* 小窍门: DFOXA为你提供了多种接口使用方式,例如
+* 小窍门: DFOXA网关请求格式还有另外一种方式,去除 ?method= 并将接口内容中的 . 改为 /
+
+> https://api.domain.com/gateway.do/Tests/dfoxaState
+> 同等于
+> https://api.domain.com/gateway.do?method=Tests.dfoxaState
 
 
 > 详细的接口使用请参考本页页脚相关链接
