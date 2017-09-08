@@ -59,6 +59,13 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 https://api.domain.com/gateway.do?method=Tests.dfoxaState
 
+* gateway.do 是您在后台设置页面配置的 API 网关,所有的接口都通过它进行调用,所以你的其他页面不会收到接口影响。
+* 小窍门: DFOXA网关请求格式还有另外一种方式,去除 ?method= 并将接口内容中的 . 改为 /
+
+> https://api.domain.com/gateway.do/Tests/dfoxaState</br>
+> 同等于</br>
+> https://api.domain.com/gateway.do?method=Tests.dfoxaState
+
 * 直接通过浏览器访问你的这个接口,你会看到一条 JSON 格式的 返回值,他的内容如下
 
 ```json
@@ -89,14 +96,6 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 > <b>solution:</b></br>接口错误的解决办法,通常这个信息不暴露给用户,在你调试的时候使用,返回一些接口错误时的解决方案。</br>
 > <b>sub_code:</b></br>这个接口返回一些字符串格式的错误编号,和 code 是一一对应的。例如 code 10002 对应 gateway.empty-method</br>
 > <b>request:</b></br>这个接口返回一些用户的请求内容,方便前端进行开发调试。
-
-
-* gateway.do 是您在后台设置页面配置的 API 网关,所有的接口都通过它进行调用,所以你的其他页面不会收到接口影响。
-* 小窍门: DFOXA网关请求格式还有另外一种方式,去除 ?method= 并将接口内容中的 . 改为 /
-
-> https://api.domain.com/gateway.do/Tests/dfoxaState</br>
-> 同等于</br>
-> https://api.domain.com/gateway.do?method=Tests.dfoxaState
 
 
 > 详细的接口使用请参考本页页脚相关链接
