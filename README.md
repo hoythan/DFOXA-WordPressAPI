@@ -62,8 +62,8 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 * gateway.do 是您在后台设置页面配置的 API 网关,所有的接口都通过它进行调用,所以你的其他页面不会收到接口影响。
 * 小窍门: DFOXA网关请求格式还有另外一种方式,去除 ?method= 并将接口内容中的 . 改为 /
 
-> https://api.domain.com/gateway.do/Tests/dfoxaState
-> 同等于
+> https://api.domain.com/gateway.do/Tests/dfoxaState</br>
+> 同等于</br>
 > https://api.domain.com/gateway.do?method=Tests.dfoxaState
 
 
