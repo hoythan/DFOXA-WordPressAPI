@@ -116,7 +116,7 @@ https://api.domain.com/gateway.do?method=Tests.dfoxaState
 ## Author
 
 &copy; 2016 DooFox,Inc. - hoythan@gmail.com - https://doofox.com</br>
-See also the list of [contributors](#) which participated in this project.
+See also the list of [contributors](https://github.com/hoythan/DFOXA-WordPressAPI/blob/master/md/contributors.md) which participated in this project.
 
 ## License
 
