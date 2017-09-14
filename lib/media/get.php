@@ -14,6 +14,7 @@ class get extends file
             'file_id',
             'size'
         ));
+
         if (empty($query->file_id) && !isset($_GET['file_id']))
             throw new \Exception('media.empty-notfound', 404);
 

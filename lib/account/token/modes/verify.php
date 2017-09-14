@@ -21,10 +21,12 @@ class verify extends token
         if (!empty($query->get_user))
             $get_user = true;
 
+
         $response = self::getUserID($query->access_token, $get_user);
         if ($response) {
             if (is_array($response)) {
                 $response['msg'] = 'access_token验证通过';
+                $response = apply_filters('account_signin_data', $response);
                 Gateway::responseSuccessJSON($response);
             } else {
                 Gateway::responseSuccessJSON(array(
@@ -67,8 +69,8 @@ class verify extends token
          * 参考create.php ~41
          * onlytoken_check_$userid
          */
-        if($cacheDriver->get('onlytoken_check_' . $userid) !== false && $onlytoken != $cacheDriver->get('onlytoken_check_' . $userid))
-            throw new \Exception('account.distance-accesstoken');
+//        if($cacheDriver->get('onlytoken_check_' . $userid) !== false && $onlytoken != $cacheDriver->get('onlytoken_check_' . $userid))
+//            throw new \Exception('account.distance-accesstoken');
 
         // 检查用户是否存在
         $user = get_user_by('ID', $userid);

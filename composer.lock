@@ -645,16 +645,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.51",
+            "version": "v1.2.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "be9074b1206ba7b5ac5662f900295edc088a9da8"
+                "reference": "bd6f1eef08645f1fe2fe79fb58d745e17670c3eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/JayBizzle/Crawler-Detect/be9074b1206ba7b5ac5662f900295edc088a9da8.zip",
-                "reference": "be9074b1206ba7b5ac5662f900295edc088a9da8",
+                "url": "https://files.phpcomposer.com/files/JayBizzle/Crawler-Detect/bd6f1eef08645f1fe2fe79fb58d745e17670c3eb.zip",
+                "reference": "bd6f1eef08645f1fe2fe79fb58d745e17670c3eb",
                 "shasum": ""
             },
             "require": {
@@ -690,7 +690,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2017-08-07T18:48:00+00:00"
+            "time": "2017-09-07T08:18:18+00:00"
         },
         {
             "name": "jenssegers/agent",

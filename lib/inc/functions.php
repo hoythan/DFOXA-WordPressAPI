@@ -1,31 +1,8 @@
 <?php
 require_once ('wp_action.php');
-/*
- * 获取能判定当前用户设备的唯一值
- */
-function get_UserOnlyIdent($salt = '')
-{
-    if ($_SERVER['REMOTE_ADDR']) {
-        $userip = $_SERVER['REMOTE_ADDR'];
-    } elseif (getenv("REMOTE_ADDR")) {
-        $userip = getenv("REMOTE_ADDR");
-    } elseif (getenv("HTTP_CLIENT_IP")) {
-        $userip = getenv("HTTP_CLIENT_IP");
-    } else {
-        $userip = "127.0.0.1";
-    }
-    $useragent = $_SERVER['HTTP_USER_AGENT'];
-    $ident = md5($userip . $salt . $useragent);
-    return $ident;
-}
-
-function the_UserOnlyIdent($salt = '')
-{
-    echo get_UserOnlyIdent($salt);
-}
 
 /*
- * 获取相关usermeta的用户id
+ * 获取相关 usermeta 的用户id
  */
 function get_usermeta_userid($key,$value){
 
@@ -108,13 +85,14 @@ function get_GUIDStr($strtolower = false)
 }
 
 /*
- * 生成15位数字
+ * 生成数字
  */
-function get_FifteenNum()
+function get_FifteenNum($start = 1,$length = 15)
 {
     $number = substr_replace('0', base_convert(get_GUIDStr(), 16, 10), 0, 1);
-    return substr($number, 1, 15);
+    return substr($number, $start, $length);
 }
+
 
 /*
  * 过滤不需要的请求内容并返回适当的内容
@@ -250,28 +228,8 @@ add_filter('dfoxa_wpapi_method_exists_class', 'wechatFileVerify');
 function dfoxa_make_filename_hash($filename)
 {
     $info = pathinfo($filename);
-    $ext = empty($info['extension']) ? ” : '.' . $info['extension'];
+    $ext = empty($info['extension']) ? '' : '.' . $info['extension'];
     return get_MicroTimeStr() . $ext;
-}
-
-
-/*
- * 图片字典存储
- */
-
-function update_fileMeta($meta_key, $meta_value)
-{
-    global $wpdb;
-    $table = $wpdb->prefix . 'wpapi_imagemeta';
-    $sql = "INSERT INTO `wms_wpapi_imagemeta` (`meta_key`, `post_id`) VALUES ('1', '2');";
-
-    $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE `meta_key` = %s", array($meta_key)));
-    if ($count == 0) {
-        $wpdb->insert($table, array('meta_key' => $meta_key, 'post_id' => (int)$meta_value));
-    } else {
-        $wpdb->update($table, array('post_id' => (int)$meta_value), array('meta_key' => $meta_key));
-    }
-    return true;
 }
 
 function load_fileContent($meta_key, $size = 'full')

@@ -72,7 +72,8 @@ $dfoxa_default = array(
     'dfoxa_media' => 'open',
     'dfoxa_media_size' => '2048',
     'dfoxa_media_type' => '',
-    'dfoxa_media_user' => 'author',
+    'dfoxa_media_user' => 'select',
+    'dfoxa_media_user_role' => array(),
     'dfoxa_media_url' => '',
 );
 // ADMIN

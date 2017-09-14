@@ -22,8 +22,12 @@ if(isset($_POST['dfox_wp_save_field']) && wp_verify_nonce($_POST['dfox_wp_save_f
 			if(strstr($key,'dfoxa_t_')){
 				update_option($key,rtrim($value));
 			}else if(strstr($key,'dfoxa_')){
-				$value = sanitize_text_field($value);
-				update_option($key,$value);
+			    if(is_array($_POST[$key])){
+                    update_option($key,$value);
+                }else{
+                    $value = sanitize_text_field($value);
+                    update_option($key,$value);
+                }
 			}
 		}
 		add_settings_error(

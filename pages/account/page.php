@@ -75,15 +75,15 @@ function dfoxa_account_page(){
                 <tr>
                     <th scope="row">查询时可获取的UserMeta字段</th>
                     <td>
-                        <input name="dfoxa_account_query_usermetakey" type="text" placeholder="avatar,firstname,lastname,age..." class="regular-text code"  value="<?php esc_attr_e($data['dfoxa_account_query_usermetakey']); ?>">
-                        <p>在登陆注册或查询用户信息时，允许返回的usermeta字段，你可以直接填写 * 但是这可能会返回比较"危险"的数据.</p>
+                        <textarea name="dfoxa_account_query_usermetakey" rows="10" cols="50" class="large-text code" placeholder="avatar,firstname,lastname,age..."><?php esc_attr_e($data['dfoxa_account_query_usermetakey']); ?></textarea>
+                        <p>在登陆注册或查询用户信息时,允许返回的usermeta字段一行一个,你可以直接填写 * 但是这可能会返回比较"危险"的数据.</p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">所允许修改的UserMeta字段</th>
                     <td>
-                        <input name="dfoxa_account_edit_usermetakey" type="text" placeholder="avatar,firstname,lastname,age..." class="regular-text code"  value="<?php esc_attr_e($data['dfoxa_account_edit_usermetakey']); ?>">
-                        <p>请填写接口的usermeta所支持的自定义字段,多个字段使用逗号区分,你可以直接填写 * 虽然这是很"危险"的事情.</p>
+                        <textarea name="dfoxa_account_edit_usermetakey" rows="10" cols="50" class="large-text code" placeholder="avatar,firstname,lastname,age..."><?php esc_attr_e($data['dfoxa_account_edit_usermetakey']); ?></textarea>
+                        <p>请填写接口的usermeta所支持的自定义字段,一行一个,你可以直接填写 * 虽然这是很"危险"的事情.</p>
                         <p>*在用户注册,更新时允许的用户meta字段名</p>
                     </td>
                 </tr>

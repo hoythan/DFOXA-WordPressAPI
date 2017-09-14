@@ -6,7 +6,7 @@ function dfoxa_sms_page(){
 global $dfoxa_default;
 $data = $dfoxa_default;
 foreach ($data as $key => $value) {
-    if(get_option($key)){
+    if (get_option($key)) {
         $value = get_option($key);
         $data[$key] = $value;
     }
