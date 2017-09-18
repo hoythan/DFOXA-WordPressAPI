@@ -31,7 +31,7 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 * 为你的接口配置一个合格的域名,例如(api.domain.com) 本文档所有用到的示例域名,都将使用 api.domain.com 作为演示域名,请留意
 * 在微信小程序等相关项目开发时,你需要配置 [HTTPS](https://www.vpser.net/build/letsencrypt-certbot.html)
 * 固定链接,虽然可能你不需要对外展示你的 WordPress 主题相关内容,但是为了接口的正常使用,你还是得配置一个合适的固定链接,对于固定链接的格式并没有做要求,只要不是默认的<b>?p=123</b>即可,推荐使用的是<b>/%post_id%.html</b>
-
+* 登录注册等功能需要你配置 PHP 的 OpenSSL 环境
 
 ## 简单设置
 > 安装完插件后,您需要在后台先配置你的插件,配置的步骤非常容易。
