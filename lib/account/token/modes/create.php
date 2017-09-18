@@ -22,6 +22,10 @@ class create extends token
         // 加盐的效验码
         $salttoken = substr($onlytoken . get_RandStr(5, 6), -32);
 
+        // 检测是否开始OPENSSL
+        if(!function_exists('openssl_private_encrypt'))
+            throw new \Exception('gateway.error-openssl');
+
         // 加密后的内容
         $encrypted = "";
         if (!openssl_private_encrypt($salttoken, $encrypted, $private_key))

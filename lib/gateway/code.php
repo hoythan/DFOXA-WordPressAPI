@@ -65,6 +65,12 @@
                     'sub_msg' => '',
                     'solution' => '请检查接口配置是否正确'
                 ),
+                'gateway.error-openssl' => array(
+                    'code' => 10007,
+                    'msg' => '未配置OpenSSL',
+                    'sub_msg' => '',
+                    'solution' => '请检查接口配置是否正确'
+                ),
                 'account.empty-register' => array(
                     'code' => 11001,
                     'msg' => '注册接口未配置',
