@@ -101,9 +101,8 @@ class mothod
                         if (file_exists(str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')) ) {
                             include_once (str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
                         }
-
-                        break;
                     }
+
                 }
 
                 if (!class_exists($methodClass)) {

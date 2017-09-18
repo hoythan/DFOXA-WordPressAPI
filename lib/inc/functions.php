@@ -1,14 +1,15 @@
 <?php
-require_once ('wp_action.php');
+require_once('wp_action.php');
 
 /*
  * 获取相关 usermeta 的用户id
  */
-function get_usermeta_userid($key,$value){
+function get_usermeta_userid($key, $value)
+{
 
     global $wpdb;
-    $request = $wpdb->get_row($wpdb->prepare("SELECT `user_id` FROM $wpdb->usermeta WHERE `meta_key` = %s AND `meta_value` = %s",array($key,$value)));
-    if($request != NULL){
+    $request = $wpdb->get_row($wpdb->prepare("SELECT `user_id` FROM $wpdb->usermeta WHERE `meta_key` = %s AND `meta_value` = %s", array($key, $value)));
+    if ($request != NULL) {
         return $request->user_id;
     }
     return false;
@@ -78,7 +79,7 @@ function get_GUIDStr($strtolower = false)
         . substr($charid, 12, 4)
         . substr($charid, 16, 4)
         . substr($charid, 20, 12);
-    if($strtolower)
+    if ($strtolower)
         return strtolower($uuid);
 
     return $uuid;
@@ -87,7 +88,7 @@ function get_GUIDStr($strtolower = false)
 /*
  * 生成数字
  */
-function get_FifteenNum($start = 1,$length = 15)
+function get_FifteenNum($start = 1, $length = 15)
 {
     $number = substr_replace('0', base_convert(get_GUIDStr(), 16, 10), 0, 1);
     return substr($number, $start, $length);
@@ -347,7 +348,7 @@ function get_dfoxa_plugins($plugin_name = '')
         if (empty ($plugin_data['Namespace']))
             continue;
 
-        $plugin_data['Namespace'] = explode(',',$plugin_data['Namespace']);
+        $plugin_data['Namespace'] = explode(',', $plugin_data['Namespace']);
         $plugins[$plugin_file] = $plugin_data;
     }
 
@@ -369,11 +370,11 @@ function get_dfoxa_active_plugins()
 {
     $plugins = get_dfoxa_plugins();
     $active_plugins = array();
-    foreach ($plugins as $plugin_name => $plugin){
+    foreach ($plugins as $plugin_name => $plugin) {
         $plugin_key = 'dfoxa_' . $plugin_name;
         $active = get_option($plugin_key) == '1' ? true : false;
-        if($active)
-           $active_plugins[$plugin_name] = $plugin;
+        if ($active)
+            $active_plugins[$plugin_name] = $plugin;
     }
     return $active_plugins;
 }
@@ -391,4 +392,4 @@ function load_plugins_funfile()
     }
 }
 
-load_plugins_funfile();
+add_action('init', 'load_plugins_funfile', 1);
