@@ -98,9 +98,14 @@ class mothod
                     if (in_array($methodNameSpace, $plugin['Namespace']) && file_exists(DFOXA_PLUGINS . DFOXA_SEP . $pluginname)) {
                         include_once(DFOXA_PLUGINS . DFOXA_SEP . $pluginname);
 
-                        if (file_exists(str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')) ) {
+
+                        // index.php
+                        if (file_exists(str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')) )
                             include_once (str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
-                        }
+
+                        // file.php
+                        if(file_exists(str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . '.php')))
+                            include_once (str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . '.php'));
                     }
 
                 }
