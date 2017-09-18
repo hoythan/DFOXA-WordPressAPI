@@ -82,6 +82,7 @@ class mothod
             $methodClass
                  =>     '\access\sign\up'
             */
+
             global $methodClass;
             $methodClass = '';
             $methodNameSpace = '';
@@ -94,8 +95,14 @@ class mothod
             if (!class_exists($methodClass)) {
                 // 自加载无效,加载插件
                 foreach (get_dfoxa_active_plugins() as $pluginname => $plugin) {
-                    if (in_array($methodNameSpace, $plugin['Namespace'])) {
+                    if (in_array($methodNameSpace, $plugin['Namespace']) && file_exists(DFOXA_PLUGINS . DFOXA_SEP . $pluginname)) {
                         include_once(DFOXA_PLUGINS . DFOXA_SEP . $pluginname);
+
+                        if (file_exists(str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')) ) {
+                            include_once (str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
+                        }
+
+                        break;
                     }
                 }
 
