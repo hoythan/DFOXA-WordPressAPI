@@ -70,6 +70,10 @@ class mothod
     private function _setupCheckMothod()
     {
         // 检查请求体是否存在
+        global $methodClass;
+        $methodClass = '';
+        $methodNameSpace = '';
+
         if (isset($_GET['method'])) {
             $class = explode('.', $_GET['method']);
             $num = count($class);
@@ -83,39 +87,12 @@ class mothod
                  =>     '\access\sign\up'
             */
 
-            global $methodClass;
-            $methodClass = '';
-            $methodNameSpace = '';
             for ($i = 0; $i < $num; $i++) {
                 $methodClass .= '\\' . $class[$i];
 
                 if ($i < $num - 1)
                     $methodNameSpace .= $methodNameSpace == '' ? $class[$i] : '\\' . $class[$i];
             }
-            if (!class_exists($methodClass)) {
-                // 自加载无效,加载插件
-                foreach (get_dfoxa_active_plugins() as $pluginname => $plugin) {
-                    if (in_array($methodNameSpace, $plugin['Namespace']) && file_exists(DFOXA_PLUGINS . DFOXA_SEP . $pluginname)) {
-                        include_once(DFOXA_PLUGINS . DFOXA_SEP . $pluginname);
-
-
-                        // index.php
-                        if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')))
-                            include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
-
-                        // file.php
-                        if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php')))
-                            include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php'));
-                    }
-
-                }
-
-                if (!class_exists($methodClass)) {
-                    throw new \Exception('gateway.empty-method');
-                }
-            }
-
-            $this->methodClass = $methodClass;
         } else {
             global $wp_query;
             $pagename = $wp_query->query['pagename'];
@@ -124,9 +101,34 @@ class mothod
             if ($num < 3)
                 throw new \Exception('gateway.method-undefined');
 
-            $methodClass = '';
             for ($i = 1; $i < $num; $i++) {
                 $methodClass .= '\\' . $class[$i];
+
+                if ($i < $num - 1)
+                    $methodNameSpace .= $methodNameSpace == '' ? $class[$i] : '\\' . $class[$i];
+            }
+        }
+
+        /*
+         * 如果无法找到原生的接口,则判断是否有注册插件
+         * 否则执行hook dfoxa_wpapi_method_exists_class
+         */
+        if (!class_exists($methodClass)) {
+            // 自加载无效,加载插件
+            foreach (get_dfoxa_active_plugins() as $pluginname => $plugin) {
+                if (in_array($methodNameSpace, $plugin['Namespace']) && file_exists(DFOXA_PLUGINS . DFOXA_SEP . $pluginname)) {
+                    include_once(DFOXA_PLUGINS . DFOXA_SEP . $pluginname);
+
+
+                    // index.php
+                    if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')))
+                        include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
+
+                    // file.php
+                    if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php')))
+                        include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php'));
+                }
+
             }
 
             if (!class_exists($methodClass)) {
