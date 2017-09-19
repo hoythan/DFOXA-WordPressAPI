@@ -100,12 +100,12 @@ class mothod
 
 
                         // index.php
-                        if (file_exists(str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')) )
-                            include_once (str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
+                        if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')))
+                            include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
 
                         // file.php
-                        if(file_exists(str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . '.php')))
-                            include_once (str_replace('\\' ,DFOXA_SEP,DFOXA_PLUGINS . $methodClass . '.php'));
+                        if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php')))
+                            include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php'));
                     }
 
                 }
@@ -163,6 +163,8 @@ class mothod
             $bizContent = json_decode($biz);
         } else if (stripos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
             $bizContent = arrayToObject($_POST);
+        } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $bizContent = arrayToObject($_GET);
         }
 
         return true;
