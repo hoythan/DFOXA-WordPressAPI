@@ -21,7 +21,7 @@
                     'code'      => 99999,
                     'msg'       => 'OPTIONS 检查通过',
                     'sub_msg'   => '',
-                    'solution'  => ''
+                    'solution'  => '跨域请求时,通常会先发送一次OPTIONS请求进行连接确认,可忽略此消息.'
                 ),
                 'gateway.close-api' => array(
                     'code'      => 99998,
@@ -37,9 +37,9 @@
                 ),
                 'gateway.empty-method' => array(
                     'code' => 10002,
-                    'msg' => '',
-                    'sub_msg' => '',
-                    'solution' => ''
+                    'msg' => '错误的请求地址',
+                    'sub_msg' => '当前的接口请求地址有误,请检查后再试',
+                    'solution' => '重新检查你的请求地址是否有误'
                 ),
                 'gateway.method-undefined' => array(
                     'code' => 10003,
