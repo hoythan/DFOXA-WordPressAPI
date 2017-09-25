@@ -1,4 +1,7 @@
 <?php
+// 时区设置
+date_default_timezone_set('PRC');
+
 require_once('wp_action.php');
 
 /*

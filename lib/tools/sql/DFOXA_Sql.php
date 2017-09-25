@@ -7,7 +7,7 @@ namespace tools\sql;
 
 class DFOXA_Sql
 {
-    public function get($table, $where = array(), $need = array(), $filters = array())
+    public function get($table, $where = array(), $need = array(), $filters = array(), $single = true)
     {
         global $wpdb;
 
@@ -16,7 +16,7 @@ class DFOXA_Sql
          */
         $where_format = [];
         foreach ($where as $key => $value) {
-            if (!in_array($key, array_keys($filters))){
+            if (!in_array($key, array_keys($filters))) {
                 unset($where[$key]);
                 continue;
             }
@@ -27,15 +27,27 @@ class DFOXA_Sql
         $query_where = '';
         $i = 0;
         foreach ($where as $key => $value) {
-            if (empty($where_format[$i]) && $where_format[$i] === '%d') {
+            if (is_array($value)) {
+                $w = '';
+                foreach ($value as $v) {
+                    if (!empty($where_format[$key]) || $where_format[$i] !== '%d') {
+                        $v = "'{$v}'";
+                    }
+                    $w .= "{$v},";
+                }
+                $w = chop($w, ",");
+                $query_where .= " `{$key}` in ({$w}) AND ";
             } else {
-                $value = "'{$value}'";
+                if (!empty($where_format[$i]) || $where_format[$i] !== '%d') {
+                    $value = "'{$value}'";
+                }
+                $query_where .= "`{$key}` = {$value}  AND ";
             }
 
-            $query_where .= " `{$key}` = {$value} AND";
+
             $i++;
         }
-        $query_where = chop($query_where, 'AND');
+        $query_where = chop($query_where, 'AND ');
 
         /*
          * 拼接查询条件
@@ -49,8 +61,11 @@ class DFOXA_Sql
         if (empty(trim($query_need)))
             $query_need = '*';
 
-
-        $result = $wpdb->get_row("SELECT {$query_need} FROM {$table} WHERE {$query_where}");
+        if ($single === true) {
+            $result = $wpdb->get_row("SELECT {$query_need} FROM {$table} WHERE {$query_where}");
+        } else {
+            $result = $wpdb->get_results("SELECT {$query_need} FROM {$table} WHERE {$query_where}");
+        }
 
         if ($result === NULL)
             return false;

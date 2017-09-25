@@ -450,6 +450,10 @@
                         $code = array_merge($code,$append_message);
                         clear_AppendMsg();
                     }
+                    // 将用户的请求包含在返回的内容中
+                    global $bizContent;
+                    $code['request'] = $bizContent;
+
                     return $code;
                 }
             }
