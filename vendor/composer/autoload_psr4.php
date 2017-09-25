@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'tools\\sql\\' => array($baseDir . '/lib/tools/sql'),
     'tools\\sms\\' => array($baseDir . '/lib/tools/sms'),
     'media\\' => array($baseDir . '/lib/media'),
     'houdunwang\\dir\\' => array($vendorDir . '/houdunwang/dir/src'),

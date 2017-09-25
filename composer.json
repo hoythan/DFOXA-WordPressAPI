@@ -32,6 +32,7 @@
       ],
       "gateway\\": "lib/gateway",
       "tools\\sms\\": "lib/tools/sms",
+      "tools\\sql\\": "lib/tools/sql",
       "media\\":"lib/media",
       "cached\\": "lib/cached",
       "Tests\\":"lib/Tests"

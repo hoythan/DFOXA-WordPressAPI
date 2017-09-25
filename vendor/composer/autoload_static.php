@@ -21,6 +21,7 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
     public static $prefixLengthsPsr4 = array (
         't' => 
         array (
+            'tools\\sql\\' => 10,
             'tools\\sms\\' => 10,
         ),
         'm' => 
@@ -100,6 +101,10 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
     );
 
     public static $prefixDirsPsr4 = array (
+        'tools\\sql\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib/tools/sql',
+        ),
         'tools\\sms\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/tools/sms',

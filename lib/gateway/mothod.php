@@ -119,7 +119,6 @@ class mothod
                 if (in_array($methodNameSpace, $plugin['Namespace']) && file_exists(DFOXA_PLUGINS . DFOXA_SEP . $pluginname)) {
                     include_once(DFOXA_PLUGINS . DFOXA_SEP . $pluginname);
 
-
                     // index.php
                     if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')))
                         include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
@@ -158,11 +157,20 @@ class mothod
             throw new \Exception('gateway.error-request');
 
         if (stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-            $biz = file_get_contents('php://input') ? file_get_contents('php://input') : gzuncompress($GLOBALS ['HTTP_RAW_POST_DATA']);
-            $bizContent = json_decode($biz);
+            if(file_get_contents('php://input')){
+                $biz = file_get_contents('php://input');
+                $bizContent = json_decode($biz);
+            }else if(!empty($GLOBALS ['HTTP_RAW_POST_DATA'])){
+                $biz = $GLOBALS ['HTTP_RAW_POST_DATA'];
+                $bizContent = json_decode($biz);
+            }
         } else if (stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
             $biz = file_get_contents('php://input') ? file_get_contents('php://input') : gzuncompress($GLOBALS ['HTTP_RAW_POST_DATA']);
-            $bizContent = json_decode($biz);
+            if(gettype($biz) == 'string'){
+                $bizContent = arrayToObject($_POST);
+            }else{
+                $bizContent = json_decode($biz);
+            }
         } else if (stripos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
             $bizContent = arrayToObject($_POST);
         } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
