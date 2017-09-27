@@ -1,13 +1,15 @@
 <?php
 /*
- * 对数据表的添加,
+ * 对数据表的操作添加
  */
 
 namespace tools\sql;
 
+use Respect\Validation\Validator as Validator;
+
 class DFOXA_Sql
 {
-    public function get($table, $where = array(), $need = array(), $filters = array(), $single = true)
+    public function get($table, $where = array(), $need = array(), $filters = array(), $order = array(), $single = true)
     {
         global $wpdb;
 
@@ -61,10 +63,22 @@ class DFOXA_Sql
         if (empty(trim($query_need)))
             $query_need = '*';
 
+        /*
+         * 排序处理
+         */
+        if (Validator::arrayType()->validate($order) && count($order) > 0) {
+            $order = ' order by';
+            foreach ($order as $k => $v) {
+                $order .= "`{$k}` {$v} ,";
+            }
+            $order = chop($order, ' ,');
+        }
+
+
         if ($single === true) {
-            $result = $wpdb->get_row("SELECT {$query_need} FROM {$table} WHERE {$query_where}");
+            $result = $wpdb->get_row("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$order}");
         } else {
-            $result = $wpdb->get_results("SELECT {$query_need} FROM {$table} WHERE {$query_where}");
+            $result = $wpdb->get_results("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$order}");
         }
 
         if ($result === NULL)
