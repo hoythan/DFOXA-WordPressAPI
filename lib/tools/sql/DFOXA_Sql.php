@@ -66,19 +66,19 @@ class DFOXA_Sql
         /*
          * 排序处理
          */
+        $query_order = '';
         if (Validator::arrayType()->validate($order) && count($order) > 0) {
-            $order = ' order by';
+            $query_order = ' order by';
             foreach ($order as $k => $v) {
-                $order .= "`{$k}` {$v} ,";
+                $query_order .= "`{$k}` {$v} ,";
             }
-            $order = chop($order, ' ,');
+            $query_order = chop($query_order, ' ,');
         }
 
-
         if ($single === true) {
-            $result = $wpdb->get_row("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$order}");
+            $result = $wpdb->get_row("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$query_order}");
         } else {
-            $result = $wpdb->get_results("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$order}");
+            $result = $wpdb->get_results("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$query_order}");
         }
 
         if ($result === NULL)
