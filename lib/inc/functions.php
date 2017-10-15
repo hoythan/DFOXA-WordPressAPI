@@ -99,6 +99,24 @@ function get_FifteenNum($start = 1, $length = 15)
 
 
 /*
+ * 设置BIZ
+ */
+function setBizContent($arr)
+{
+    global $bizContent;
+
+    if (count(get_object_vars($bizContent)) == 0) {
+        $bizContent = new StdClass();
+    }
+
+    foreach ($arr as $key => $value) {
+        $bizContent->$key = $value;
+    }
+
+    return true;
+}
+
+/*
  * 过滤不需要的请求内容并返回适当的内容
  */
 function bizContentFilter($filters = array(), $bizContent = '')
@@ -124,7 +142,7 @@ function bizContentFilter($filters = array(), $bizContent = '')
 
         if (!in_array($k, $filters)) {
             unset($query->$k);
-            break;
+            continue;
         }
     }
 
@@ -145,7 +163,7 @@ function bizContentFilter($filters = array(), $bizContent = '')
     foreach ($query->usermeta as $k => $v) {
         if (!in_array($k, $metaFilters)) {
             unset($query->usermeta->$k);
-            break;
+            continue;
         }
     }
 
@@ -182,6 +200,17 @@ function clear_AppendMsg()
     $errorMsg = array();
 }
 
+
+/*
+ * 接口报错封装函数
+ */
+function dfoxaError($sub_code, $message = array(), $httpCode = 200)
+{
+    set_AppendMsg($sub_code, $message);
+    throw new \Exception($sub_code, $httpCode);
+}
+
+
 /*
  * 数组转为对象
  */
@@ -212,6 +241,25 @@ function objectToArray($e)
 }
 
 /*
+ * 数组，对象，字符串反序列化
+ */
+function dataToUnserializeData($data)
+{
+    if(is_array($data)){
+        foreach ($data as $key => $value) {
+            $data[$key] = dataToUnserializeData($value);
+        }
+    }elseif(is_object($data)){
+        $data = arrayToObject(dataToUnserializeData(objectToArray($data)));
+    }else{
+        $data = maybe_unserialize($data);
+    }
+
+    return $data;
+}
+
+
+/*
  * 微信文件验证
  */
 function wechatFileVerify($pagename)
@@ -226,16 +274,6 @@ function wechatFileVerify($pagename)
 
 add_filter('dfoxa_wpapi_method_exists_class', 'wechatFileVerify');
 
-/*
- * 重定义上传文件名称
- */
-function dfoxa_make_filename_hash($filename)
-{
-    $info = pathinfo($filename);
-    $ext = empty($info['extension']) ? '' : '.' . $info['extension'];
-    return get_MicroTimeStr() . $ext;
-}
-
 function load_fileContent($meta_key, $size = 'full')
 {
     global $wpdb;
@@ -244,11 +282,11 @@ function load_fileContent($meta_key, $size = 'full')
 
     // 文件是否存在
     if (empty($response))
-        throw new \Exception('cache.empyt-cachetype');
+        dfoxaError('cache.empyt-cachetype');
 
     $attachment = get_post($response->post_id);
     if (empty($attachment))
-        throw new \Exception('cache.empyt-cachetype');
+        dfoxaError('cache.empyt-cachetype');
 
     // 获取文件地址
     if (wp_attachment_is('image', $attachment->ID)) {
@@ -282,6 +320,7 @@ function dfoxa_removeDirFiles($path)
     }
     return false;
 }
+
 
 /*
  * 获取和检查 DFOXA 插件数据

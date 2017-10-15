@@ -56,13 +56,19 @@
                 'gateway.empty-run' => array(
                     'code' => 10005,
                     'msg' => '接口没有响应',
-                    'sub_msg' => '',
+                    'sub_msg' => '接口执行成功,但没有返回相关内容',
                     'solution' => '请检查接口配置是否正确'
                 ),
                 'gateway.empty-request' => array(
                     'code' => 10006,
                     'msg' => '接口请求格式有误',
-                    'sub_msg' => '',
+                    'sub_msg' => '接口请求格式有误',
+                    'solution' => '请检查接口配置是否正确'
+                ),
+                'gateway.method-discard' => array(
+                    'code' => 10007,
+                    'msg' => '接口已被废弃',
+                    'sub_msg' => '该接口已被废弃停止使用',
                     'solution' => '请检查接口配置是否正确'
                 ),
                 'gateway.error-openssl' => array(
@@ -326,6 +332,18 @@
                 'media.empty-notfound' => array(
                     'code'      => 13604,
                     'msg'       => '文件不存在',
+                    'sub_msg'   => '请检查后再试',
+                    'solution'  => '请检查后再试'
+                ),
+                'media.error-maxfilesize' => array(
+                    'code'      => 13605,
+                    'msg'       => '文件尺寸过大',
+                    'sub_msg'   => '请检查后再试',
+                    'solution'  => '请检查后再试'
+                ),
+                'media.empty-role' => array(
+                    'code'      => 13605,
+                    'msg'       => '未配置允许上传的用户组',
                     'sub_msg'   => '请检查后再试',
                     'solution'  => '请检查后再试'
                 ),

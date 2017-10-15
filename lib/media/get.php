@@ -16,7 +16,7 @@ class get extends file
         ));
 
         if (empty($query->file_id) && !isset($_GET['file_id']))
-            throw new \Exception('media.empty-notfound', 404);
+            dfoxaError('media.empty-notfound', array(), 404);
 
         // 文件ID
         if (!empty($query->file_id)) {

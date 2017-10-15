@@ -92,6 +92,7 @@ class DFOXA_Sql
         global $wpdb;
 
         $format = [];
+
         foreach ($data as $key => $value) {
             if (!in_array($key, array_keys($filters))) {
                 unset($data[$key]);
@@ -155,9 +156,10 @@ class DFOXA_Sql
             $i++;
         }
         $query_where = chop($query_where, 'AND');
+
         // 检查是否存在，不存在创建，存在更新
         if ($wpdb->query("SELECT * FROM {$table} WHERE {$query_where}") === 0)
-            return $this->add($table, array_merge($where, $data), array_merge($where_format, $format));
+            return $this->add($table, array_merge($where, $data), $filters);
 
         // 更新
         if ($wpdb->update($table, $data, $where, $format, $where_format) === false)
@@ -169,5 +171,21 @@ class DFOXA_Sql
     public function remove()
     {
 
+    }
+
+    public function unSerializeData($data)
+    {
+        if(is_array($data)){
+            foreach ($data as $key => $value){
+                $data[$key] = $this->unSerializeData($value);
+            }
+        }
+        if(is_object($data)){
+            foreach ($data as $key => $value){
+                $data->$key = $this->unSerializeData($value);
+            }
+        }
+
+        return maybe_unserialize($data);
     }
 }

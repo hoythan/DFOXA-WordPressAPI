@@ -1,6 +1,8 @@
 <?php
 namespace account\sign;
 
+use gateway\mothod as Gateway;
+
 class in
 {
     private static $namespace = '\account\sign\\';
@@ -14,22 +16,22 @@ class in
 
         // 判断后台是否设置登陆
         if(empty($account_login))
-            throw new \Exception('account.empty-login');
+            dfoxaError('account.empty-login');
 
         // 判断是否关闭登陆
         if($account_login != 'open')
-            throw new \Exception('account.close-login');
+            dfoxaError('account.close-login');
 
         // 判断允许的登陆方式
         $type = get_option('dfoxa_account_type');
         if(empty($type))
-            throw new \Exception('account.empty-type');
+            dfoxaError('account.empty-type');
 
         //自定义注册方式检查
         if($type == 'custom'){
             $query = bizContentFilter(array('type'));
             if(empty($query->type))
-                throw new \Exception('account.empty-type-custom');
+                dfoxaError('account.empty-type-custom');
 
             $type = $query->type;
         }
@@ -37,10 +39,10 @@ class in
         $account_regtype = self::$namespace . $type;
 
         if(!class_exists($account_regtype))
-            throw new \Exception('account.error-type');
+            dfoxaError('account.error-type');
 
         $run = new $account_regtype();
-        $run->login();
+        Gateway::responseSuccessJSON($run->get_login());
     }
 }
 ?>

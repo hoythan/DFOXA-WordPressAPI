@@ -7,12 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
 {
     public static $files = array (
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         'e0e9e8ffd44d1638bac729fcb1047225' => __DIR__ . '/../..' . '/lib/inc/global.php',
         '9faa1b1cbd98fdc9418298845ee2d883' => __DIR__ . '/../..' . '/lib/inc/functions.php',
@@ -52,18 +48,12 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         ),
         'T' => 
         array (
-            'Thenbsp\\Wechat\\' => 15,
             'Tests\\' => 6,
         ),
         'S' => 
         array (
-            'Symfony\\Polyfill\\Php70\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Component\\Serializer\\' => 29,
-            'Symfony\\Component\\PropertyAccess\\' => 33,
-            'Symfony\\Component\\OptionsResolver\\' => 34,
-            'Symfony\\Component\\Inflector\\' => 28,
-            'Symfony\\Component\\HttpFoundation\\' => 33,
+            'Symfony\\Component\\Translation\\' => 30,
         ),
         'R' => 
         array (
@@ -71,7 +61,9 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Container\\' => 14,
         ),
         'J' => 
         array (
@@ -87,8 +79,6 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
         ),
         'F' => 
         array (
@@ -96,7 +86,11 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         ),
         'D' => 
         array (
-            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\Inflector\\' => 26,
+        ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
         ),
     );
 
@@ -143,49 +137,33 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
-        'Thenbsp\\Wechat\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/thenbsp/wechat/src',
-        ),
         'Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/Tests',
-        ),
-        'Symfony\\Polyfill\\Php70\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php70',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Component\\Serializer\\' => 
+        'Symfony\\Component\\Translation\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/serializer',
-        ),
-        'Symfony\\Component\\PropertyAccess\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/property-access',
-        ),
-        'Symfony\\Component\\OptionsResolver\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/options-resolver',
-        ),
-        'Symfony\\Component\\Inflector\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/inflector',
-        ),
-        'Symfony\\Component\\HttpFoundation\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/http-foundation',
+            0 => __DIR__ . '/..' . '/symfony/translation',
         ),
         'Respect\\Validation\\' => 
         array (
             0 => __DIR__ . '/..' . '/respect/validation/library',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Jenssegers\\Agent\\' => 
         array (
@@ -211,21 +189,17 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
-        ),
-        'GuzzleHttp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
         'Flc\\Alidayu\\' => 
         array (
             0 => __DIR__ . '/..' . '/flc/alidayu/src/Alidayu',
         ),
-        'Doctrine\\Common\\Cache\\' => 
+        'Doctrine\\Common\\Inflector\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
     );
 
@@ -239,14 +213,6 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         ),
         'D' => 
         array (
-            'Doctrine\\Common\\Inflector\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
-            ),
-            'Doctrine\\Common\\Collections\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
-            ),
             'Detection' => 
             array (
                 0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/namespaced',
@@ -255,13 +221,7 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
     );
 
     public static $classMap = array (
-        'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
-        'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
-        'DivisionByZeroError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
-        'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
         'Mobile_Detect' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
-        'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
-        'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

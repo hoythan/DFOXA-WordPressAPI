@@ -15,7 +15,7 @@ class verify extends token
         ));
 
         if (empty($query))
-            throw new \Exception('account.empty-accesstoken');
+            dfoxaError('account.empty-accesstoken');
 
         $get_user = false;
         if (!empty($query->get_user))
@@ -26,7 +26,6 @@ class verify extends token
         if ($response) {
             if (is_array($response)) {
                 $response['msg'] = 'access_token验证通过';
-                $response = apply_filters('account_signin_data', $response);
                 Gateway::responseSuccessJSON($response);
             } else {
                 Gateway::responseSuccessJSON(array(
@@ -54,15 +53,15 @@ class verify extends token
         $onlytoken = $cacheDriver->get($access_token);
 
         if (empty($onlytoken))
-            throw new \Exception('account.expired-accesstoken');
+            dfoxaError('account.expired-accesstoken');
 
         $userid = (int)explode('#', $onlytoken)[0];
         if (empty($userid))
-            throw new \Exception('account.expired-accesstoken');
+            dfoxaError('account.expired-accesstoken');
 
         // 判断onlytoken 是否和当前设备匹配
         if ($onlytoken != parent::creatOnlyToken($userid))
-            throw new \Exception('account.expired-accesstoken');
+            dfoxaError('account.expired-accesstoken');
 
         /*
          * 检测onlytoken的唯一性
@@ -70,12 +69,12 @@ class verify extends token
          * onlytoken_check_$userid
          */
 //        if($cacheDriver->get('onlytoken_check_' . $userid) !== false && $onlytoken != $cacheDriver->get('onlytoken_check_' . $userid))
-//            throw new \Exception('account.distance-accesstoken');
+//            dfoxaError('account.distance-accesstoken');
 
         // 检查用户是否存在
         $user = get_user_by('ID', $userid);
         if (empty($user))
-            throw new \Exception('account.expired-accesstoken');
+            dfoxaError('account.expired-accesstoken');
 
         // 每次获取用户id 都延长 7天 token有效期
         $expire = time() + 3600;
@@ -85,13 +84,7 @@ class verify extends token
         if (!$get_user) {
             return $userid;
         } else {
-            return array(
-                'userid' => $user->ID,
-                'username' => $user->user_login,
-                'email' => $user->user_email,
-                'usermeta' => Sign::getUserMetas($user->ID),
-                'access_token' => $access_token
-            );
+            return Sign::_getUserAccount('ID',$user->ID);
         }
 
 
@@ -118,7 +111,7 @@ class verify extends token
         // ...
 
         // 报错
-        throw new \Exception('account.empty-accesstoken');
+        dfoxaError('account.empty-accesstoken');
     }
 }
 

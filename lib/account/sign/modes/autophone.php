@@ -15,6 +15,8 @@ class autophone extends sign
      */
     public function register()
     {
+        // 接口废弃
+        dfoxaError('gateway.method-discard');
         $this->auto();
     }
 
@@ -35,12 +37,12 @@ class autophone extends sign
 
         if(empty($query->smscode)){
             // 发送登陆验证码
-//            $SMSObj = new \tools\sms\sms();
-//            $SMSObj->send('login',$query->phone);
-//
-//            Gateway::responseSuccessJSON(array(
-//                'msg' => '验证短信发送成功'
-//            ));
+            $SMSObj = new \tools\sms\sms();
+            $SMSObj->send('login',$query->phone);
+
+            Gateway::responseSuccessJSON(array(
+                'msg' => '验证短信发送成功'
+            ));
         }
 
         $cacheDriver = new \cached\cache();
@@ -50,11 +52,11 @@ class autophone extends sign
 
         // 判断验证码是否有申请?
         if(empty($verifyData))
-            throw new \Exception('sms.error-smscode');
+            dfoxaError('sms.error-smscode');
 
         // 验证验证码
         if(empty($verifyData['code']) || $verifyData['code'] != $query->smscode)
-            throw new \Exception('sms.error-smscode');
+            dfoxaError('sms.error-smscode');
 
         // 验证通过,清空验证码
         $cacheDriver->delete($cacheKey);

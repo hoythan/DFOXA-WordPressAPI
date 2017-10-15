@@ -84,7 +84,7 @@ function dfoxa_media_page()
                 <td>
                     <input name="dfoxa_media_size" type="text" placeholder="2048" class="regular-text code"
                            value="<?php esc_attr_e($data['dfoxa_media_size']); ?>">
-                    <p>在此限制文件上传尺寸,单位为kb,例如2mb限制需填写2048.</p>
+                    <p>在此限制文件上传尺寸,务必填写单位,单位支持(B,KB,MB,GB,TB,PB,EB,ZB,YB),例如2mb限制需填写2mb.</p>
                     <p>切记不要超过 WordPress 本身的上传限制</p>
                 </td>
             </tr>

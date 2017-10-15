@@ -16,7 +16,7 @@ class cache
 
     function run()
     {
-        throw new \Exception('gateway.close-api');
+        dfoxaError('gateway.close-api');
     }
 
     /*

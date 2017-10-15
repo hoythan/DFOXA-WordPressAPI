@@ -8,7 +8,7 @@ class memcached
     function __construct()
     {
         if(!class_exists('Memcached'))
-            throw new \Exception('cache.empyt-memcached');
+            dfoxaError('cache.empyt-memcached');
 
         $this->cache = new \Memcached();
         $this->cache->addServer('127.0.0.1',11211);

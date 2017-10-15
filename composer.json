@@ -2,7 +2,6 @@
   "name": "DFOXA WPAPI",
   "require": {
     "flc/alidayu": "^2.0",
-    "thenbsp/wechat": "^2.0",
     "respect/validation": "^1.1",
     "webmozart/path-util": "^2.3",
     "intervention/image": "^2.4",

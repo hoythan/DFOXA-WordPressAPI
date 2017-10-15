@@ -28,7 +28,7 @@ class mothod
             $method = new $this->methodClass();
             $method->run();
 
-            throw new \Exception('gateway.empty-run');
+            dfoxaError('gateway.empty-run');
         } catch (\Exception $e) {
             self::_responseJSON($e);
         }
@@ -44,19 +44,19 @@ class mothod
         $gateway = get_option('dfoxa_gateway');
 
         if (!isset($wp_query->query['pagename']))
-            throw new \Exception('gateway.empty-gateway', -1);
+            dfoxaError('gateway.empty-gateway', array(), -1);
 
         $pagename = $wp_query->query['pagename'];
 
         // 检测网关是否配置
         if ($gateway == '')
-            throw new \Exception('gateway.empty-gateway', -1);
+            dfoxaError('gateway.empty-gateway', array(), -1);
 
 
         // 检查是否匹配网关
         $gateway = get_option('dfoxa_gateway');
         if ($pagename != $gateway && strpos($pagename, $gateway) !== 0)
-            throw new \Exception('gateway.undefined', -1);
+            dfoxaError('gateway.undefined', array(), -1);
 
 
         return true;
@@ -78,7 +78,7 @@ class mothod
             $class = explode('.', $_GET['method']);
             $num = count($class);
             if ($num < 2)
-                throw new \Exception('gateway.method-undefined');
+                dfoxaError('gateway.method-undefined');
 
             /*
             method
@@ -99,7 +99,7 @@ class mothod
             $class = explode('/', $pagename);
             $num = count($class);
             if ($num < 3)
-                throw new \Exception('gateway.method-undefined');
+                dfoxaError('gateway.method-undefined');
 
             for ($i = 1; $i < $num; $i++) {
                 $methodClass .= '\\' . $class[$i];
@@ -132,7 +132,7 @@ class mothod
 
             if (!class_exists($methodClass)) {
                 apply_filters('dfoxa_wpapi_method_exists_class', $pagename);
-                throw new \Exception('gateway.empty-method');
+                dfoxaError('gateway.empty-method');
             }
         }
 
@@ -146,7 +146,7 @@ class mothod
     {
         // OPTIONS 一律直接返回正确
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
-            throw new \Exception('gateway.options-success');
+            dfoxaError('gateway.options-success');
 
 
         global $bizContent;
@@ -154,21 +154,21 @@ class mothod
         $request_method = array('GET', 'POST');
 
         if (!in_array($_SERVER['REQUEST_METHOD'], $request_method))
-            throw new \Exception('gateway.error-request');
+            dfoxaError('gateway.error-request');
 
         if (stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-            if(file_get_contents('php://input')){
+            if (file_get_contents('php://input')) {
                 $biz = file_get_contents('php://input');
                 $bizContent = json_decode($biz);
-            }else if(!empty($GLOBALS ['HTTP_RAW_POST_DATA'])){
+            } else if (!empty($GLOBALS ['HTTP_RAW_POST_DATA'])) {
                 $biz = $GLOBALS ['HTTP_RAW_POST_DATA'];
                 $bizContent = json_decode($biz);
             }
         } else if (stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
             $biz = file_get_contents('php://input') ? file_get_contents('php://input') : gzuncompress($GLOBALS ['HTTP_RAW_POST_DATA']);
-            if(gettype($biz) == 'string'){
+            if (gettype($biz) == 'string') {
                 $bizContent = arrayToObject($_POST);
-            }else{
+            } else {
                 $bizContent = json_decode($biz);
             }
         } else if (stripos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {

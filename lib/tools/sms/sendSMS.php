@@ -24,7 +24,7 @@ class sendSMS
         $smsMode = '\tools\sms\\' . $this->sms_service;
 
         if (!class_exists($smsMode))
-            throw new \Exception('sms.empyt-service');
+            dfoxaError('sms.empyt-service');
 
         // 子类请通过此对象操作短信服务商接口
         $this->SMSObj = new $smsMode();
@@ -35,7 +35,7 @@ class sendSMS
      */
     public function run()
     {
-        throw new \Exception('gateway.close-api');
+        dfoxaError('gateway.close-api');
     }
 
     /*
@@ -46,7 +46,7 @@ class sendSMS
     {
         // 验证手机号
         if(!self::_verifyPhoneNumber($phone))
-            throw new \Exception('sms.error-phonenumber');
+            dfoxaError('sms.error-phonenumber');
 
         // 验证 data
 
@@ -112,12 +112,12 @@ class sendSMS
 
         if ($this->sms_service == 'alidayu') {
             if (empty($appkey) || empty($appsecret) || (int)$sms_cycle < 10)
-                throw new \Exception('access.empty-smsapi');
+                dfoxaError('access.empty-smsapi');
 
             return true;
         }
 
-        throw new \Exception('access.empty-smsservice');
+        dfoxaError('access.empty-smsservice');
     }
 
 

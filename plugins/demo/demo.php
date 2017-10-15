@@ -41,7 +41,7 @@ class HelloWorld
  * ============================
  *
  * 1.你的插件类中必须有一个 public 名为 run 的函数,这是插件的入口函数,当访问插件时,将会触发执行入口函数
- * 2.插件报错请使用 throw new \Exception('code'); 在插件的任何未知使用它,将会触发接口返回报错内容,详细使用方式请参考 接口报错
+ * 2.插件报错请使用 dfoxaError('sub_code'); 在插件的任何未知使用它,将会触发接口返回报错内容,详细使用方式请参考 接口报错
  * 3.要获取用户的请求内容,请使用 bizContentFilter 函数获取,它可以提供一个所需参数
  *
  *      bizContentFilter(array('username','userage'))  |  获取用户提交的信息中的username 和 userage

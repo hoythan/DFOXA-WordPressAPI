@@ -6,7 +6,7 @@ class create extends token
 
     public function run()
     {
-        throw new \Exception('gateway.close-api');
+        dfoxaError('gateway.close-api');
     }
 
     public static function get($userid)
@@ -14,7 +14,7 @@ class create extends token
         $private_key = get_option('dfoxa_t_rsa_private');
         // 检查私钥格式
         if (empty($private_key))
-            throw new \Exception('account.empty-privatekey');
+            dfoxaError('account.empty-privatekey');
 
         // 当前用户的唯一效验码
         $onlytoken = parent::creatOnlyToken($userid);
@@ -24,12 +24,12 @@ class create extends token
 
         // 检测是否开始OPENSSL
         if(!function_exists('openssl_private_encrypt'))
-            throw new \Exception('gateway.error-openssl');
+            dfoxaError('gateway.error-openssl');
 
         // 加密后的内容
         $encrypted = "";
         if (!openssl_private_encrypt($salttoken, $encrypted, $private_key))
-            throw new \Exception('account.error-private');
+            dfoxaError('account.error-private');
 
         $encrypted = str_replace(array('=', '/', '-', '+', '&', '*', '?'), array(''), base64_encode($encrypted));
         $access_token = substr($encrypted, -33, -1);
@@ -44,7 +44,7 @@ class create extends token
 
         // 是否成功写入缓存
         if ($res !== true)
-            throw new \Exception('cache.empyt-cachetype');
+            dfoxaError('cache.empyt-cachetype');
 
         /*
          * 保证token的唯一性，其他设备登录将无法访问

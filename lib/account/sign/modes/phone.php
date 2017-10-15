@@ -29,7 +29,7 @@ class phone extends sign
 
         // 验证账号是否存在
         if(!username_exists($query->phone)){
-            throw new \Exception('account.error-login-account');
+            dfoxaError('account.error-login-account');
         }
 
         echo 'ok';

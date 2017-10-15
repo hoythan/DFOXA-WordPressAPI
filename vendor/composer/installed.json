@@ -1,249 +1,5 @@
 [
     {
-        "name": "paragonie/random_compat",
-        "version": "v2.0.10",
-        "version_normalized": "2.0.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/paragonie/random_compat.git",
-            "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/paragonie/random_compat/634bae8e911eefa89c1abfbf1b66da679ac8f54d.zip",
-            "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.*|5.*"
-        },
-        "suggest": {
-            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
-        },
-        "time": "2017-03-13T16:27:32+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/random.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Paragon Initiative Enterprises",
-                "email": "security@paragonie.com",
-                "homepage": "https://paragonie.com"
-            }
-        ],
-        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
-        "keywords": [
-            "csprng",
-            "pseudorandom",
-            "random"
-        ]
-    },
-    {
-        "name": "doctrine/collections",
-        "version": "v1.4.0",
-        "version_normalized": "1.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/collections.git",
-            "reference": "1a4fb7e902202c33cce8c55989b945612943c2ba"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/doctrine/collections/1a4fb7e902202c33cce8c55989b945612943c2ba.zip",
-            "reference": "1a4fb7e902202c33cce8c55989b945612943c2ba",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.6 || ^7.0"
-        },
-        "require-dev": {
-            "doctrine/coding-standard": "~0.1@dev",
-            "phpunit/phpunit": "^5.7"
-        },
-        "time": "2017-01-03T10:49:41+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Doctrine\\Common\\Collections\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Roman Borschel",
-                "email": "roman@code-factory.org"
-            },
-            {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
-                "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
-            }
-        ],
-        "description": "Collections Abstraction library",
-        "homepage": "http://www.doctrine-project.org",
-        "keywords": [
-            "array",
-            "collections",
-            "iterator"
-        ]
-    },
-    {
-        "name": "doctrine/cache",
-        "version": "v1.6.2",
-        "version_normalized": "1.6.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/cache.git",
-            "reference": "eb152c5100571c7a45470ff2a35095ab3f3b900b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/doctrine/cache/eb152c5100571c7a45470ff2a35095ab3f3b900b.zip",
-            "reference": "eb152c5100571c7a45470ff2a35095ab3f3b900b",
-            "shasum": ""
-        },
-        "require": {
-            "php": "~5.5|~7.0"
-        },
-        "conflict": {
-            "doctrine/common": ">2.2,<2.4"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.8|~5.0",
-            "predis/predis": "~1.0",
-            "satooshi/php-coveralls": "~0.6"
-        },
-        "time": "2017-07-22T12:49:21+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.6.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Roman Borschel",
-                "email": "roman@code-factory.org"
-            },
-            {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
-                "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
-            }
-        ],
-        "description": "Caching library offering an object-oriented API for many cache backends",
-        "homepage": "http://www.doctrine-project.org",
-        "keywords": [
-            "cache",
-            "caching"
-        ]
-    },
-    {
-        "name": "guzzlehttp/promises",
-        "version": "v1.3.1",
-        "version_normalized": "1.3.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/guzzle/promises.git",
-            "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/guzzle/promises/a59da6cf61d80060647ff4d3eb2c03a2bc694646.zip",
-            "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.0"
-        },
-        "time": "2016-12-20T10:07:11+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "GuzzleHttp\\Promise\\": "src/"
-            },
-            "files": [
-                "src/functions_include.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "Guzzle promises library",
-        "keywords": [
-            "promise"
-        ]
-    },
-    {
         "name": "psr/http-message",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -360,131 +116,6 @@
             "stream",
             "uri",
             "url"
-        ]
-    },
-    {
-        "name": "guzzlehttp/guzzle",
-        "version": "6.3.0",
-        "version_normalized": "6.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/guzzle/guzzle/f4db5a78a5ea468d4831de7f0bf9d9415e348699.zip",
-            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
-            "shasum": ""
-        },
-        "require": {
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.4",
-            "php": ">=5.5"
-        },
-        "require-dev": {
-            "ext-curl": "*",
-            "phpunit/phpunit": "^4.0 || ^5.0",
-            "psr/log": "^1.0"
-        },
-        "suggest": {
-            "psr/log": "Required for using the Log middleware"
-        },
-        "time": "2017-06-22T18:50:49+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "6.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "src/functions_include.php"
-            ],
-            "psr-4": {
-                "GuzzleHttp\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "Guzzle is a PHP HTTP client library",
-        "homepage": "http://guzzlephp.org/",
-        "keywords": [
-            "client",
-            "curl",
-            "framework",
-            "http",
-            "http client",
-            "rest",
-            "web service"
-        ]
-    },
-    {
-        "name": "thenbsp/wechat",
-        "version": "v2.0.5",
-        "version_normalized": "2.0.5.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/thenbsp/wechat.git",
-            "reference": "ce703db517a7f897bdc85c141e65c6224eae8b2c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/thenbsp/wechat/ce703db517a7f897bdc85c141e65c6224eae8b2c.zip",
-            "reference": "ce703db517a7f897bdc85c141e65c6224eae8b2c",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/cache": "^1.6",
-            "doctrine/collections": "^1.3",
-            "guzzlehttp/guzzle": "^6.1",
-            "php": ">=5.5.9",
-            "symfony/http-foundation": "^3.0",
-            "symfony/options-resolver": "^3.0",
-            "symfony/property-access": "^3.0",
-            "symfony/serializer": "^3.0"
-        },
-        "require-dev": {
-            "monolog/monolog": "^1.17"
-        },
-        "time": "2016-10-27T03:07:09+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Thenbsp\\Wechat\\": "./src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "thenbsp",
-                "email": "thenbsp@gmail.com"
-            }
-        ],
-        "description": "微信公众平台第三方 SDK 开发包，优雅、健壮，可扩展，遵循 PSR 开发规范。",
-        "homepage": "http://github.com/thenbsp/wechat",
-        "keywords": [
-            "wechat",
-            "weixin",
-            "微信",
-            "微信 SDK",
-            "微信开发",
-            "微信支付",
-            "自定义菜单"
         ]
     },
     {
@@ -652,67 +283,6 @@
         ]
     },
     {
-        "name": "symfony/polyfill-php70",
-        "version": "v1.5.0",
-        "version_normalized": "1.5.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-php70.git",
-            "reference": "b6482e68974486984f59449ecea1fbbb22ff840f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/symfony/polyfill-php70/b6482e68974486984f59449ecea1fbbb22ff840f.zip",
-            "reference": "b6482e68974486984f59449ecea1fbbb22ff840f",
-            "shasum": ""
-        },
-        "require": {
-            "paragonie/random_compat": "~1.0|~2.0",
-            "php": ">=5.3.3"
-        },
-        "time": "2017-06-14T15:44:48+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.5-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Php70\\": ""
-            },
-            "files": [
-                "bootstrap.php"
-            ],
-            "classmap": [
-                "Resources/stubs"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill backporting some PHP 7.0+ features to lower PHP versions",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
         "name": "webmozart/assert",
         "version": "1.2.0",
         "version_normalized": "1.2.0.0",
@@ -813,78 +383,6 @@
         "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths."
     },
     {
-        "name": "intervention/image",
-        "version": "2.4.0",
-        "version_normalized": "2.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Intervention/image.git",
-            "reference": "322a4ade249467179c50a3e50eda8760ff3af2a3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/Intervention/image/322a4ade249467179c50a3e50eda8760ff3af2a3.zip",
-            "reference": "322a4ade249467179c50a3e50eda8760ff3af2a3",
-            "shasum": ""
-        },
-        "require": {
-            "ext-fileinfo": "*",
-            "guzzlehttp/psr7": "~1.1",
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9.2",
-            "phpunit/phpunit": "^4.8 || ^5.7"
-        },
-        "suggest": {
-            "ext-gd": "to use GD library based image processing.",
-            "ext-imagick": "to use Imagick based image processing.",
-            "intervention/imagecache": "Caching extension for the Intervention Image library"
-        },
-        "time": "2017-07-03T15:50:40+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.3-dev"
-            },
-            "laravel": {
-                "providers": [
-                    "Intervention\\Image\\ImageServiceProvider"
-                ],
-                "aliases": {
-                    "Image": "Intervention\\Image\\Facades\\Image"
-                }
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Intervention\\Image\\": "src/Intervention/Image"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Oliver Vogel",
-                "email": "oliver@olivervogel.com",
-                "homepage": "http://olivervogel.com/"
-            }
-        ],
-        "description": "Image handling and manipulation library with support for Laravel integration",
-        "homepage": "http://image.intervention.io/",
-        "keywords": [
-            "gd",
-            "image",
-            "imagick",
-            "laravel",
-            "thumbnail",
-            "watermark"
-        ]
-    },
-    {
         "name": "mobiledetect/mobiledetectlib",
         "version": "2.8.26",
         "version_normalized": "2.8.26.0",
@@ -937,178 +435,6 @@
             "mobile detector",
             "php mobile detect"
         ]
-    },
-    {
-        "name": "doctrine/inflector",
-        "version": "v1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/inflector.git",
-            "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/doctrine/inflector/90b2128806bfde671b6952ab8bea493942c1fdae.zip",
-            "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.2"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.*"
-        },
-        "time": "2015-11-06T14:35:42+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Doctrine\\Common\\Inflector\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Roman Borschel",
-                "email": "roman@code-factory.org"
-            },
-            {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
-                "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
-            }
-        ],
-        "description": "Common String Manipulations with regard to casing and singular/plural rules.",
-        "homepage": "http://www.doctrine-project.org",
-        "keywords": [
-            "inflection",
-            "pluralize",
-            "singularize",
-            "string"
-        ]
-    },
-    {
-        "name": "illuminate/contracts",
-        "version": "v5.4.36",
-        "version_normalized": "5.4.36.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/illuminate/contracts.git",
-            "reference": "67f642e018f3e95fb0b2ebffc206c3200391b1ab"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/illuminate/contracts/67f642e018f3e95fb0b2ebffc206c3200391b1ab.zip",
-            "reference": "67f642e018f3e95fb0b2ebffc206c3200391b1ab",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.6.4"
-        },
-        "time": "2017-08-26T23:56:53+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Illuminate\\Contracts\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Taylor Otwell",
-                "email": "taylor@laravel.com"
-            }
-        ],
-        "description": "The Illuminate Contracts package.",
-        "homepage": "https://laravel.com"
-    },
-    {
-        "name": "illuminate/support",
-        "version": "v5.4.36",
-        "version_normalized": "5.4.36.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/illuminate/support.git",
-            "reference": "feab1d1495fd6d38970bd6c83586ba2ace8f299a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/illuminate/support/feab1d1495fd6d38970bd6c83586ba2ace8f299a.zip",
-            "reference": "feab1d1495fd6d38970bd6c83586ba2ace8f299a",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/inflector": "~1.1",
-            "ext-mbstring": "*",
-            "illuminate/contracts": "5.4.*",
-            "paragonie/random_compat": "~1.4|~2.0",
-            "php": ">=5.6.4"
-        },
-        "replace": {
-            "tightenco/collect": "self.version"
-        },
-        "suggest": {
-            "illuminate/filesystem": "Required to use the composer class (5.2.*).",
-            "symfony/process": "Required to use the composer class (~3.2).",
-            "symfony/var-dumper": "Required to use the dd function (~3.2)."
-        },
-        "time": "2017-08-15T13:25:41+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Illuminate\\Support\\": ""
-            },
-            "files": [
-                "helpers.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Taylor Otwell",
-                "email": "taylor@laravel.com"
-            }
-        ],
-        "description": "The Illuminate Support package.",
-        "homepage": "https://laravel.com"
     },
     {
         "name": "jenssegers/agent",
@@ -1341,28 +667,112 @@
         ]
     },
     {
-        "name": "symfony/http-foundation",
-        "version": "v3.3.9",
-        "version_normalized": "3.3.9.0",
+        "name": "intervention/image",
+        "version": "2.4.1",
+        "version_normalized": "2.4.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/http-foundation.git",
-            "reference": "2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3"
+            "url": "https://github.com/Intervention/image.git",
+            "reference": "3603dbcc9a17d307533473246a6c58c31cf17919"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/symfony/http-foundation/2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3.zip",
-            "reference": "2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3",
+            "url": "https://files.phpcomposer.com/files/Intervention/image/3603dbcc9a17d307533473246a6c58c31cf17919.zip",
+            "reference": "3603dbcc9a17d307533473246a6c58c31cf17919",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "guzzlehttp/psr7": "~1.1",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.2",
+            "phpunit/phpunit": "^4.8 || ^5.7"
+        },
+        "suggest": {
+            "ext-gd": "to use GD library based image processing.",
+            "ext-imagick": "to use Imagick based image processing.",
+            "intervention/imagecache": "Caching extension for the Intervention Image library"
+        },
+        "time": "2017-09-21T16:29:17+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            },
+            "laravel": {
+                "providers": [
+                    "Intervention\\Image\\ImageServiceProvider"
+                ],
+                "aliases": {
+                    "Image": "Intervention\\Image\\Facades\\Image"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Intervention\\Image\\": "src/Intervention/Image"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oliver Vogel",
+                "email": "oliver@olivervogel.com",
+                "homepage": "http://olivervogel.com/"
+            }
+        ],
+        "description": "Image handling and manipulation library with support for Laravel integration",
+        "homepage": "http://image.intervention.io/",
+        "keywords": [
+            "gd",
+            "image",
+            "imagick",
+            "laravel",
+            "thumbnail",
+            "watermark"
+        ]
+    },
+    {
+        "name": "symfony/translation",
+        "version": "v3.3.10",
+        "version_normalized": "3.3.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/translation.git",
+            "reference": "409bf229cd552bf7e3faa8ab7e3980b07672073f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/symfony/translation/409bf229cd552bf7e3faa8ab7e3980b07672073f.zip",
+            "reference": "409bf229cd552bf7e3faa8ab7e3980b07672073f",
             "shasum": ""
         },
         "require": {
             "php": "^5.5.9|>=7.0.8",
-            "symfony/polyfill-mbstring": "~1.1"
+            "symfony/polyfill-mbstring": "~1.0"
+        },
+        "conflict": {
+            "symfony/config": "<2.8",
+            "symfony/yaml": "<3.3"
         },
         "require-dev": {
-            "symfony/expression-language": "~2.8|~3.0"
+            "psr/log": "~1.0",
+            "symfony/config": "~2.8|~3.0",
+            "symfony/intl": "^2.8.18|^3.2.5",
+            "symfony/yaml": "~3.3"
         },
-        "time": "2017-09-06T17:07:39+00:00",
+        "suggest": {
+            "psr/log": "To use logging capability in translator",
+            "symfony/config": "",
+            "symfony/yaml": ""
+        },
+        "time": "2017-10-02T06:42:24+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1372,7 +782,7 @@
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Symfony\\Component\\HttpFoundation\\": ""
+                "Symfony\\Component\\Translation\\": ""
             },
             "exclude-from-classmap": [
                 "/Tests/"
@@ -1392,42 +802,44 @@
                 "homepage": "https://symfony.com/contributors"
             }
         ],
-        "description": "Symfony HttpFoundation Component",
+        "description": "Symfony Translation Component",
         "homepage": "https://symfony.com"
     },
     {
-        "name": "symfony/options-resolver",
-        "version": "v3.3.9",
-        "version_normalized": "3.3.9.0",
+        "name": "nesbot/carbon",
+        "version": "1.22.1",
+        "version_normalized": "1.22.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/options-resolver.git",
-            "reference": "ee4e22978fe885b54ee5da8c7964f0a5301abfb6"
+            "url": "https://github.com/briannesbitt/Carbon.git",
+            "reference": "7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/symfony/options-resolver/ee4e22978fe885b54ee5da8c7964f0a5301abfb6.zip",
-            "reference": "ee4e22978fe885b54ee5da8c7964f0a5301abfb6",
+            "url": "https://files.phpcomposer.com/files/briannesbitt/Carbon/7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc.zip",
+            "reference": "7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc",
             "shasum": ""
         },
         "require": {
-            "php": "^5.5.9|>=7.0.8"
+            "php": ">=5.3.0",
+            "symfony/translation": "~2.6 || ~3.0"
         },
-        "time": "2017-07-29T21:54:42+00:00",
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "~2",
+            "phpunit/phpunit": "~4.0 || ~5.0"
+        },
+        "time": "2017-01-16T07:55:07+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.3-dev"
+                "dev-master": "1.23-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Symfony\\Component\\OptionsResolver\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
+                "Carbon\\": "src/Carbon/"
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -1435,55 +847,49 @@
         ],
         "authors": [
             {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
+                "name": "Brian Nesbitt",
+                "email": "brian@nesbot.com",
+                "homepage": "http://nesbot.com"
             }
         ],
-        "description": "Symfony OptionsResolver Component",
-        "homepage": "https://symfony.com",
+        "description": "A simple API extension for DateTime.",
+        "homepage": "http://carbon.nesbot.com",
         "keywords": [
-            "config",
-            "configuration",
-            "options"
+            "date",
+            "datetime",
+            "time"
         ]
     },
     {
-        "name": "symfony/inflector",
-        "version": "v3.3.9",
-        "version_normalized": "3.3.9.0",
+        "name": "psr/simple-cache",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/inflector.git",
-            "reference": "0474dc4d867c7efefd44017f7903465a7f368b6b"
+            "url": "https://github.com/php-fig/simple-cache.git",
+            "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/symfony/inflector/0474dc4d867c7efefd44017f7903465a7f368b6b.zip",
-            "reference": "0474dc4d867c7efefd44017f7903465a7f368b6b",
+            "url": "https://files.phpcomposer.com/files/php-fig/simple-cache/753fa598e8f3b9966c886fe13f370baa45ef0e24.zip",
+            "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24",
             "shasum": ""
         },
         "require": {
-            "php": "^5.5.9|>=7.0.8"
+            "php": ">=5.3.0"
         },
-        "time": "2017-07-29T21:54:42+00:00",
+        "time": "2017-01-02T13:31:39+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.3-dev"
+                "dev-master": "1.0.x-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Symfony\\Component\\Inflector\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
+                "Psr\\SimpleCache\\": "src/"
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -1491,65 +897,229 @@
         ],
         "authors": [
             {
-                "name": "Bernhard Schussek",
-                "email": "bschussek@gmail.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
             }
         ],
-        "description": "Symfony Inflector Component",
-        "homepage": "https://symfony.com",
+        "description": "Common interfaces for simple caching",
+        "keywords": [
+            "cache",
+            "caching",
+            "psr",
+            "psr-16",
+            "simple-cache"
+        ]
+    },
+    {
+        "name": "psr/container",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/container.git",
+            "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/php-fig/container/b7ce3b176482dbbc1245ebf52b181af44c2cf55f.zip",
+            "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2017-02-14T16:28:37+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Container\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common Container Interface (PHP FIG PSR-11)",
+        "homepage": "https://github.com/php-fig/container",
+        "keywords": [
+            "PSR-11",
+            "container",
+            "container-interface",
+            "container-interop",
+            "psr"
+        ]
+    },
+    {
+        "name": "illuminate/contracts",
+        "version": "v5.5.2",
+        "version_normalized": "5.5.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/illuminate/contracts.git",
+            "reference": "e935ac3bcfa32a9d8b9a082e5085f233fa9cf918"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/illuminate/contracts/e935ac3bcfa32a9d8b9a082e5085f233fa9cf918.zip",
+            "reference": "e935ac3bcfa32a9d8b9a082e5085f233fa9cf918",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0",
+            "psr/container": "~1.0",
+            "psr/simple-cache": "~1.0"
+        },
+        "time": "2017-08-27T09:20:20+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.5-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Illuminate\\Contracts\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }
+        ],
+        "description": "The Illuminate Contracts package.",
+        "homepage": "https://laravel.com"
+    },
+    {
+        "name": "doctrine/inflector",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/doctrine/inflector.git",
+            "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/doctrine/inflector/e11d84c6e018beedd929cff5220969a3c6d1d462.zip",
+            "reference": "e11d84c6e018beedd929cff5220969a3c6d1d462",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^6.2"
+        },
+        "time": "2017-07-22T12:18:28+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Doctrine\\Common\\Inflector\\": "lib/Doctrine/Common/Inflector"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+            },
+            {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com"
+            },
+            {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+            },
+            {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+            }
+        ],
+        "description": "Common String Manipulations with regard to casing and singular/plural rules.",
+        "homepage": "http://www.doctrine-project.org",
         "keywords": [
             "inflection",
             "pluralize",
             "singularize",
-            "string",
-            "symfony",
-            "words"
+            "string"
         ]
     },
     {
-        "name": "symfony/property-access",
-        "version": "v3.3.9",
-        "version_normalized": "3.3.9.0",
+        "name": "illuminate/support",
+        "version": "v5.5.2",
+        "version_normalized": "5.5.2.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/property-access.git",
-            "reference": "0f25f903442b33c4939fb1d36d7b0a187aa89d82"
+            "url": "https://github.com/illuminate/support.git",
+            "reference": "6a1c08c4e89429a0333ad86c489088ceeadbcced"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/symfony/property-access/0f25f903442b33c4939fb1d36d7b0a187aa89d82.zip",
-            "reference": "0f25f903442b33c4939fb1d36d7b0a187aa89d82",
+            "url": "https://files.phpcomposer.com/files/illuminate/support/6a1c08c4e89429a0333ad86c489088ceeadbcced.zip",
+            "reference": "6a1c08c4e89429a0333ad86c489088ceeadbcced",
             "shasum": ""
         },
         "require": {
-            "php": "^5.5.9|>=7.0.8",
-            "symfony/inflector": "~3.1",
-            "symfony/polyfill-php70": "~1.0"
+            "doctrine/inflector": "~1.1",
+            "ext-mbstring": "*",
+            "illuminate/contracts": "5.5.*",
+            "nesbot/carbon": "^1.20",
+            "php": ">=7.0"
         },
-        "require-dev": {
-            "symfony/cache": "~3.1"
+        "replace": {
+            "tightenco/collect": "self.version"
         },
         "suggest": {
-            "psr/cache-implementation": "To cache access methods."
+            "illuminate/filesystem": "Required to use the composer class (5.2.*).",
+            "symfony/process": "Required to use the composer class (~3.3).",
+            "symfony/var-dumper": "Required to use the dd function (~3.3)."
         },
-        "time": "2017-08-30T14:49:16+00:00",
+        "time": "2017-09-04T14:00:07+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.3-dev"
+                "dev-master": "5.5-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Symfony\\Component\\PropertyAccess\\": ""
+                "Illuminate\\Support\\": ""
             },
-            "exclude-from-classmap": [
-                "/Tests/"
+            "files": [
+                "helpers.php"
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -1558,105 +1128,11 @@
         ],
         "authors": [
             {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
             }
         ],
-        "description": "Symfony PropertyAccess Component",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "access",
-            "array",
-            "extraction",
-            "index",
-            "injection",
-            "object",
-            "property",
-            "property path",
-            "reflection"
-        ]
-    },
-    {
-        "name": "symfony/serializer",
-        "version": "v3.3.9",
-        "version_normalized": "3.3.9.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/serializer.git",
-            "reference": "f0aba8f6fe23e7de1b68f9d903fc742b8b242dc9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/symfony/serializer/f0aba8f6fe23e7de1b68f9d903fc742b8b242dc9.zip",
-            "reference": "f0aba8f6fe23e7de1b68f9d903fc742b8b242dc9",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.5.9|>=7.0.8"
-        },
-        "conflict": {
-            "symfony/dependency-injection": "<3.2",
-            "symfony/property-access": ">=3.0,<3.0.4|>=2.8,<2.8.4",
-            "symfony/property-info": "<3.1",
-            "symfony/yaml": "<3.3"
-        },
-        "require-dev": {
-            "doctrine/annotations": "~1.0",
-            "doctrine/cache": "~1.0",
-            "phpdocumentor/reflection-docblock": "^3.0|^4.0",
-            "symfony/cache": "~3.1",
-            "symfony/config": "~2.8|~3.0",
-            "symfony/dependency-injection": "~3.2",
-            "symfony/http-foundation": "~2.8|~3.0",
-            "symfony/property-access": "~2.8|~3.0",
-            "symfony/property-info": "~3.1",
-            "symfony/yaml": "~3.3"
-        },
-        "suggest": {
-            "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
-            "doctrine/cache": "For using the default cached annotation reader and metadata cache.",
-            "psr/cache-implementation": "For using the metadata cache.",
-            "symfony/config": "For using the XML mapping loader.",
-            "symfony/http-foundation": "To use the DataUriNormalizer.",
-            "symfony/property-access": "For using the ObjectNormalizer.",
-            "symfony/property-info": "To deserialize relations.",
-            "symfony/yaml": "For using the default YAML mapping loader."
-        },
-        "time": "2017-08-15T13:32:50+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Serializer\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Serializer Component",
-        "homepage": "https://symfony.com"
+        "description": "The Illuminate Support package.",
+        "homepage": "https://laravel.com"
     }
 ]
