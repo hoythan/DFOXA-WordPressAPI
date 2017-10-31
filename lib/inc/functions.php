@@ -54,6 +54,23 @@ function get_MicroTimeStr()
     return $onlyid;
 }
 
+/**
+ * 获取用户IP地址
+ * @return string 用户IP
+ */
+function get_ClientIP()
+{
+    $userip = "127.0.0.1";
+    if ($_SERVER['REMOTE_ADDR']) {
+        $userip = $_SERVER['REMOTE_ADDR'];
+    } elseif (getenv("REMOTE_ADDR")) {
+        $userip = getenv("REMOTE_ADDR");
+    } elseif (getenv("HTTP_CLIENT_IP")) {
+        $userip = getenv("HTTP_CLIENT_IP");
+    }
+    return $userip;
+}
+
 function get_MicroStr()
 {
     $guid = str_split(get_GUIDStr());
@@ -245,13 +262,13 @@ function objectToArray($e)
  */
 function dataToUnserializeData($data)
 {
-    if(is_array($data)){
+    if (is_array($data)) {
         foreach ($data as $key => $value) {
             $data[$key] = dataToUnserializeData($value);
         }
-    }elseif(is_object($data)){
+    } elseif (is_object($data)) {
         $data = arrayToObject(dataToUnserializeData(objectToArray($data)));
-    }else{
+    } else {
         $data = maybe_unserialize($data);
     }
 

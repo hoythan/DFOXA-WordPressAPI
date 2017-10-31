@@ -14,6 +14,7 @@ return array(
     'cached\\' => array($baseDir . '/lib/cached'),
     'account\\token\\' => array($baseDir . '/lib/account/token', $baseDir . '/lib/account/token/modes'),
     'account\\sign\\' => array($baseDir . '/lib/account/sign', $baseDir . '/lib/account/sign/modes'),
+    'Zhuzhichao\\IpLocationZh\\' => array($vendorDir . '/zhuzhichao/ip-location-zh/src'),
     'Webmozart\\PathUtil\\' => array($vendorDir . '/webmozart/path-util/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Tests\\' => array($baseDir . '/lib/Tests'),

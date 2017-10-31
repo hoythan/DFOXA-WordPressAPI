@@ -144,8 +144,8 @@ class upload extends file
         if (!isset($_FILES) || empty($_FILES))
             dfoxaError('media.empty-file');
 
-
-        $fileexts = explode(',', get_option('dfoxa_media_type'));
+        // 文件格式
+        $fileexts = apply_filters('dfoxa_media_upload_fileext', explode(',', get_option('dfoxa_media_type')));
         foreach ($fileexts as $k => $ext) {
             $fileexts[$k] = strtolower($ext);
         }
@@ -174,7 +174,7 @@ class upload extends file
             /*
              * 尺寸验证
              */
-            $maxSize = get_option('dfoxa_media_size');
+            $maxSize = apply_filters('dfoxa_media_upload_filesize', get_option('dfoxa_media_size'));
             if (Validator::size($maxSize)->validate($file['tmp_name'])) {
                 dfoxaError('media.error-maxfilesize', array(
                     'sub_msg' => "请勿超过" . get_option('dfoxa_media_size')

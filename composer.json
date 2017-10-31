@@ -7,7 +7,8 @@
     "intervention/image": "^2.4",
     "jenssegers/agent": "^2.5",
     "houdunwang/dir": "^1.0",
-    "phpoffice/phpexcel": "^1.8"
+    "phpoffice/phpexcel": "^1.8",
+    "zhuzhichao/ip-location-zh": "^2.4"
   },
   "repositories": {
     "packagist": {

@@ -198,6 +198,7 @@ class mothod
 
         header("Access-Control-Allow-Origin: *");
         header('Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Accept');
+        header('Access-Control-Allow-Credentials:true'); // 接收 Cookie
         header('Content-type: application/json');
 
         echo json_encode(code::_e($e->getMessage()));
@@ -214,6 +215,7 @@ class mothod
         status_header($code);
         header("Access-Control-Allow-Origin: *");
         header('Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Accept');
+        header('Access-Control-Allow-Credentials:true'); // 接收 Cookie
         header('Content-type: application/json');
         // 清理空的返回内容
         if (is_object($response))

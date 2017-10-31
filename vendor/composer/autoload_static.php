@@ -41,6 +41,10 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
             'account\\token\\' => 14,
             'account\\sign\\' => 13,
         ),
+        'Z' => 
+        array (
+            'Zhuzhichao\\IpLocationZh\\' => 24,
+        ),
         'W' => 
         array (
             'Webmozart\\PathUtil\\' => 19,
@@ -128,6 +132,10 @@ class ComposerStaticInitf7596339d91901f2c766ca4ec5b85d4c
         array (
             0 => __DIR__ . '/../..' . '/lib/account/sign',
             1 => __DIR__ . '/../..' . '/lib/account/sign/modes',
+        ),
+        'Zhuzhichao\\IpLocationZh\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zhuzhichao/ip-location-zh/src',
         ),
         'Webmozart\\PathUtil\\' => 
         array (
