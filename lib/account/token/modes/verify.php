@@ -9,17 +9,9 @@ class verify extends token
 {
     public function run()
     {
-        $query = bizContentFilter(array(
-            'get_user'
-        ));
-
-        $get_user = false;
-        if (!empty($query->get_user))
-            $get_user = true;
-
         $access_token = self::getAccessToken();
 
-        $response = self::getUserID($access_token, $get_user);
+        $response = self::getUserID($access_token, self::isGetUser());
         if ($response) {
             if (is_array($response)) {
                 $response['msg'] = 'access_token验证通过';
@@ -85,7 +77,7 @@ class verify extends token
         if (!$get_user) {
             return $userid;
         } else {
-            return Sign::_getUserAccount('ID',$user->ID);
+            return Sign::_getUserAccount('ID', $user->ID);
         }
 
 
@@ -113,6 +105,24 @@ class verify extends token
 
         // 报错
         dfoxaError('account.empty-accesstoken');
+    }
+
+
+    public static function isGetUser()
+    {
+        $query = bizContentFilter(array(
+            'get_user'
+        ));
+
+        // 如果请求参数中有access_token则直接返回参数中的token
+        if (!empty($query->get_user) && $query->get_user === true)
+            return true;
+
+        // 从 URL地址 中获取
+        if (isset($_GET['get_user']) && $_GET['get_user'] === 'true')
+            return true;
+
+        return false;
     }
 }
 

@@ -76,7 +76,7 @@ function dfoxa_account_page(){
                     <th scope="row">AccessToken 有效期</th>
                     <td>
                         <input name="dfoxa_account_access_token_expire" type="text" placeholder="单位 秒" class="regular-text code"  value="<?php esc_attr_e($data['dfoxa_account_access_token_expire']); ?>">
-                        <p>单位秒,默认 3600 秒</p>
+                        <p>单位秒,默认 3600 秒,<b>不能超过 2592000 秒(30天)</b></p>
                         <p>用户登录注册后将得到唯一的AccessToken,在用户超过指定时间内不使用相关登录接口会导致Token过期</p>
                         <p>使用以下接口会自动延长Token有效期</p>
                         <p>* account.token.verify 验证token时</p>
