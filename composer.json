@@ -31,11 +31,12 @@
         "lib/account/token/modes"
       ],
       "gateway\\": "lib/gateway",
+      "tools\\": "lib/tools",
       "tools\\sms\\": "lib/tools/sms",
       "tools\\sql\\": "lib/tools/sql",
-      "media\\":"lib/media",
+      "media\\": "lib/media",
       "cached\\": "lib/cached",
-      "Tests\\":"lib/Tests"
+      "Tests\\": "lib/Tests"
     }
   }
 }

@@ -12,6 +12,36 @@ abstract class sign
         dfoxaError('gateway.close-api');
     }
 
+    /**
+     * 账号自动登录或自动注册,根据用户账号
+     * 危险的接口,如果未创建该用户,则自动生成密码和邮箱.
+     * @param $field The field to retrieve the user with. id | ID | slug | email | login.
+     * @param $value A value for $field. A user ID, slug, email address, or login name.
+     */
+    public static function _autoSignAccount($field, $value)
+    {
+        // 判断账号是否注册
+        $user = get_user_by($field, $value);
+        if (!empty($user)) {
+            return self::_loginAccount($field, $value);
+        }
+
+        $user_account = '';
+        $user_email = '';
+
+        if ($field === 'login' || $field === 'slug') {
+            $user_account = $value;
+        } else if ($field == 'email') {
+            $user_account = $value;
+            $user_email = $value;
+        } else {
+            $user_account = 'user_' . get_RandStr();
+        }
+        $userid = self::_registerAccount($user_account, $user_email);
+
+        return self::_loginAccount('id', $userid);
+    }
+
     /*
      * 用户登陆方法 (无身份验证,谨慎使用),
      * 返回登录成功后的用户ID 否则接口报错
@@ -82,7 +112,7 @@ abstract class sign
         $responseData = array(
             'userid' => $user->ID,
             'username' => $user->user_login,
-            'displayname' => get_the_author_meta('display_name',$user->ID),
+            'displayname' => get_the_author_meta('display_name', $user->ID),
             'email' => $user->user_email,
             'usermeta' => self::_getUserMetas($user->ID)
         );

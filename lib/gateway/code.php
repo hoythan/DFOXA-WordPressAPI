@@ -257,203 +257,53 @@
                     'sub_msg' => '请重新设置你的Memcache相关接口配置',
                     'solution' => '重新设置有关接口配置中的相关缓存接口配置'
                 ),
+                'func.empyt-function' => array(
+                    'code' => 13001,
+                    'msg'   => '相关函数不存在',
+                    'sub_msg' => '执行的相关函数不存在或为引用,请检查后再试',
+                    'solution' => '检查函数是否配置或正确引用'
+                ),
+                'class.empyt-class' => array(
+                    'code' => 13001,
+                    'msg'   => '相关函数不存在',
+                    'sub_msg' => '执行的相关函数不存在或为引用,请检查后再试',
+                    'solution' => '检查函数是否配置或正确引用'
+                ),
+                'func.error-function' => array(
+                    'code' => 13002,
+                    'msg'   => '函数执行错误',
+                    'sub_msg' => '函数执行错误,请检查后再试',
+                    'solution' => '检查函数是否配置或正确引用'
+                ),
                 'sms.empyt-service' => array(
-                    'code'  => 13001,
+                    'code'  => 15001,
                     'msg'   => '短信接口未配置或无效',
                     'sub_msg' => '请重新设置你的相关接口配置',
                     'solution' => '重新设置有关接口配置中的相关短信接口配置'
                 ),
                 'sms.error-phonenumber' => array(
-                    'code'  => 13002,
+                    'code'  => 15002,
                     'msg'   => '无效的手机号码',
                     'sub_msg' => '请重新输入正确的11位手机号',
                     'solution' => '重新输入'
                 ),
                 'sms.error-send' => array(
-                    'code'      => 13003,
+                    'code'      => 15003,
                     'msg'       => '发送失败',
                     'sub_msg'   => '请稍后再试',
                     'solution'  =>'请稍后再试'
                 ),
                 'sms.business-limit-control' => array(
-                    'code'      => 13004,
+                    'code'      => 15004,
                     'msg'       => '发送频率过快',
                     'sub_msg'   => '请稍后再试',
                     'solution'  =>'请稍后再试'
                 ),
                 'sms.error-smscode' => array(
-                    'code'      => 13005,
+                    'code'      => 15005,
                     'msg'       => '验证码错误',
                     'sub_msg'   => '请稍后再试',
                     'solution'  =>'请稍后再试'
-                ),
-                'wechat.empty-confit' => array(
-                    'code'      => 13500,
-                    'msg'       => '微信开放平台未配置',
-                    'sub_msg'   => '请重新设置你的相关接口配置',
-                    'solution'  =>'重新设置有关接口配置中的微信开放平台配置'
-                ),
-                'wechat.empty-oauthuserid' => array(
-                    'code'      => 13501,
-                    'msg'       => '你必须配置需要绑定的用户id',
-                    'sub_msg'   => '请重新设置你的state内容',
-                    'solution'  =>'请重新设置你的state内容'
-                ),
-                'wechat.long-oauthstate' => array(
-                    'code'      => 13502,
-                    'msg'       => 'state 字符串长度过长',
-                    'sub_msg'   => '长度不得超过128字节',
-                    'solution'  =>'可使用短网址功能缩短长度'
-                ),
-                'media.error-userlevel' => array(
-                    'code'      => 13601,
-                    'msg'       => '用户权限不足',
-                    'sub_msg'   => '当前用户没有上传权限',
-                    'solution'  => '授权用户或更换用户'
-                ),
-                'media.empty-file' => array(
-                    'code'      => 13602,
-                    'msg'       => '上传文件为空',
-                    'sub_msg'   => '请上传一个文件',
-                    'solution'  => '重新设置上传文件'
-                ),
-                'media.error-upload' => array(
-                    'code'      => 13603,
-                    'msg'       => '文件上传失败',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'media.error-uploadfiletype' => array(
-                    'code'      => 13603,
-                    'msg'       => '文件格式不被允许',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'media.empty-notfound' => array(
-                    'code'      => 13604,
-                    'msg'       => '文件不存在',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'media.error-maxfilesize' => array(
-                    'code'      => 13605,
-                    'msg'       => '文件尺寸过大',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'media.empty-role' => array(
-                    'code'      => 13605,
-                    'msg'       => '未配置允许上传的用户组',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'sql.empty-usergroup' => array(
-                    'code'      => 13701,
-                    'msg'       => '当前用户未绑定group',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'sql.empty-group'   => array(
-                    'code'      => 13702,
-                    'msg'       => '当前group不存在,请检查后再试',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'sql.empty-term'    => array(
-                    'code'      => 13703,
-                    'msg'       => '当前term不存在,请检查后再试',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'sql.error-insertgoods'    => array(
-                    'code'      => 13704,
-                    'msg'       => '商品创建错误',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'sql.error-insertsku'    => array(
-                    'code'      => 13705,
-                    'msg'       => '商品属性创建错误',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'sql.error-insertrelationships' => array(
-                    'code'      => 13706,
-                    'msg'       => '商品属性创建错误',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'sql.empty-goods' => array(
-                    'code'      => 13707,
-                    'msg'       => '无法查询到相关商品',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'store.error-time' => array(
-                    'code'      => 13800,
-                    'msg'       => '商品时间格式有误',
-                    'sub_msg'   => '时间格式 YYYY-MM-DD HH:mm:ss',
-                    'solution'  => '请检查后再试'
-                ),
-                'store.empty-price' => array(
-                    'code'      => 13801,
-                    'msg'       => '错误的价格',
-                    'sub_msg'   => '现价不得留空或小于0',
-                    'solution'  => '请检查后再试'
-                ),
-                'store.empty-originalprice' => array(
-                    'code'      => 13802,
-                    'msg'       => '错误的原价',
-                    'sub_msg'   => '现价不得留空或小于0',
-                    'solution'  => '请检查后再试'
-                ),
-                'store.error-price' => array(
-                    'code'      => 13803,
-                    'msg'       => '错误的价格设置',
-                    'sub_msg'   => '现价不得超过原价',
-                    'solution'  => '请检查后再试'
-                ),
-                'store.error-termid' => array(
-                    'code'      => 13804,
-                    'msg'       => 'termid错误',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'store.error-skukey' => array(
-                    'code'      => 13805,
-                    'msg'       => '商品属性值不存在',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'store.empty-inventory' => array(
-                    'code'      => 13806,
-                    'msg'       => '商品库存不足',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'order.error-multiplegroup' => array(
-                    'code'      => 13901,
-                    'msg'       => '订单创建失败',
-                    'sub_msg'   => '同一个订单不允许有多个商户商品',
-                    'solution'  => '请检查后再试'
-                ),
-                'order.empty-goodssku' => array(
-                    'code'      => 13902,
-                    'msg'       => '商品属性未填或无效',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'order.error-goodsnum' => array(
-                    'code'      => 13903,
-                    'msg'       => '商品数量不能小于1',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
-                ),
-                'order.empty-goodsid' => array(
-                    'code'      => 13903,
-                    'msg'       => '指定商品不存在',
-                    'sub_msg'   => '请检查后再试',
-                    'solution'  => '请检查后再试'
                 )
             );
 

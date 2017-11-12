@@ -79,7 +79,14 @@ class Base
         return rmdir($dir);
     }
 
-    //创建目录
+    /**
+     * 创建目录
+     *
+     * @param string $dir
+     * @param int    $auth
+     *
+     * @return bool
+     */
     public function create($dir, $auth = 0755)
     {
         if ( ! empty($dir)) {
@@ -87,11 +94,17 @@ class Base
         }
     }
 
-    //复制目录
+    /**
+     * 复制目录
+     *
+     * @param $old
+     * @param $new
+     *
+     * @return bool
+     */
     public function copy($old, $new)
     {
         is_dir($new) or mkdir($new, 0755, true);
-
         foreach (glob($old.'/*') as $v) {
             $to = $new.'/'.basename($v);
             is_file($v) ? copy($v, $to) : $this->copy($v, $to);

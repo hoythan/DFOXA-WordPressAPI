@@ -211,6 +211,14 @@ function get_AppendMsg($error_code)
     }
 }
 
+/**
+ * 设置Logs日志
+ */
+function set_ApiLogs()
+{
+
+}
+
 function clear_AppendMsg()
 {
     global $errorMsg;
@@ -429,6 +437,9 @@ function get_dfoxa_active_plugins()
 {
     $plugins = get_dfoxa_plugins();
     $active_plugins = array();
+    if (!is_array($plugins))
+        return [];
+
     foreach ($plugins as $plugin_name => $plugin) {
         $plugin_key = 'dfoxa_' . $plugin_name;
         $active = get_option($plugin_key) == '1' ? true : false;
