@@ -163,6 +163,12 @@ class mothod
             } else if (!empty($GLOBALS ['HTTP_RAW_POST_DATA'])) {
                 $biz = $GLOBALS ['HTTP_RAW_POST_DATA'];
                 $bizContent = json_decode($biz);
+            } else {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $bizContent = arrayToObject($_POST);
+                } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    $bizContent = arrayToObject($_GET);
+                }
             }
         } else if (stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
             $biz = file_get_contents('php://input') ? file_get_contents('php://input') : gzuncompress($GLOBALS ['HTTP_RAW_POST_DATA']);
@@ -176,7 +182,6 @@ class mothod
         } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $bizContent = arrayToObject($_GET);
         }
-
         return true;
     }
 
