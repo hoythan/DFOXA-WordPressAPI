@@ -130,18 +130,17 @@ abstract class sign
     public static function _getUserMetas($userid)
     {
         $usermeta = array();
-        $usermetakey = get_option("dfoxa_account_query_usermetakey");
-
-        // 判断后台是否有设置metakey
-        if (empty($usermetakey))
+        $usermetakey = get_option("dfoxa_t_account_query_usermetakey");
+        if (empty($usermetakey)){
             return $usermeta;
+        }else if (trim($usermetakey) !== '*') {
+            $metakey = explode("\n", $usermetakey);
 
-        if ($usermetakey != "*") {
-            $metakey = explode(",", $usermetakey);
             foreach ($metakey as $key) {
+                $key = trim($key);
                 $usermeta[$key] = get_user_meta($userid, $key, true);
             }
-        } else {
+        }else{
             $disablemetas = array("session_tokens");
             $usermetas = get_user_meta($userid);
             foreach ($usermetas as $key => $value) {
@@ -153,7 +152,6 @@ abstract class sign
                     }
                 }
             }
-
         }
 
         // 只返回用户需要的usermeta

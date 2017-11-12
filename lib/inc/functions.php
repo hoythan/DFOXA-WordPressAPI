@@ -164,9 +164,9 @@ function bizContentFilter($filters = array(), $bizContent = '')
     }
 
     // 过滤 usermeta
-    $metaFilter = get_option('dfoxa_account_edit_usermetakey');
+    $metaFilter = get_option('dfoxa_t_account_edit_usermetakey');
 
-    if ($metaFilter == '*' || !isset($query->usermeta))
+    if (trim($metaFilter) === '*' || !isset($query->usermeta))
         return $query;
 
     if (empty($metaFilter)) {
@@ -175,7 +175,10 @@ function bizContentFilter($filters = array(), $bizContent = '')
     }
 
 
-    $metaFilters = explode(',', $metaFilter);
+    $metaFilters = explode("\n", $metaFilter);
+    foreach ($metaFilters as $key => $value) {
+        $metaFilters[$key] = trim($value);
+    }
 
     foreach ($query->usermeta as $k => $v) {
         if (!in_array($k, $metaFilters)) {
