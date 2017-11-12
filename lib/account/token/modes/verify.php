@@ -10,19 +10,16 @@ class verify extends token
     public function run()
     {
         $query = bizContentFilter(array(
-            'access_token',
             'get_user'
         ));
-
-        if (empty($query))
-            dfoxaError('account.empty-accesstoken');
 
         $get_user = false;
         if (!empty($query->get_user))
             $get_user = true;
 
+        $access_token = self::getAccessToken();
 
-        $response = self::getUserID($query->access_token, $get_user);
+        $response = self::getUserID($access_token, $get_user);
         if ($response) {
             if (is_array($response)) {
                 $response['msg'] = 'access_token验证通过';
@@ -36,6 +33,12 @@ class verify extends token
         }
     }
 
+    /**
+     * 根据access_token获取指定用户
+     * @param string $access_token 留空表示获取当前登录用户
+     * @param bool $get_user 是否获取用户的信息
+     * @return array|int 返回用户信息或用户ID
+     */
     public static function check($access_token = '', $get_user = false)
     {
         if ($access_token == '') {
@@ -76,10 +79,8 @@ class verify extends token
         if (empty($user))
             dfoxaError('account.expired-accesstoken');
 
-        // 每次获取用户id 都延长 7天 token有效期
-        $expire = time() + 3600;
-        $cacheDriver->set($access_token, $onlytoken, $expire);
-
+        // 设置token
+        $cacheDriver->set($access_token, $onlytoken, parent::expireTime());
 
         if (!$get_user) {
             return $userid;

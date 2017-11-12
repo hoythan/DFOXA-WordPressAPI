@@ -23,7 +23,7 @@ class create extends token
         $salttoken = substr($onlytoken . get_RandStr(5, 6), -32);
 
         // 检测是否开始OPENSSL
-        if(!function_exists('openssl_private_encrypt'))
+        if (!function_exists('openssl_private_encrypt'))
             dfoxaError('gateway.error-openssl');
 
         // 加密后的内容
@@ -38,9 +38,8 @@ class create extends token
             写入内存
             过期时间 1 小时后,每次调用 API 接口自动延长
          */
-        $expire = time() + 3600;
         $cacheDriver = new \cached\cache();
-        $res = $cacheDriver->set($access_token, $onlytoken, '', $expire);
+        $res = $cacheDriver->set($access_token, $onlytoken, '', parent::expireTime());
 
         // 是否成功写入缓存
         if ($res !== true)

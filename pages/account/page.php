@@ -73,6 +73,17 @@ function dfoxa_account_page(){
                     </td>
                 </tr>
                 <tr>
+                    <th scope="row">AccessToken 有效期</th>
+                    <td>
+                        <input name="dfoxa_account_access_token_expire" type="text" placeholder="单位 秒" class="regular-text code"  value="<?php esc_attr_e($data['dfoxa_account_access_token_expire']); ?>">
+                        <p>单位秒,默认 3600 秒</p>
+                        <p>用户登录注册后将得到唯一的AccessToken,在用户超过指定时间内不使用相关登录接口会导致Token过期</p>
+                        <p>使用以下接口会自动延长Token有效期</p>
+                        <p>* account.token.verify 验证token时</p>
+                        <p>* 在代码中使用account\token\verify::check获取用户授权信息时</p>
+                    </td>
+                </tr>
+                <tr>
                     <th scope="row">查询时可获取的UserMeta字段</th>
                     <td>
                         <textarea name="dfoxa_account_query_usermetakey" rows="10" cols="50" class="large-text code" placeholder="avatar,firstname,lastname,age..."><?php esc_attr_e($data['dfoxa_account_query_usermetakey']); ?></textarea>

@@ -64,6 +64,7 @@ $dfoxa_default = array(
     'dfoxa_account_type' => 'account',
     'dfoxa_account_query_usermetakey' => '',
     'dfoxa_account_edit_usermetakey' => '',
+    'dfoxa_account_access_token_expire' => '3600',
     // 短信配置
     'dfoxa_sms_service' => '',
     'dfoxa_sms_appkey' => '',
