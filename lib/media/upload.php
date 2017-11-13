@@ -34,20 +34,22 @@ class upload extends file
         $userdata = get_userdata($user['userid']);
 
         $role = get_option('dfoxa_media_user');
-        $userrole = $userdata->roles[0];
-        $roles = array_keys(wp_roles()->roles);
-        $level = 99999;
-        $userlevel = 99999;
-        foreach ($roles as $i => $r) {
-            if ($r == $role) {
-                $level = $i;
+        if($role !== 'all'){
+            $userrole = $userdata->roles[0];
+            $roles = array_keys(wp_roles()->roles);
+            $level = 99999;
+            $userlevel = 99999;
+            foreach ($roles as $i => $r) {
+                if ($r == $role) {
+                    $level = $i;
+                }
+                if ($r == $userrole) {
+                    $userlevel = $i;
+                }
             }
-            if ($r == $userrole) {
-                $userlevel = $i;
-            }
+            if ($userlevel > $level)
+                dfoxaError('media.error-userlevel');
         }
-        if ($userlevel > $level)
-            dfoxaError('media.error-userlevel');
 
         // 验证文件
         if (!isset($_FILES))
@@ -117,6 +119,7 @@ class upload extends file
          */
         $user_role = $userdata->roles[0];
 
+
         $type = get_option('dfoxa_media_user');
         $roles = get_option('dfoxa_media_user_role');
 
@@ -138,6 +141,7 @@ class upload extends file
                 break;
             default:
                 dfoxaError('media.empty-role');
+                break;
         }
 
         // 验证文件是否上传
@@ -181,22 +185,23 @@ class upload extends file
                 ));
             }
 
+
             /*
              * 重写文件名
              */
             $filename = get_MicroTimeStr();
             $_FILES[$fileKey]['name'] = $filename . ".{$ext}";
             $_FILES[$fileKey]['ext'] = $ext;
-
             $_FILES[$fileKey] = apply_filters('dfoxa_media_upload_file', $_FILES[$fileKey]);
-
             /*
              * 允许hook返回false,使用场景为需要将图片上传至其他接口,不上传至服务器.
              */
+
             if ($_FILES[$fileKey] === false)
                 continue;
 
             $result = media_handle_upload($fileKey, null);
+
             if (is_wp_error($result)) {
                 dfoxaError('media.error-upload', array(
                     'sub_msg' => $result->get_error_message()

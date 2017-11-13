@@ -152,6 +152,14 @@ function bizContentFilter($filters = array(), $bizContent = '')
         return array();
     }
 
+    foreach ($query as $k => $v) {
+        // 转换字符串true为布尔类型
+        if ($query->$k === 'true') {
+            $query->$k = true;
+        } else if ($query->$k === 'false') {
+            $query->$k = false;
+        }
+    }
 
     foreach ($query as $k => $v) {
         if (is_array($filters) && count($filters) == 0)
