@@ -103,7 +103,10 @@ class DFOXA_Sql
 
 
             // 序列化$value
-            $data[$key] = maybe_serialize($value);
+            if (!is_serialized($value, false)) {
+                $data[$key] = maybe_serialize($value);
+            }
+
         }
 
         $wpdb->insert($table, $data, $format);
@@ -131,7 +134,9 @@ class DFOXA_Sql
             $format[] = $filters[$key];
 
             // 序列化$value
-            $data[$key] = maybe_serialize($value);
+            if (!is_serialized($value)) {
+                $data[$key] = maybe_serialize($value);
+            }
         }
 
         $where_format = [];
@@ -175,13 +180,13 @@ class DFOXA_Sql
 
     public function unSerializeData($data)
     {
-        if(is_array($data)){
-            foreach ($data as $key => $value){
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
                 $data[$key] = $this->unSerializeData($value);
             }
         }
-        if(is_object($data)){
-            foreach ($data as $key => $value){
+        if (is_object($data)) {
+            foreach ($data as $key => $value) {
                 $data->$key = $this->unSerializeData($value);
             }
         }
