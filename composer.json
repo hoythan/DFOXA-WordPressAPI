@@ -8,7 +8,8 @@
     "jenssegers/agent": "^2.5",
     "houdunwang/dir": "^1.0",
     "phpoffice/phpexcel": "^1.8",
-    "zhuzhichao/ip-location-zh": "^2.4"
+    "zhuzhichao/ip-location-zh": "^2.4",
+    "overtrue/wechat": "^3.3"
   },
   "repositories": {
     "packagist": {

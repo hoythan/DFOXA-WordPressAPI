@@ -1,7 +1,6 @@
 <?php
 
 namespace Tests;
-//use cached\cache;
 class cacheTests
 {
     public function run()

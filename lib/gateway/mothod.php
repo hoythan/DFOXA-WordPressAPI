@@ -8,6 +8,9 @@ class mothod
 
     public function run()
     {
+        // 定义中国时区
+        date_default_timezone_set('PRC');
+
         /*
         接口允许的调用方式
             {网关}?method=tests.test1.test2
@@ -40,7 +43,6 @@ class mothod
     private function _setupCheckGateway()
     {
         global $wp_query;
-
         $gateway = get_option('dfoxa_gateway');
 
         if (!isset($wp_query->query['pagename']))
@@ -77,7 +79,7 @@ class mothod
         if (isset($_GET['method'])) {
             $class = explode('.', $_GET['method']);
             $num = count($class);
-            if ($num < 2)
+            if ($num < 1)
                 dfoxaError('gateway.method-undefined');
 
             /*
