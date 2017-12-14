@@ -1,46 +1,25 @@
 <?php
-    namespace account\sign;
 
-    class up
+namespace account\sign;
+
+class up extends sign
+{
+    public function run()
     {
-        private static $namespace = '\account\sign\\';
+        $query = bizContentFilter(array(
+            'type',
+            'field',
+            'value',
+            'create_user'
+        ));
 
-        /*
-         * 对外开放的接口所需函数
-         */
-        public function run()
-        {
-            $account_reg = get_option('dfoxa_account_reg');
+        $request = sign::signUpAccount(array(
+            'type' => $query->type,
+            'field' => $query->field,
+            'value' => $query->value
+        ),objectToArray($query->create_user));
 
-            // 判断后台是否设置注册
-            if(empty($account_reg))
-                dfoxaError('account.empty-register');
+        dfoxaGateway($request);
 
-            // 判断是否关闭注册
-            if($account_reg != 'open')
-                dfoxaError('account.close-register');
-
-            // 判断允许的注册方式
-            $type = get_option('dfoxa_account_type');
-            if(empty($type))
-                dfoxaError('account.empty-type');
-
-            //自定义注册方式检查
-            if($type == 'custom'){
-                $query = bizContentFilter(array('type'));
-                if(empty($query->type))
-                    dfoxaError('account.empty-type');
-
-                $type = $query->type;
-            }
-
-            $account_regtype = self::$namespace . $type;
-
-            if(!class_exists($account_regtype))
-                dfoxaError('account.error-type');
-
-            $run = new $account_regtype();
-            Gateway::responseSuccessJSON($run->get_register());
-        }
     }
-?>
+}

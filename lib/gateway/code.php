@@ -90,96 +90,162 @@ class code extends mothod
                 'sub_msg' => '',
                 'solution' => ''
             ),
-            'account.empty-register' => array(
+            'account.empty-login-api' => array(
                 'code' => 11001,
+                'msg' => '登录接口未配置',
+                'sub_msg' => '请访问后台配置你的登录设置',
+                'solution' => '重新设置有关账户配置中的相关接口配置'
+            ),
+            'account.close-login' => array(
+                'code' => 11002,
+                'msg' => '登录功能已关闭',
+                'sub_msg' => '',
+                'solution' => '重新设置有关账户配置中的相关登录配置'
+            ),
+            'account.warning-login' => array(
+                'code' => 11004,
+                'msg' => '登录失败',
+                'sub_msg' => '',
+                'solution' => '请稍后再试'
+            ),
+            'account.undefined-login' => array(
+                'code' => 11004,
+                'msg' => '登录账号不存在',
+                'sub_msg' => '',
+                'solution' => '请稍后再试'
+            ),
+            'account.error-login' => array(
+                'code' => 11005,
+                'msg' => '登录接口出错',
+                'sub_msg' => '',
+                'solution' => '请稍后再试'
+            ),
+            'account.empty-register-api' => array(
+                'code' => 11201,
                 'msg' => '注册接口未配置',
-                'sub_msg' => '请重新设置你的相关接口配置',
+                'sub_msg' => '请访问后台配置你的注册设置',
                 'solution' => '重新设置有关账户配置中的相关接口配置'
             ),
             'account.close-register' => array(
-                'code' => 11002,
+                'code' => 11202,
                 'msg' => '注册功能已关闭',
                 'sub_msg' => '',
                 'solution' => '重新设置有关账户配置中的相关注册配置'
             ),
-            'account.empty-smsapi' => array(
-                'code' => 11003,
-                'msg' => 'SMS所需接口参数未定义',
-                'sub_msg' => '请重新设置你的相关接口配置',
-                'solution' => '重新设置有关账户配置中的相关短信接口配置'
+            'account.warning-register' => array(
+                'code' => 11203,
+                'msg' => '注册失败',
+                'sub_msg' => '',
+                'solution' => '请稍后再试'
             ),
-            'account.empty-smsservice' => array(
-                'code' => 11004,
-                'msg' => '未定义所需的短信服务商',
-                'sub_msg' => '请重新设置你的相关接口配置',
-                'solution' => '重新设置有关账户配置中的相关短信接口配置'
+            'account.error-register' => array(
+                'code' => 11204,
+                'msg' => '注册接口出错',
+                'sub_msg' => '',
+                'solution' => '请稍后再试'
             ),
-            'account.exists-account' => array(
-                'code' => 11005,
-                'msg' => '该账号已被注册',
-                'sub_msg' => '请检查后再试',
-                'solution' => '检查后再试'
-            ),
+//            'account.empty-smsapi' => array(
+//                'code' => 11003,
+//                'msg' => 'SMS所需接口参数未定义',
+//                'sub_msg' => '请重新设置你的相关接口配置',
+//                'solution' => '重新设置有关账户配置中的相关短信接口配置'
+//            ),
+//            'account.empty-smsservice' => array(
+//                'code' => 11004,
+//                'msg' => '未定义所需的短信服务商',
+//                'sub_msg' => '请重新设置你的相关接口配置',
+//                'solution' => '重新设置有关账户配置中的相关短信接口配置'
+//            ),
+//            'account.exists-account' => array(
+//                'code' => 11005,
+//                'msg' => '该账号已被注册',
+//                'sub_msg' => '请检查后再试',
+//                'solution' => '检查后再试'
+//            ),
             'account.error-email' => array(
-                'code' => 11006,
+                'code' => 11301,
                 'msg' => '邮箱格式错误',
                 'sub_msg' => '请检查后再试',
                 'solution' => '检查后再试'
             ),
-            'account.empty-register' => array(
-                'code' => 11007,
-                'msg' => '账号注册所需资料不能为空',
-                'sub_msg' => '请检查后再试',
+            'account.cooling-email' => array(
+                'code' => 11302,
+                'msg' => '邮件已发送,请勿重复发件',
+                'sub_msg' => '',
                 'solution' => '检查后再试'
             ),
-            'account.error-create' => array(
-                'code' => 11008,
-                'msg' => '账号创建错误',
-                'sub_msg' => '请稍后再试',
-                'solution' => '请稍后再试'
-            ),
-            'account.exists-email' => array(
-                'code' => 11009,
-                'msg' => '邮箱已被使用',
-                'sub_msg' => '请检查后再试',
+            'account.errorcode-email' => array(
+                'code' => 11304,
+                'msg' => '验证码无效或已过期',
+                'sub_msg' => '',
                 'solution' => '检查后再试'
             ),
-            'account.close-login' => array(
-                'code' => 11010,
-                'msg' => '已关闭账户登陆功能',
-                'sub_msg' => '请稍后再试',
-                'solution' => '请稍后再试'
+            'account.notfind-theme-email' => array(
+                'code' => 11304,
+                'msg' => '邮件模板文件不存在',
+                'sub_msg' => '',
+                'solution' => '检查后再试'
             ),
-            'account.empty-login' => array(
-                'code' => 11011,
-                'msg' => '登陆接口未配置',
-                'sub_msg' => '请重新设置你的相关接口配置',
-                'solution' => '重新设置有关账户配置中的相关接口配置'
+            'account.senderror-email' => array(
+                'code' => 11305,
+                'msg' => '邮件发送失败',
+                'sub_msg' => '无法发送邮件到相关邮箱',
+                'solution' => ''
             ),
-            'account.empty-type' => array(
-                'code' => 11012,
-                'msg' => '登陆/注册的方式接口未配置',
-                'sub_msg' => '请重新设置你的相关接口配置',
-                'solution' => '重新设置有关账户配置中的相关接口配置'
-            ),
-            'account.empty-type-custom' => array(
-                'code' => 11013,
-                'msg' => '还没有配置登陆方式',
-                'sub_msg' => '请重新设置你的接口配置中的type属性',
-                'solution' => '重新设置有关账户配置中的相关接口配置或接口数据'
-            ),
-            'account.error-accountisemail' => array(
-                'code' => 11014,
-                'msg' => '账号不可使用邮箱格式注册',
-                'sub_msg' => '请重新设置',
-                'solution' => '账号不得使用邮箱注册,如果需要使用邮箱,请额外填写email字段'
-            ),
-            'account.error-type' => array(
-                'code' => 11015,
-                'msg' => '账号登陆/注册接口未配置或接口不存在',
-                'sub_msg' => '请重新设置',
-                'solution' => '重新设置有关账户配置中的相关接口配置'
-            ),
+//            'account.empty-register' => array(
+//                'code' => 11007,
+//                'msg' => '账号注册所需资料不能为空',
+//                'sub_msg' => '请检查后再试',
+//                'solution' => '检查后再试'
+//            ),
+//            'account.error-create' => array(
+//                'code' => 11008,
+//                'msg' => '账号创建错误',
+//                'sub_msg' => '请稍后再试',
+//                'solution' => '请稍后再试'
+//            ),
+//            'account.exists-email' => array(
+//                'code' => 11009,
+//                'msg' => '邮箱已被使用',
+//                'sub_msg' => '请检查后再试',
+//                'solution' => '检查后再试'
+//            ),
+//            'account.close-login' => array(
+//                'code' => 11010,
+//                'msg' => '已关闭账户登陆功能',
+//                'sub_msg' => '请稍后再试',
+//                'solution' => '请稍后再试'
+//            ),
+//            'account.empty-login' => array(
+//                'code' => 11011,
+//                'msg' => '登陆接口未配置',
+//                'sub_msg' => '请重新设置你的相关接口配置',
+//                'solution' => '重新设置有关账户配置中的相关接口配置'
+//            ),
+//            'account.empty-type' => array(
+//                'code' => 11012,
+//                'msg' => '登陆/注册的方式接口未配置',
+//                'sub_msg' => '请重新设置你的相关接口配置',
+//                'solution' => '重新设置有关账户配置中的相关接口配置'
+//            ),
+//            'account.empty-type-custom' => array(
+//                'code' => 11013,
+//                'msg' => '还没有配置登陆方式',
+//                'sub_msg' => '请重新设置你的接口配置中的type属性',
+//                'solution' => '重新设置有关账户配置中的相关接口配置或接口数据'
+//            ),
+//            'account.error-accountisemail' => array(
+//                'code' => 11014,
+//                'msg' => '账号不可使用邮箱格式注册',
+//                'sub_msg' => '请重新设置',
+//                'solution' => '账号不得使用邮箱注册,如果需要使用邮箱,请额外填写email字段'
+//            ),
+//            'account.error-type' => array(
+//                'code' => 11015,
+//                'msg' => '账号登陆/注册接口未配置或接口不存在',
+//                'sub_msg' => '请重新设置',
+//                'solution' => '重新设置有关账户配置中的相关接口配置'
+//            ),
             'account.empty-privatekey' => array(
                 'code' => 11016,
                 'msg' => 'RSA加密配置有误',
@@ -206,7 +272,7 @@ class code extends mothod
             ),
             'account.expired-accesstoken' => array(
                 'code' => 11020,
-                'msg' => '账户 AccessToken 已过期',
+                'msg' => '账户 AccessToken 错误或已过期',
                 'sub_msg' => '请重新登陆获取accesstoken',
                 'solution' => '重新登陆获取accesstoken'
             ),

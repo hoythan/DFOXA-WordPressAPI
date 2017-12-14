@@ -31,7 +31,7 @@ class mothod
             $method = new $this->methodClass();
             $method->run();
 
-            dfoxaError('gateway.empty-run');
+            dfoxaError('gateway.empty-run', '', 204);
         } catch (\Exception $e) {
             self::_responseJSON($e);
         }

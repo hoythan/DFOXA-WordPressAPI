@@ -1,0 +1,121 @@
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<table style="table-layout:fixed;width:100%">
+    <tbody>
+    <tr>
+        <td>
+            <table align="center"
+                   style="margin:0 auto;font-size:inherit;line-height:inherit;text-align:center;border-spacing:0;border-collapse:collapse;padding:0;border:0"
+                   cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;height:16px" height="16"></td>
+                </tr>
+                <tr>
+                    <td style="width:645px">
+                        <table style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;font-size:inherit;line-height:18px;padding:0px;border:0px">
+                            <tbody>
+                            <tr>
+                                <td style="width:20px"></td>
+                                <td style="text-align:right;width:600px"><img
+                                        width="40" height="40"
+                                        src="{{logo}}"
+                                        style="width:40px;height:40px"></td>
+                                <td style="width:20px"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:20px"></td>
+                                <td style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;line-height:18px;padding-top:44px;text-align:left;font-size:14px;color:#333">
+                                    {{user_nickname}}，欢迎加入{{app_name}}：
+                                </td>
+                                <td style="width:20px"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:20px"></td>
+                                <td style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;line-height:28px;text-align:left;font-size:14px;color:#333;padding:17px 0 0 0">
+                                    {{welcome}}
+                                </td>
+                                <td style="width:20px"></td>
+                            </tr>
+                            <tr>
+                                <td style="height:15px"></td>
+                                <td style="height:15px"></td>
+                                <td style="height:15px"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:20px"></td>
+                                <td style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;line-height:46px;text-align:left;font-size:14px;color:#333;padding:18px 0 0 0">
+                                    <div><span>登录密码(复制查看)：</span><span style="font-weight:bold;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#000;background-color:#000;font-size:28px;">{{password}}</span></div>
+                                </td>
+                                <td style="width:20px"></td>
+                            </tr>
+                            <tr>
+                                <td style="height:15px"></td>
+                                <td style="height:15px"></td>
+                                <td style="height:15px"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:20px"></td>
+                                <td style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;line-height:18px;text-align:left;font-size:14px;color:#333;padding:17px 0 0 0">
+                                    此致
+                                </td>
+                                <td style="width:20px"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:20px"></td>
+                                <td style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;line-height:18px;text-align:left;font-size:14px;color:#333;padding:17px 0 0 0">
+                                    {{inscription}}
+                                </td>
+                                <td style="width:20px"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:20px"></td>
+                                <td style="font-family:'Lucida Grande',Helvetica,Arial,sans-serif;line-height:18px;text-align:left;font-size:14px;color:rgb(153,153,153);padding:18px 0 0 0">
+                                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;border-spacing:0;color:rgb(51,51,51);background-color:rgb(245,245,245);border-radius:3px;font-size:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">
+                                        <tbody>
+                                        <tr>
+                                            <td style="padding:20px;padding-bottom: 0px;"><span style="color: rgb(153, 153, 153);font-size: 10px;line-height: 18px;">您的邮件中包含账户自动创建的密码等重要信息，请及时修改以免泄露或遗失。</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:20px;padding-top: 4px;padding-bottom: 0px;"><span style="color: rgb(153, 153, 153);font-size: 10px;line-height: 18px;">如果您未曾试图在&nbsp;&nbsp;{{app_name}}&nbsp;&nbsp;{{query_event}}，请忽视此邮件。</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:20px;padding-top: 4px;"><span style="color: rgb(153, 153, 153);font-size: 10px;line-height: 18px;">此为系统邮件请勿回复。</span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width:20px"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="height:17px"
+                    height="17">
+                    <td style="font-family:'Geneva',Helvetica,Arial,sans-serif"></td>
+                </tr>
+                <tr>
+                    <td colspan="3"
+                        style="font-family:'Geneva',Helvetica,Arial,sans-serif;width:685px;font-size:11px;line-height:14px;color:#888;text-align:center;background-repeat:no-repeat;background-position:center top;padding:15px 0 12px"
+                        align="center">
+                        {{footerlinks}}
+                        <br><br><br>
+                        <span>{{copyright}}</span>
+                    </td>
+                </tr>
+                <tr style="height:50px" height="50">
+                    <td style="font-family:'Geneva',Helvetica,Arial,sans-serif">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

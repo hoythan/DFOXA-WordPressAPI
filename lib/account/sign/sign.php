@@ -2,8 +2,9 @@
 
 namespace account\sign;
 
+use koubei\notify\gateway;
 use Respect\Validation\Validator as Validator;
-use account\token\create as tokenCreate;
+use account\token\create as AccessToken;
 
 abstract class sign
 {
@@ -13,164 +14,324 @@ abstract class sign
     }
 
     /**
-     * 账号自动登录或自动注册,根据用户账号
-     * 危险的接口,如果未创建该用户,则自动生成密码和邮箱.
-     * @param $field The field to retrieve the user with. id | ID | slug | email | login.
-     * @param $value A value for $field. A user ID, slug, email address, or login name.
+     * 登录账号
+     * @param array $args
+     *      [type] 登录方式 ['id','login','email','emailcode','phone','phonecode']
+     *          - email 和 emailcode 的区别为,email仅表示使用邮箱,但是不发送验证码,emailcode表示邮箱需要验证
+     *          - phone 和 phonecode 的区别为,phone仅表示使用手机号,但是不发送验证码,phonecode表示手机号需要验证
+     *      [field] 值,例如type为id 则 此处填写用户 ID
+     *          - type = 'emailcode' 填写邮箱
+     *          - type = 'phonecode' 填写手机号
+     *      [value] 登录密码,留空表示不需要验证密码直接登录(危险)
+     *          - type = 'emailcode' value 留空表示获取登录验证码,不为空表示验证验证码
+     *          - type = 'phonecode' value 留空表示获取登录验证码,不为空表示验证验证码
      */
-    public static function _autoSignAccount($field, $value)
+    public static function signInAccount($args = array(
+        'type' => '',
+        'field' => '',
+        'value' => ''
+    ), $checkPassword = true,$checkSignType = true)
     {
-        // 判断账号是否注册
-        $user = get_user_by($field, $value);
-        if (!empty($user)) {
-            return self::_loginAccount($field, $value);
+        $type = strtolower($args['type']);
+        $field = $args['field'];
+        $value = $args['value'];
+        $user = false;
+
+        // 判断是否后台配置了登录相关设置
+        $limit = get_option('dfoxa_account_signin_limit');
+        $types = get_option('dfoxa_account_signin_types');
+
+        if (empty($limit) || empty($types))
+            dfoxaError('account.empty-login-api');
+
+        // 判断是否允许登录
+        if ($limit === 'disable')
+            dfoxaError('account.close-login');
+
+        if (!in_array($type, $types) && $checkSignType)
+            dfoxaError('account.error-login', array('sub_msg' => '"' . $type . '"是不被允许的登录方式'), 204);
+
+        switch ($type) {
+            case 'id':
+                // 验证用户ID是否存在
+                if (absint($field) < 1)
+                    dfoxaError('account.warning-login', array('sub_msg' => '登录账号格式有误'));
+
+                $user = get_user_by('id', $field);
+
+                // 验证账号是否存在
+                if (!$user)
+                    dfoxaError('account.undefined-login');
+
+                // 验证登录密码是否正确
+                self::_checkUserPassword($user, $value, $checkPassword);
+                break;
+            case 'login':
+                // 验证登录账号是否存在
+                if (empty($field) || !Validator::stringType()->validate($field))
+                    dfoxaError('account.warning-login', array('sub_msg' => '登录账号格式有误'));
+
+                $user = get_user_by('login', $field);
+
+                // 验证账号是否存在
+                if (!$user)
+                    dfoxaError('account.undefined-login');
+
+                // 验证登录密码是否正确
+                self::_checkUserPassword($user, $value, $checkPassword);
+
+                break;
+            case 'email':
+                // 验证登录账号是否存在
+                if (empty($field) || !Validator::email()->validate($field))
+                    dfoxaError('account.warning-login', array('sub_msg' => '登录账号格式有误'));
+
+                $user = get_user_by('email', $field);
+
+                // 验证账号是否存在
+                if (!$user)
+                    dfoxaError('account.undefined-login');
+
+                // 验证登录密码是否正确
+                self::_checkUserPassword($user, $value, $checkPassword);
+                break;
+            case 'emailcode':
+                // 验证登录账号是否存在
+                if (empty($field) || !Validator::email()->validate($field))
+                    dfoxaError('account.warning-login', array('sub_msg' => '登录账号格式有误'));
+
+                $user = get_user_by('email', $field);
+
+                // 验证账号是否存在
+                if (!$user)
+                    dfoxaError('account.undefined-login');
+                // 验证验证码
+                $email_username = apply_filters('dfoxa_signin_email_username', $user->display_name, $user);
+
+                $sendEmail = new \tools\email\VerifyCode();
+                if (empty($value)) {
+                    $sendEmail->sendVerifyCode($field, $email_username, '登录');
+                    dfoxaGateway(array('sub_msg' => '邮件发送成功,请前往邮箱查看'));
+                }
+
+                if (!$sendEmail->checkVerifyCode($field, $value))
+                    dfoxaError('account.errorcode-email');
+
+                // 使验证码无效
+                $sendEmail->clearVerifyCode($field);
+                break;
+//            case 'phone':
+//
+//                break;
+//            case 'phonecode':
+//
+//                break;
+            default:
+                dfoxaError('account.error-login', array('sub_msg' => '"' . $type . '"是不被允许的登录方式'), 204);
+                break;
+
         }
 
-        $user_account = '';
-        $user_email = '';
-
-        if ($field === 'login' || $field === 'slug') {
-            $user_account = $value;
-        } else if ($field == 'email') {
-            $user_account = $value;
-            $user_email = $value;
-        } else {
-            $user_account = 'user_' . get_RandStr();
-        }
-        $userid = self::_registerAccount($user_account, $user_email);
-
-        return self::_loginAccount('id', $userid);
-    }
-
-    /*
-     * 用户登陆方法 (无身份验证,谨慎使用),
-     * 返回登录成功后的用户ID 否则接口报错
-     */
-    public static function _loginAccount($field, $value)
-    {
-        $user = get_user_by($field, $value);
-        if (empty($user))
-            dfoxaError('account.empty-userlogin');
-
-        // 自动登录
-        wp_set_current_user($user->ID, $user->user_login);
-        wp_set_auth_cookie($user->ID);
-        do_action('wp_login', $user->user_login);
-
-        $responseData = self::_getUserAccount('ID', $user->ID, true);
-
-        return $responseData;
-    }
-
-    /*
-     * 注册方法,返回注册成功后的用户信息 否则接口报错
-     */
-    public static function _registerAccount($user_account, $user_password = '', $user_email = '')
-    {
-        // 判断账号是否注册
-        if (username_exists($user_account))
-            dfoxaError('account.exists-account');
-
-        // 判断账号是否是邮箱
-        if (Validator::email()->validate($user_account))
-            dfoxaError('account.error-accountisemail');
-
-        // 判断是否用户自定义密码,否则生成随机密码
-        if (empty($user_password)) {
-            $user_password = get_RandStr();
-        }
-
-        // 验证邮箱格式和是否注册
-        if (!empty($user_email)) {
-            if (!Validator::email()->validate($user_email))
-                dfoxaError('account.error-email');
-
-            if (email_exists($user_email))
-                dfoxaError('account.exists-email');
-        }
-
-        // 注册用户
-        $result = wp_create_user($user_account, $user_password, $user_email);
-        if (is_wp_error($result) || $result == 0) {
-            dfoxaError('account.error-create', array('errorMsg' => $result));
-        }
-
-        return self::_getUserAccount('ID', $result, true);
-    }
-
-    /*
-     * 获取用户信息
-     * (非登录接口,需要自行验证用户,不提供用户 access_token 信息)
-     * 强行获取token 可能会导致安全问题以及该用户被强制下线问题
-     */
-    public static function _getUserAccount($field, $value, $getToken = false)
-    {
-        $user = get_user_by($field, $value);
-        if (empty($user))
-            dfoxaError('account.empty-userlogin');
-
+        // 拼接参数
         $responseData = array(
-            'userid' => $user->ID,
-            'username' => $user->user_login,
-            'displayname' => get_the_author_meta('display_name', $user->ID),
-            'email' => $user->user_email,
-            'usermeta' => self::_getUserMetas($user->ID)
+            'user_id' => $user->ID,
+            'user_email' => $user->user_email,
+            'display_name' => $user->display_name,
+            'user_registered' => $user->user_registered,
+            'access_token' => AccessToken::get($user->ID)
         );
 
-        if ($getToken)
-            $responseData['access_token'] = tokenCreate::get($user->ID);
+        if (get_user_meta($user->ID, 'user_phone', true) && self::_checkPhoneNumber(get_user_meta($user->ID, 'user_phone', true)))
+            $responseData['user_phone'] = get_user_meta($user->ID, 'user_phone', true);
 
-        $responseData = apply_filters('dfoxa_account_signin_data', $responseData);
-        return $responseData;
+
+        // 注册登录filter
+        $ret = apply_filters('dfoxa_account_signin_response', $responseData);
+        return $ret;
     }
 
-    /*
-     * 获取用户usermeta
+    /**
+     * 账号注册,在注册成功后会调用 signInAccount 使用ID进行登录并返回相关内容
+     * @param array $args
+     *      [type] 注册方式 ['login','email','emailcode','phone','phonecode']
+     * @param array $user
+     *      如果注册方式中有填写相关内容,则下方填写无效,例如使用login登录,则username为login的值
+     *          - username 为用户登录名,即 login ,留空将随机生成一个
+     *          - password 字段非必填项,如不配置则会将密码发送至用户邮箱或手机,取决于用那种方式进行注册
+     *          - email 可留空
+     *          - phone 可留空
      */
-    public static function _getUserMetas($userid)
+    public static function signUpAccount($args = array(
+        'type' => '',
+        'field' => '',
+        'value' => ''
+    ), $create_user = array(
+        'username' => '',
+        'password' => '',
+        'email' => ''
+    ))
     {
-        $usermeta = array();
-        $usermetakey = get_option("dfoxa_t_account_query_usermetakey");
-        if (empty($usermetakey)){
-            return $usermeta;
-        }else if (trim($usermetakey) !== '*') {
-            $metakey = explode("\n", $usermetakey);
+        $type = strtolower($args['type']);
+        $field = $args['field'];
+        $value = $args['value'];
+        $user_id = false;
+        $send_password = false; // 是否需要在欢迎邮件中发送密码给用户
 
-            foreach ($metakey as $key) {
-                $key = trim($key);
-                $usermeta[$key] = get_user_meta($userid, $key, true);
-            }
-        }else{
-            $disablemetas = array("session_tokens");
-            $usermetas = get_user_meta($userid);
-            foreach ($usermetas as $key => $value) {
-                if (!in_array($key, $disablemetas)) {
-                    if (count($value) <= 1) {
-                        $usermeta[$key] = maybe_unserialize($value[0]);
-                    } else {
-                        $usermeta[$key] = $value;
+        // 判断是否后台配置了登录相关设置
+        $limit = get_option('dfoxa_account_signup_limit');
+        $types = get_option('dfoxa_account_signup_types');
+
+        if (empty($limit) || empty($types))
+            dfoxaError('account.empty-register-api');
+
+        // 判断是否允许登录
+        if ($limit === 'disable')
+            dfoxaError('account.close-register');
+
+        if (!in_array($type, $types))
+            dfoxaError('account.error-register', array('sub_msg' => '"' . $type . '"是不被允许的注册方式'), 204);
+
+        switch ($type) {
+            case 'id':
+                break;
+            case 'login':
+                break;
+            case 'email':
+                break;
+            case 'emailcode':
+                // 验证注册账号是否存在
+                if (empty($field) || !Validator::email()->validate($field))
+                    dfoxaError('account.warning-register', array('sub_msg' => '注册账号格式有误'));
+
+                // 验证账号是否存在
+                if (email_exists($field))
+                    dfoxaError('account.warning-register', array('sub_msg' => '该邮箱已被注册'));
+
+                // 验证用户名称是否有效,如果留空则自动生成,否则检测是否符合规范,不符合则报错
+                $email_username = $create_user['username'];
+                if (empty($create_user['username'])) {
+                    $create_user['username'] = '_' . get_RandStr(10, 10);
+                    // 确保生成的用户名不存在
+                    while (!username_exists($create_user['username']) && !validate_username($create_user['username'])) {
+                        $create_user['username'] = '_' . get_RandStr(10, 10);
                     }
-                }
-            }
-        }
 
-        // 只返回用户需要的usermeta
-        $query = bizContentFilter(array("usermeta"));
-        if (!empty($query->usermeta)) {
-            $metas = $usermeta;
-            $usermeta = array();
-            foreach ($query->usermeta as $metakey => $metaval) {
-                if (!empty($metas[$metakey])) {
-                    $usermeta[$metakey] = $metas[$metakey];
+                    $email_username = apply_filters('dfoxa_signup_email_username', '新用户', $create_user['username']);
+                } else if (!validate_username($create_user['username'])) {
+                    dfoxaError('account.warning-register', array('sub_msg' => '用户名格式不正确'));
+                } else if (username_exists($create_user['username'])) {
+                    dfoxaError('account.warning-register', array('sub_msg' => '该用户名已被注册'));
+                }
+
+                // 密码有效验证,如果留空则自动创建密码并发送邮件告知
+                if (empty($create_user['password'])) {
+                    $create_user['password'] = wp_generate_password();
+                    $send_password = true;
+                }
+                $password = apply_filters('dfoxa_signup_password', $create_user['password']);
+                $send_password = apply_filters('dfoxa_signup_send_password', $send_password);
+                if ($create_user['password'] !== $password) {
+                    // 如果通过hook修改了用户提交的密码,将会发送新密码给用户
+                    $send_password = true;
+                }
+
+                // 验证验证码
+                $sendEmailVerify = new \tools\email\VerifyCode();
+                if (empty($value)) {
+                    $sendEmailVerify->sendVerifyCode($field, $email_username, '注册');
+                    dfoxaGateway(array('msg' => '邮件发送成功','sub_msg' => '请前往邮箱查看'));
+                }
+
+                if (!$sendEmailVerify->checkVerifyCode($field, $value))
+                    dfoxaError('account.errorcode-email');
+
+                // 验证通过,创建用户
+                $user_id = wp_create_user($create_user['username'], $create_user['password'], $field);
+                if (is_wp_error($user_id))
+                    dfoxaError('account.warning-register', array('sub_msg' => $user_id->get_error_message()));
+
+                // 使验证码无效
+                $sendEmailVerify->clearVerifyCode($field);
+
+                // 发送欢迎邮件
+                $sendEmailWelcome = new \tools\email\Message();
+                if ($send_password) {
+                    $sendEmailWelcome->sendWelcome($field, $create_user['username'], '注册', $create_user['password']);
                 } else {
-                    $usermeta[$metakey] = "";
+                    $sendEmailWelcome->sendWelcome($field, $create_user['username'], '注册');
                 }
-            }
-
+                break;
+            case 'phone':
+                break;
+            case 'phonecode':
+                break;
+            default :
+                break;
         }
 
-        $usermeta = apply_filters('account_usermetas', $usermeta);
-        return $usermeta;
+        $ret = self::signInAccount(
+            array(
+                'type' => 'id',
+                'field' => $user_id,
+            ),
+            false,false);
+
+        return $ret;
+    }
+
+    /**
+     * 找回密码
+     *      - 可以先通过id或账号获取邮箱或手机号,再调用本接口
+     * @param array $args
+     *      [type] 找回方式 ['emailcode','phonecode']
+     *          - [emailcode]       表示发送验证邮件到相关邮箱
+     *          - [phonecode]       表示发送验证码到相关手机号
+     *      [field]
+     *          - type = 'emailcode' 填写邮箱
+     *          - type = 'phonecode' 填写手机号
+     *      [value]
+     *          - type = 'emailcode' value 留空表示获取登录验证码,不为空表示验证验证码
+     *          - type = 'phonecode' value 留空表示获取登录验证码,不为空表示验证验证码
+     */
+    public static function forgotAccount($args = array(
+        'type' => '',
+        'field' => '',
+        'value' => ''
+    ))
+    {
+
+    }
+
+
+    /**
+     * 检查密码是否正确
+     * @param $user
+     * @param $password
+     * @return bool
+     */
+    private static function _checkUserPassword($user, $password, $checkPassword = true)
+    {
+        if ($checkPassword === false)
+            return true;
+
+        if (empty($password))
+            dfoxaError('account.warning-login', array('sub_msg' => '登录密码不可为空'));
+
+        if (!wp_check_password($password, $user->data->user_pass, $user->ID))
+            dfoxaError('account.warning-login', array('sub_msg' => '账号或密码有误'));
+
+        return true;
+    }
+
+
+    /**
+     * 验证手机号格式
+     * @param $phone
+     * @return bool
+     */
+    private static function _checkPhoneNumber($phone)
+    {
+        return sendSMS::_verifyPhoneNumber($phone);
     }
 }
 

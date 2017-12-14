@@ -2,27 +2,31 @@
 
 namespace account\token;
 
-use gateway\mothod as Gateway;
 use account\sign\sign as Sign;
 
 class verify extends token
 {
     public function run()
     {
-        $access_token = self::getAccessToken();
+        $access_token = self::_getAccessToken();
 
-        $response = self::getUserID($access_token, self::isGetUser());
-        if ($response) {
-            if (is_array($response)) {
-                $response['msg'] = 'access_token验证通过';
-                Gateway::responseSuccessJSON($response);
-            } else {
-                Gateway::responseSuccessJSON(array(
-                    'msg' => 'access_token验证通过'
-                ));
-            }
+        $expire = parent::_expireTime();
+        $userid = self::getUserID($access_token, $expire);
 
+        if (self::_isGetUser()) {
+            $ret = Sign::signInAccount(array(
+                'type' => 'id',
+                'field' => $userid
+            ), false, false);
+            $ret['expire'] = time() + $expire;
+            dfoxaGateway($ret);
+        } else {
+            dfoxaGateway(array(
+                'expire' => time() + $expire,
+                'sub_msg' => 'access_token验证通过'
+            ));
         }
+
     }
 
     /**
@@ -34,18 +38,34 @@ class verify extends token
     public static function check($access_token = '', $get_user = false)
     {
         if ($access_token == '') {
-            $access_token = self::getAccessToken();
+            $access_token = self::_getAccessToken();
         }
 
-        return self::getUserID($access_token, $get_user);
+        $userid = self::getUserID($access_token);
+        if ($get_user) {
+            // 登录用户账号
+            return Sign::signInAccount(array(
+                'type' => 'id',
+                'field' => $userid
+            ), false, false);
+        } else {
+            return $userid;
+        }
+
     }
 
-    public static function getUserID($access_token, $get_user = false)
+    /**
+     * 通过 access_token 获取用户ID
+     * @param $access_token
+     * @param null $expire 过期时间
+     * @return int 用户ID
+     */
+    public static function getUserID($access_token, $expire = null)
     {
         $cacheDriver = new \cached\cache();
 
-        // 从缓存中根据accesstoken获取onlytoken
-        $onlytoken = $cacheDriver->get($access_token);
+        // 从缓存中根据 accesstoken 获取 onlytoken
+        $onlytoken = $cacheDriver->get($access_token, 'access_token');
 
         if (empty($onlytoken))
             dfoxaError('account.expired-accesstoken');
@@ -54,36 +74,28 @@ class verify extends token
         if (empty($userid))
             dfoxaError('account.expired-accesstoken');
 
-        // 判断onlytoken 是否和当前设备匹配
-        if ($onlytoken != parent::creatOnlyToken($userid))
+        // 判断 onlytoken
+        if ($onlytoken != parent::_creatOnlyToken($userid))
             dfoxaError('account.expired-accesstoken');
 
-        /*
-         * 检测onlytoken的唯一性
-         * 参考create.php ~41
-         * onlytoken_check_$userid
-         */
-//        if($cacheDriver->get('onlytoken_check_' . $userid) !== false && $onlytoken != $cacheDriver->get('onlytoken_check_' . $userid))
-//            dfoxaError('account.distance-accesstoken');
-
-        // 检查用户是否存在
-        $user = get_user_by('ID', $userid);
-        if (empty($user))
-            dfoxaError('account.expired-accesstoken');
-
-        // 设置token
-        $cacheDriver->set($access_token, $onlytoken, parent::expireTime());
-
-        if (!$get_user) {
-            return $userid;
-        } else {
-            return Sign::_getUserAccount('ID', $user->ID);
+        $group_key = 'access_token_' . $userid;
+        if ($cacheDriver->get($onlytoken, $group_key) !== 'yes') {
+            $cacheDriver->delete($access_token, $group_key);
+            dfoxaError('account.expired-accesstoken', array('logs' => '强制下线'));
         }
 
+        // 更新 access_token 过期时间
+        $expire = $expire === null ? parent::_expireTime() : (int)$expire;
+        $cacheDriver->set($access_token, $onlytoken, 'access_token', $expire);
 
+        return $userid;
     }
 
-    public static function getAccessToken()
+    /**
+     * 通过各种方式获取用户可能提交到的 access_token
+     * @return mixed 用户access_token
+     */
+    private static function _getAccessToken()
     {
         $query = bizContentFilter(array(
             'access_token'
@@ -108,7 +120,11 @@ class verify extends token
     }
 
 
-    public static function isGetUser()
+    /**
+     * 判断请求中是否需要获取用户信息或仅需获取用户ID
+     * @return bool
+     */
+    private static function _isGetUser()
     {
         $query = bizContentFilter(array(
             'get_user'

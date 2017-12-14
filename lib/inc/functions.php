@@ -86,7 +86,6 @@ function get_MicroStr()
     return implode('', $temp);
 }
 
-
 /*
  * 生成唯一的GUID
  */
@@ -244,6 +243,15 @@ function dfoxaError($sub_code, $message = array(), $httpCode = 200)
 {
     set_AppendMsg($sub_code, $message);
     throw new \Exception($sub_code, $httpCode);
+}
+
+/**
+ * 正确接口返回封装
+ */
+use gateway\mothod as Gateway;
+function dfoxaGateway($response = '', $status = '10000', $code = '200', $arrayKey = '')
+{
+    Gateway::responseSuccessJSON($response, $status, $code, $arrayKey);
 }
 
 

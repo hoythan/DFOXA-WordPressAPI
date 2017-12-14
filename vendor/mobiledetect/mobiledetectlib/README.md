@@ -7,6 +7,9 @@
 [![Total Downloads](https://poser.pugx.org/mobiledetect/mobiledetectlib/downloads.svg)](https://packagist.org/packages/mobiledetect/mobiledetectlib) 
 [![Daily Downloads](https://poser.pugx.org/mobiledetect/mobiledetectlib/d/daily.png)](https://packagist.org/packages/mobiledetect/mobiledetectlib) 
 [![License](https://poser.pugx.org/mobiledetect/mobiledetectlib/license.svg)](https://packagist.org/packages/mobiledetect/mobiledetectlib)
+[![Chat on Slack](https://img.shields.io/badge/Slack%20%23general-join-orange.svg)](https://mobiledetect.slack.com)
+
+
 
 *Mobile_Detect is a lightweight PHP class for detecting mobile devices (including tablets).
 It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.*
@@ -154,6 +157,9 @@ is included in the default package since 1.5.x.
 additional functionality. 
 Made by [Jens Segers](https://github.com/jenssegers).
 
+* [Laravel Mobile Detect](https://github.com/riverskies/laravel-mobile-detect) is a package that enables you to use device detection right in your Laravel Blade templates. (Utilises the well-known, constantly updated PHP mobile detection library.)
+Made by [Barnabas Kecskes](https://github.com/barnabaskecskes).
+
 * [BrowserDetect](https://github.com/hisorange/browser-detect) is a browser and mobile detection package, collects 
 and wrap together the best user-agent identifiers for Laravel. 
 Created by [Varga Zsolt](https://github.com/hisorange).
@@ -281,3 +287,8 @@ Made by [https://github.com/Shaked](Shaked).
 * [ua-lua](https://github.com/robinef/ua-lua) is a small lib written in LUA providing device type detection. 
 ua-lua is detecting mobile or tablet devices based on user-agent inside nginx daemon. 
 Made by [Frédéric Robinet](https://github.com/robinef).
+
+**.Net**
+
+* [mobile-detect](https://github.com/validide/mobile-detect) is a .Net partial port written in C#. 
+Made by [Valentin Dide](https://github.com/validide).

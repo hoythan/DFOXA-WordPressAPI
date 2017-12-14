@@ -3,8 +3,6 @@
   "require": {
     "flc/alidayu": "^2.0",
     "respect/validation": "^1.1",
-    "webmozart/path-util": "^2.3",
-    "intervention/image": "^2.4",
     "jenssegers/agent": "^2.5",
     "houdunwang/dir": "^1.0",
     "phpoffice/phpexcel": "^1.8",
@@ -24,8 +22,7 @@
     ],
     "psr-4": {
       "account\\sign\\": [
-        "lib/account/sign",
-        "lib/account/sign/modes"
+        "lib/account/sign"
       ],
       "account\\token\\": [
         "lib/account/token",
@@ -34,9 +31,16 @@
       "gateway\\": "lib/gateway",
       "tools\\": "lib/tools",
       "tools\\sms\\": "lib/tools/sms",
+      "tools\\email\\": [
+        "lib/tools/email",
+        "lib/tools/email/lib"
+      ],
       "tools\\sql\\": "lib/tools/sql",
       "media\\": "lib/media",
-      "cached\\": "lib/cached",
+      "cached\\": [
+        "lib/cached",
+        "lib/cached/modes"
+      ],
       "Tests\\": "lib/Tests"
     }
   }

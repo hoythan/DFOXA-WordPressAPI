@@ -21,6 +21,7 @@ class cache
 
     /*
      * 设置缓存
+     * 过期时间单位为秒,切不可设置为时间戳
      */
     public function set($key, $value = '', $group = '', $expire = 0)
     {

@@ -354,6 +354,12 @@ class DFOXWPSuite
                 }
             }
         }
+
+        if (isset($_GET['page']) && !isset($_GET['plugin'])) {
+            foreach ($pages[0]['pages'] as $slug => $page) {
+                return $page['menu_title'];
+            }
+        }
     }
 }
 

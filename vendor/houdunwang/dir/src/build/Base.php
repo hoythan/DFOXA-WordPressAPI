@@ -66,14 +66,21 @@ class Base
         return true;
     }
 
-    //删除目录
+    /**
+     * 删除目录
+     *
+     * @param string $dir 目录名
+     *
+     * @return bool
+     */
     public function del($dir)
     {
         if ( ! is_dir($dir)) {
             return true;
         }
-        foreach (glob($dir."/*") as $v) {
-            is_dir($v) ? $this->del($v) : unlink($v);
+        $files = array_diff(scandir($dir), ['.', '..']);
+        foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? $this->del("$dir/$file") : unlink("$dir/$file");
         }
 
         return rmdir($dir);

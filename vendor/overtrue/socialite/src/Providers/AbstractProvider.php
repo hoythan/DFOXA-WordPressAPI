@@ -102,6 +102,13 @@ abstract class AbstractProvider implements ProviderInterface
     protected $stateless = false;
 
     /**
+     * The options for guzzle\client.
+     *
+     * @var array
+     */
+    protected static $guzzleOptions = ['http_errors' => false];
+
+    /**
      * Create a new provider instance.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -254,7 +261,7 @@ abstract class AbstractProvider implements ProviderInterface
             return $this->accessToken;
         }
 
-        $postKey = (version_compare(ClientInterface::VERSION, '6') === 1) ? 'form_params' : 'body';
+        $postKey = (1 === version_compare(ClientInterface::VERSION, '6')) ? 'form_params' : 'body';
 
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
             'headers' => ['Accept' => 'application/json'],
@@ -459,7 +466,17 @@ abstract class AbstractProvider implements ProviderInterface
      */
     protected function getHttpClient()
     {
-        return new Client(['http_errors' => false]);
+        return new Client(self::$guzzleOptions);
+    }
+
+    /**
+     * Set options for Guzzle HTTP client.
+     *
+     * @param array $config
+     */
+    public static function setGuzzleOptions($config = [])
+    {
+        return self::$guzzleOptions = $config;
     }
 
     /**
