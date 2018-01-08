@@ -120,7 +120,6 @@ class mothod
             foreach (get_dfoxa_active_plugins() as $pluginname => $plugin) {
                 if (in_array($methodNameSpace, $plugin['Namespace']) && file_exists(DFOXA_PLUGINS . DFOXA_SEP . $pluginname)) {
                     include_once(DFOXA_PLUGINS . DFOXA_SEP . $pluginname);
-
                     // index.php
                     if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php')))
                         include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . DFOXA_SEP . 'index.php'));
@@ -129,7 +128,6 @@ class mothod
                     if (file_exists(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php')))
                         include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php'));
                 }
-
             }
 
             if (!class_exists($methodClass)) {

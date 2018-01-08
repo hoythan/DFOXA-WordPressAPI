@@ -60,7 +60,7 @@ function get_MicroTimeStr()
  */
 function get_ClientIP()
 {
-    $userip = "127.0.0.1";
+    $userip = false;
     if ($_SERVER['REMOTE_ADDR']) {
         $userip = $_SERVER['REMOTE_ADDR'];
     } elseif (getenv("REMOTE_ADDR")) {
@@ -220,27 +220,20 @@ function get_AppendMsg($error_code)
         return false;
     }
 }
-
-/**
- * 设置Logs日志
- */
-function set_ApiLogs()
-{
-
-}
-
 function clear_AppendMsg()
 {
     global $errorMsg;
     $errorMsg = array();
 }
 
-
 /*
  * 接口报错封装函数
  */
 function dfoxaError($sub_code, $message = array(), $httpCode = 200)
 {
+    if(is_object($message))
+        $message = objectToArray($message);
+
     set_AppendMsg($sub_code, $message);
     throw new \Exception($sub_code, $httpCode);
 }
@@ -301,22 +294,6 @@ function dataToUnserializeData($data)
 
     return $data;
 }
-
-
-/*
- * 微信文件验证
- */
-function wechatFileVerify($pagename)
-{
-    if ($pagename == 'gateway-do/wechat/oauth/MP_verify_IuY6OyX67ycDC9qS.txt') {
-        ob_clean();
-        status_header(200);
-        echo 'IuY6OyX67ycDC9qS';
-        exit;
-    }
-}
-
-add_filter('dfoxa_wpapi_method_exists_class', 'wechatFileVerify');
 
 function load_fileContent($meta_key, $size = 'full')
 {
@@ -390,7 +367,7 @@ function get_dfoxa_plugin_data($plugin_file, $markup = true, $translate = true)
 function get_dfoxa_plugins($plugin_name = '')
 {
     $plugins = [];
-    $plugins_dir = @ opendir(DFOXA_PLUGINS);
+    $plugins_dir = @opendir(DFOXA_PLUGINS);
     $plugin_files = array();
     if ($plugins_dir) {
         while (($file = readdir($plugins_dir)) !== false) {

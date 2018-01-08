@@ -5,9 +5,8 @@
     "respect/validation": "^1.1",
     "jenssegers/agent": "^2.5",
     "houdunwang/dir": "^1.0",
-    "phpoffice/phpexcel": "^1.8",
     "zhuzhichao/ip-location-zh": "^2.4",
-    "overtrue/wechat": "^3.3"
+    "bupt1987/html-parser": "^3.0"
   },
   "repositories": {
     "packagist": {
@@ -21,6 +20,9 @@
       "lib/inc/functions.php"
     ],
     "psr-4": {
+      "account\\oauth\\": [
+        "lib/account/oauth"
+      ],
       "account\\sign\\": [
         "lib/account/sign"
       ],
@@ -36,6 +38,12 @@
         "lib/tools/email/lib"
       ],
       "tools\\sql\\": "lib/tools/sql",
+      "tools\\logs\\":[
+        "lib/tools/logs",
+        "lib/tools/logs/set",
+        "lib/tools/logs/get",
+        "lib/tools/logs/update"
+      ],
       "media\\": "lib/media",
       "cached\\": [
         "lib/cached",

@@ -2,9 +2,9 @@
 
 namespace account\sign;
 
-use koubei\notify\gateway;
 use Respect\Validation\Validator as Validator;
 use account\token\create as AccessToken;
+use account\token\verify as Verify;
 
 abstract class sign
 {
@@ -25,12 +25,16 @@ abstract class sign
      *      [value] 登录密码,留空表示不需要验证密码直接登录(危险)
      *          - type = 'emailcode' value 留空表示获取登录验证码,不为空表示验证验证码
      *          - type = 'phonecode' value 留空表示获取登录验证码,不为空表示验证验证码
+     *
+     * @param bool $checkPassword   是否检查密码,false 表示Value不需要输入登录密码 （emailcode 和 phonecode除外）
+     * @param bool $checkSignType   是否检查登录类型,false
+     * @param bool $refreshAccessToken 刷新当前登录用户的AccessToken . 私有参数!!!用于 Verify Token 时获取用户信息所用
      */
     public static function signInAccount($args = array(
         'type' => '',
         'field' => '',
         'value' => ''
-    ), $checkPassword = true,$checkSignType = true)
+    ), $checkPassword = true, $checkSignType = true,$refreshAccessToken = true)
     {
         $type = strtolower($args['type']);
         $field = $args['field'];
@@ -133,12 +137,14 @@ abstract class sign
         }
 
         // 拼接参数
+        $access_token = $refreshAccessToken === false ? Verify::getSignUserAccessToken() : AccessToken::get($user->ID);
         $responseData = array(
             'user_id' => $user->ID,
             'user_email' => $user->user_email,
             'display_name' => $user->display_name,
             'user_registered' => $user->user_registered,
-            'access_token' => AccessToken::get($user->ID)
+            'access_token' => $access_token,
+            'expire' => time() + AccessToken::_expireTime()
         );
 
         if (get_user_meta($user->ID, 'user_phone', true) && self::_checkPhoneNumber(get_user_meta($user->ID, 'user_phone', true)))
@@ -154,10 +160,10 @@ abstract class sign
      * 账号注册,在注册成功后会调用 signInAccount 使用ID进行登录并返回相关内容
      * @param array $args
      *      [type] 注册方式 ['login','email','emailcode','phone','phonecode']
-     * @param array $user
-     *      如果注册方式中有填写相关内容,则下方填写无效,例如使用login登录,则username为login的值
-     *          - username 为用户登录名,即 login ,留空将随机生成一个
-     *          - password 字段非必填项,如不配置则会将密码发送至用户邮箱或手机,取决于用那种方式进行注册
+     * @param array $create_user
+     *      如果注册方式中有填写相关内容,则下方填写无效,例如使用login登录,login值填写无效
+     *          - login 为用户登录名,即 login ,留空将随机生成一个
+     *          - password 字段非必填项,如不配置则会将密码发送至用户邮箱或手机,取决于用哪种方式进行注册
      *          - email 可留空
      *          - phone 可留空
      */
@@ -166,14 +172,14 @@ abstract class sign
         'field' => '',
         'value' => ''
     ), $create_user = array(
-        'username' => '',
+        'login' => '',
         'password' => '',
         'email' => ''
     ))
     {
         $type = strtolower($args['type']);
-        $field = $args['field'];
-        $value = $args['value'];
+        $field = isset($args['field']) ? $args['field'] : '';
+        $value = isset($args['value']) ? $args['value'] : '';
         $user_id = false;
         $send_password = false; // 是否需要在欢迎邮件中发送密码给用户
 
@@ -195,6 +201,44 @@ abstract class sign
             case 'id':
                 break;
             case 'login':
+                // 验证登录账号是否存在
+                if (empty($field) || !Validator::stringType()->validate($field))
+                    dfoxaError('account.warning-register', array('sub_msg' => '注册账号格式有误'));
+
+                $user = get_user_by('login', $field);
+                // 验证账号是否存在
+                if ($user)
+                    dfoxaError('account.warning-register', array('sub_msg' => '该账户已被注册'));
+
+                // 验证用户账号是否符合规范
+                if (!validate_username($field)) {
+                    dfoxaError('account.warning-register', array('sub_msg' => '用户名格式不正确'));
+                }
+
+                // 密码有效验证,如果留空则自动创建密码并发送邮件告知
+                if (empty($create_user['password'])) {
+                    $create_user['password'] = wp_generate_password();
+                    $send_password = true;
+                }
+                $password = apply_filters('dfoxa_signup_password', $create_user['password']);
+                $send_password = apply_filters('dfoxa_signup_send_password', $send_password);
+                if ($create_user['password'] !== $password) {
+                    // 如果通过hook修改了用户提交的密码,将会发送新密码给用户
+                    $send_password = true;
+                }
+
+                // 邮箱验证
+                if(empty($create_user['email'])){
+                    $create_user['email'] = '';
+                }else{
+                    // 验证邮箱格式是否符合规范
+
+                    // 验证邮箱是否存在
+                }
+
+                // 注册账号
+                $user_id = wp_create_user($field, $create_user['password'], $create_user['email']);
+
                 break;
             case 'email':
                 break;
@@ -208,18 +252,18 @@ abstract class sign
                     dfoxaError('account.warning-register', array('sub_msg' => '该邮箱已被注册'));
 
                 // 验证用户名称是否有效,如果留空则自动生成,否则检测是否符合规范,不符合则报错
-                $email_username = $create_user['username'];
-                if (empty($create_user['username'])) {
-                    $create_user['username'] = '_' . get_RandStr(10, 10);
+                $email_login = $create_user['login'];
+                if (empty($create_user['login'])) {
+                    $create_user['login'] = '_' . get_RandStr(10, 10);
                     // 确保生成的用户名不存在
-                    while (!username_exists($create_user['username']) && !validate_username($create_user['username'])) {
-                        $create_user['username'] = '_' . get_RandStr(10, 10);
+                    while (!username_exists($create_user['login']) && !validate_username($create_user['login'])) {
+                        $create_user['login'] = '_' . get_RandStr(10, 10);
                     }
 
-                    $email_username = apply_filters('dfoxa_signup_email_username', '新用户', $create_user['username']);
-                } else if (!validate_username($create_user['username'])) {
+                    $email_login = apply_filters('dfoxa_signup_email_login', '新用户', $create_user['login']);
+                } else if (!validate_username($create_user['login'])) {
                     dfoxaError('account.warning-register', array('sub_msg' => '用户名格式不正确'));
-                } else if (username_exists($create_user['username'])) {
+                } else if (username_exists($create_user['login'])) {
                     dfoxaError('account.warning-register', array('sub_msg' => '该用户名已被注册'));
                 }
 
@@ -238,15 +282,15 @@ abstract class sign
                 // 验证验证码
                 $sendEmailVerify = new \tools\email\VerifyCode();
                 if (empty($value)) {
-                    $sendEmailVerify->sendVerifyCode($field, $email_username, '注册');
-                    dfoxaGateway(array('msg' => '邮件发送成功','sub_msg' => '请前往邮箱查看'));
+                    $sendEmailVerify->sendVerifyCode($field, $email_login, '注册');
+                    dfoxaGateway(array('msg' => '邮件发送成功', 'sub_msg' => '请前往邮箱查看'));
                 }
 
                 if (!$sendEmailVerify->checkVerifyCode($field, $value))
                     dfoxaError('account.errorcode-email');
 
                 // 验证通过,创建用户
-                $user_id = wp_create_user($create_user['username'], $create_user['password'], $field);
+                $user_id = wp_create_user($create_user['login'], $create_user['password'], $field);
                 if (is_wp_error($user_id))
                     dfoxaError('account.warning-register', array('sub_msg' => $user_id->get_error_message()));
 
@@ -256,9 +300,9 @@ abstract class sign
                 // 发送欢迎邮件
                 $sendEmailWelcome = new \tools\email\Message();
                 if ($send_password) {
-                    $sendEmailWelcome->sendWelcome($field, $create_user['username'], '注册', $create_user['password']);
+                    $sendEmailWelcome->sendWelcome($field, $create_user['login'], '注册', $create_user['password']);
                 } else {
-                    $sendEmailWelcome->sendWelcome($field, $create_user['username'], '注册');
+                    $sendEmailWelcome->sendWelcome($field, $create_user['login'], '注册');
                 }
                 break;
             case 'phone':
@@ -274,7 +318,7 @@ abstract class sign
                 'type' => 'id',
                 'field' => $user_id,
             ),
-            false,false);
+            false, false);
 
         return $ret;
     }

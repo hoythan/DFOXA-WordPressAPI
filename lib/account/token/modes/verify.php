@@ -8,10 +8,8 @@ class verify extends token
 {
     public function run()
     {
-        $access_token = self::_getAccessToken();
-
         $expire = parent::_expireTime();
-        $userid = self::getUserID($access_token, $expire);
+        $userid = self::_getID('', $expire);
 
         if (self::_isGetUser()) {
             $ret = Sign::signInAccount(array(
@@ -26,7 +24,6 @@ class verify extends token
                 'sub_msg' => 'access_token验证通过'
             ));
         }
-
     }
 
     /**
@@ -37,21 +34,41 @@ class verify extends token
      */
     public static function check($access_token = '', $get_user = false)
     {
-        if ($access_token == '') {
-            $access_token = self::_getAccessToken();
-        }
-
-        $userid = self::getUserID($access_token);
+        $userid = self::_getID($access_token);
         if ($get_user) {
             // 登录用户账号
             return Sign::signInAccount(array(
                 'type' => 'id',
                 'field' => $userid
-            ), false, false);
+            ), false, false,false);
         } else {
             return $userid;
         }
 
+    }
+
+    /**
+     * 获取当前登录用户的ID
+     */
+    public static function getSignUserID()
+    {
+        return self::check();
+    }
+
+    /**
+     * 获取当前登录用户的详细信息
+     */
+    public static function getSignUser()
+    {
+        return self::check('', true);
+    }
+
+    /**
+     * 获取当前登录用户提交的Token
+     */
+    public static function getSignUserAccessToken()
+    {
+        return self::_getAccessToken();
     }
 
     /**
@@ -60,9 +77,12 @@ class verify extends token
      * @param null $expire 过期时间
      * @return int 用户ID
      */
-    public static function getUserID($access_token, $expire = null)
+    private static function _getID($access_token = '', $expire = null)
     {
         $cacheDriver = new \cached\cache();
+
+        if($access_token === '')
+            $access_token = self::_getAccessToken();
 
         // 从缓存中根据 accesstoken 获取 onlytoken
         $onlytoken = $cacheDriver->get($access_token, 'access_token');
@@ -80,8 +100,9 @@ class verify extends token
 
         $group_key = 'access_token_' . $userid;
         if ($cacheDriver->get($onlytoken, $group_key) !== 'yes') {
+            $limit = '';
             $cacheDriver->delete($access_token, $group_key);
-            dfoxaError('account.expired-accesstoken', array('logs' => '强制下线'));
+            dfoxaError('account.distance-accesstoken');
         }
 
         // 更新 access_token 过期时间

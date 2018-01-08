@@ -109,7 +109,7 @@ class upload extends file
 
     public function update()
     {
-        $userid = Verify::check('', false);
+        $userid = Verify::getSignUserID();
         $userdata = get_userdata($userid);
 
         $upload_dir = wp_upload_dir();
@@ -156,7 +156,6 @@ class upload extends file
 
         $attachments = [];
         foreach ($_FILES as $fileKey => $file) {
-
             /*
              * 格式验证
              */
@@ -175,16 +174,21 @@ class upload extends file
                 dfoxaError('media.error-uploadfiletype');
             }
 
+
             /*
              * 尺寸验证
              */
             $maxSize = apply_filters('dfoxa_media_upload_filesize', get_option('dfoxa_media_size'));
-            if (Validator::size($maxSize)->validate($file['tmp_name'])) {
+
+            // 没有填写单位 默认为KB
+            if((string)$maxSize === (string)(int)$maxSize)
+                $maxSize .= 'kb';
+
+            if (Validator::size(null,$maxSize)->validate($file)) {
                 dfoxaError('media.error-maxfilesize', array(
                     'sub_msg' => "请勿超过" . get_option('dfoxa_media_size')
                 ));
             }
-
 
             /*
              * 重写文件名
@@ -196,14 +200,13 @@ class upload extends file
             /*
              * 允许hook返回false,使用场景为需要将图片上传至其他接口,不上传至服务器.
              */
-
             if ($_FILES[$fileKey] === false)
                 continue;
 
             $result = media_handle_upload($fileKey, null);
 
             if (is_wp_error($result)) {
-                dfoxaError('media.error-upload', array(
+                dfoxaError('media.error-upload',array(
                     'sub_msg' => $result->get_error_message()
                 ));
             }

@@ -315,7 +315,7 @@ class code extends mothod
             'account.distance-accesstoken' => array(
                 'code' => 11027,
                 'msg' => '账号在其他处登录',
-                'sub_msg' => '您的账号在其他设备登录,当前设备已断开.',
+                'sub_msg' => '您的帐号已在另一个设备登录，您被迫下线',
                 'solution' => '重新填写或提交登陆信息'
             ),
             'cache.empyt-cachetype' => array(
@@ -353,6 +353,36 @@ class code extends mothod
                 'msg' => '函数执行错误',
                 'sub_msg' => '函数执行错误,请检查后再试',
                 'solution' => '检查函数是否配置或正确引用'
+            ),
+            'media.error-upload' => array(
+                'code' => 14100,
+                'msg' => '文件上传出错',
+                'sub_msg' => '请检查后再试',
+                'solution' => '请检查后再试'
+            ),
+            'media.error-userlevel' => array(
+                'code' => 14101 ,
+                'msg' => '文件上传出错',
+                'sub_msg' => '你没有权限上传该文件',
+                'solution' => '请检查后再试'
+            ),
+            'media.error-uploadfiletype' => array(
+                'code' => 14102 ,
+                'msg' => '文件格式有误',
+                'sub_msg' => '当前文件格式不受支持,请尝试更换一个文件',
+                'solution' => '请检查后再试'
+            ),
+            'media.empty-file' => array(
+                'code' => 14103 ,
+                'msg' => '文件不存在',
+                'sub_msg' => '你还没有选择要上传的文件,请选择后再试',
+                'solution' => '请检查后再试'
+            ),
+            'media.empty-role' => array(
+                'code' => 14104 ,
+                'msg' => '用户权限错误',
+                'sub_msg' => '当前用户媒体库权限还未配置或格式有误,请联系相关人员修复',
+                'solution' => '请检查后再试'
             ),
             'sms.empyt-service' => array(
                 'code' => 15001,
@@ -404,6 +434,5 @@ class code extends mothod
                 return $code;
             }
         }
-        return false;
     }
 }

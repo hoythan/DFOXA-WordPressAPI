@@ -9,7 +9,7 @@ use Respect\Validation\Validator as Validator;
 
 class DFOXA_Sql
 {
-    public function get($table, $where = array(), $need = array(), $filters = array(), $order = array(), $single = true)
+    public function get($table, $where = array(), $need = array(), $filters = array(), $order = array(), $single = true ,$limit = array())
     {
         global $wpdb;
 
@@ -68,17 +68,24 @@ class DFOXA_Sql
          */
         $query_order = '';
         if (Validator::arrayType()->validate($order) && count($order) > 0) {
-            $query_order = ' order by';
+            $query_order = ' ORDER BY ';
             foreach ($order as $k => $v) {
                 $query_order .= "`{$k}` {$v} ,";
             }
             $query_order = chop($query_order, ' ,');
         }
 
+        $query_limit = '';
+        if(is_array($limit) && count($limit) > 0 && count($limit) < 3){
+            $query_limit = ' LIMIT ' . implode(' , ',$limit);
+        }
+
+        $sql = "SELECT {$query_need} FROM `{$table}` WHERE {$query_where} {$query_order} {$query_limit}";
+
         if ($single === true) {
-            $result = $wpdb->get_row("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$query_order}");
+            $result = $wpdb->get_row($sql);
         } else {
-            $result = $wpdb->get_results("SELECT {$query_need} FROM {$table} WHERE {$query_where} {$query_order}");
+            $result = $wpdb->get_results($sql);
         }
 
         if ($result === NULL)
@@ -163,14 +170,16 @@ class DFOXA_Sql
         $query_where = chop($query_where, 'AND');
 
         // 检查是否存在，不存在创建，存在更新
-        if ($wpdb->query("SELECT * FROM {$table} WHERE {$query_where}") === 0)
+        $response = $wpdb->get_var("SELECT * FROM {$table} WHERE {$query_where}");
+        if ($response === NULL)
             return $this->add($table, array_merge($where, $data), $filters);
 
         // 更新
-        if ($wpdb->update($table, $data, $where, $format, $where_format) === false)
+        $result = $wpdb->update($table, $data, $where, $format, $where_format);
+        if ($result === false)
             return false;
 
-        return true;
+        return $response;
     }
 
     public function remove()
