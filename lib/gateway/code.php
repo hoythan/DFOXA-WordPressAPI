@@ -2,14 +2,14 @@
 
 namespace gateway;
 
-class code extends mothod
+class code extends method
 {
     /**
      * 返回message对应内容
-     * @param string $message
+     * @param string $sub_code
      * @return bool|mixed
      */
-    public static function _e($message = '')
+    public static function _e($sub_code = '')
     {
         $codes = array(
             '10000' => array(
@@ -361,25 +361,25 @@ class code extends mothod
                 'solution' => '请检查后再试'
             ),
             'media.error-userlevel' => array(
-                'code' => 14101 ,
+                'code' => 14101,
                 'msg' => '文件上传出错',
                 'sub_msg' => '你没有权限上传该文件',
                 'solution' => '请检查后再试'
             ),
             'media.error-uploadfiletype' => array(
-                'code' => 14102 ,
+                'code' => 14102,
                 'msg' => '文件格式有误',
                 'sub_msg' => '当前文件格式不受支持,请尝试更换一个文件',
                 'solution' => '请检查后再试'
             ),
             'media.empty-file' => array(
-                'code' => 14103 ,
+                'code' => 14103,
                 'msg' => '文件不存在',
                 'sub_msg' => '你还没有选择要上传的文件,请选择后再试',
                 'solution' => '请检查后再试'
             ),
             'media.empty-role' => array(
-                'code' => 14104 ,
+                'code' => 14104,
                 'msg' => '用户权限错误',
                 'sub_msg' => '当前用户媒体库权限还未配置或格式有误,请联系相关人员修复',
                 'solution' => '请检查后再试'
@@ -418,21 +418,27 @@ class code extends mothod
 
         $codes = apply_filters('update_gateway_codes', $codes);
 
-        foreach ($codes as $code_key => $code) {
-            if ($code_key == $message) {
-                $code['sub_code'] = $message;
-
-                if (get_AppendMsg($message)) {
-                    $append_message = get_AppendMsg($message);
-                    $code = array_merge($code, $append_message);
-                    clear_AppendMsg();
-                }
-                // 将用户的请求包含在返回的内容中
-                global $bizContent;
-                $code['request'] = $bizContent;
-
-                return $code;
-            }
+        $code = [
+            'code' => 90001
+        ];
+        if (isset($codes[$sub_code])) {
+            $code = $codes[$sub_code];
         }
+        $code['sub_code'] = $sub_code;
+
+        global $dfoxaAppendMessages;
+        if (isset($dfoxaAppendMessages[$sub_code])) {
+            foreach ($dfoxaAppendMessages[$sub_code] as $append_message) {
+                $code = array_merge($code, $append_message);
+            }
+            unset($dfoxaAppendMessages[$sub_code]);
+        }
+
+        // 将用户的请求包含在返回的内容中
+        global $bizContent;
+        $code['request'] = $bizContent;
+
+        return $code;
+
     }
 }

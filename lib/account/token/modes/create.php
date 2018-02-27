@@ -23,23 +23,17 @@ class create extends token
         // 当前用户的唯一效验码
         $onlytoken = parent::_creatOnlyToken($userid);
 
-        // 加盐的效验码
-        $salttoken = substr($onlytoken . get_RandStr(5, 6), -32);
-
-        // 加密后的内容
-        $encrypted = "";
-        if (!openssl_private_encrypt($salttoken, $encrypted, $private_key))
+        // 判断是否支持 SSL 加密
+        $encrypted = ""; // 加密后的内容
+        if (!openssl_private_encrypt($onlytoken, $encrypted, $private_key))
             dfoxaError('account.error-private');
 
         $encrypted = str_replace(array('=', '/', '-', '+', '&', '*', '?'), array(''), base64_encode($encrypted));
         $access_token = substr($encrypted, -33, -1);
 
-
         $cacheDriver = new \cached\cache();
-        $res = $cacheDriver->set($access_token, $onlytoken, 'access_token', parent::_expireTime());
-        $group_key = 'access_token_' . $userid;
-        $cacheDriver->clearGroup($group_key);
-        $cacheDriver->set($onlytoken, 'yes', $group_key, parent::_expireTime());
+        $res = $cacheDriver->set($access_token, $onlytoken, '_access_token', parent::_expireTime());
+        $cacheDriver->set($onlytoken, 1, '_access_token_' . $userid);
 
         // 是否成功写入缓存
         if ($res !== true)

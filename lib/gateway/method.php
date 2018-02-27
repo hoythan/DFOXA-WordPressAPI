@@ -2,7 +2,7 @@
 
 namespace gateway;
 
-class mothod
+class method
 {
     private $methodClass;
 
@@ -22,7 +22,7 @@ class mothod
             $this->_setupCheckGateway();
 
             // 检查并设置查询类
-            $this->_setupCheckMothod();
+            $this->_setupCheckMethod();
 
             // 筛选查询数据
             $this->_getRequest();
@@ -69,7 +69,7 @@ class mothod
      * 如果存在则定义 $methodClass 为所需的类
      * @throws \Exception
      */
-    private function _setupCheckMothod()
+    private function _setupCheckMethod()
     {
         // 检查请求体是否存在
         global $methodClass;
@@ -100,7 +100,7 @@ class mothod
             $pagename = $wp_query->query['pagename'];
             $class = explode('/', $pagename);
             $num = count($class);
-            if ($num < 3)
+            if ($num < 2)
                 dfoxaError('gateway.method-undefined');
 
             for ($i = 1; $i < $num; $i++) {
@@ -129,7 +129,7 @@ class mothod
                         include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php'));
                 }
             }
-
+            
             if (!class_exists($methodClass)) {
                 apply_filters('dfoxa_wpapi_method_exists_class', $pagename);
                 dfoxaError('gateway.empty-method');
@@ -216,7 +216,6 @@ class mothod
      */
     public static function responseSuccessJSON($response = '', $status = '10000', $code = '200', $arrayKey = '')
     {
-        ob_clean();
         status_header($code);
         header("Access-Control-Allow-Origin: *");
         header('Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Accept');
@@ -241,6 +240,12 @@ class mothod
         } else {
             $echo_array = array_merge(code::_e($status), array($arrayKey => $response));
         }
+        /**
+         * 强制关闭所有报错信息
+         * https://developer.wordpress.org/reference/functions/wp_debug_mode/
+         */
+        ini_set( 'display_errors', 0 );
+        ob_clean();
         echo json_encode($echo_array);
         exit;
     }

@@ -41,10 +41,9 @@ require 'vendor/autoload.php';
 
 function reload_dfoxa_wpapi()
 {
-    $gateway = new \gateway\mothod();
+    $gateway = new \gateway\method();
     $gateway->run();
 }
-
 add_action('wp', 'reload_dfoxa_wpapi', 0);
 
 /*

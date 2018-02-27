@@ -25,12 +25,7 @@ class DFOXWPSuite
     function registerStyle()
     {
         wp_register_style('dfoxwpstyle', plugins_url('', __FILE__) . '/dfoxwp.style.min.css');
-        // wp_register_script('dfoxwpjs',plugins_url('', __FILE__).'/dfoxwp.min.js', array('jquery-core','jquery-form'),'');
         wp_enqueue_style('dfoxwpstyle');
-        // wp_enqueue_script('dfoxwpjs');
-        // wp_localize_script('dfoxwpjs', 'dfox_wp_local', array(
-        //        'ajax_url' => admin_url('admin-ajax.php', (is_ssl() ? 'https' : 'http'))
-        //    ));
 
         wp_enqueue_script('dfoxwpjs', plugins_url('', __FILE__) . '/dfoxwp.min.js', array('jquery-core', 'jquery-form'));
         wp_localize_script('dfoxwpjs', 'dfox_wp_local', array(
@@ -313,7 +308,7 @@ class DFOXWPSuite
     // 获取插件根地址
     private function _getPluginRootUrl($fix = '')
     {
-        return admin_url('admin.php?page=dfox_wp_admin' . $fix);
+        return dfox_wp_admin_url('admin.php?page=dfox_wp_admin' . $fix);
     }
 
     // 获取当前页面标题

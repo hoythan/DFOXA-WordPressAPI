@@ -22,7 +22,11 @@ class sendEmail
         add_action('phpmailer_init', array($this, '_phpmailer_smtp'), 1);
 
         // 检查环境是否允许
+
         $this->CacheObj = new \cached\cache();
+        $this->CacheObj->set('cache_test', 'success', 'test', 10);
+        if ($this->CacheObj->get('cache_test', 'test') !== 'success')
+            dfoxaError('account.error-email', array('msg' => '验证码发送出现一些问题'));
     }
 
     /*

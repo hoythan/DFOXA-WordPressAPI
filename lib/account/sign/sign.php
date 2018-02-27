@@ -124,12 +124,12 @@ abstract class sign
                 // 使验证码无效
                 $sendEmail->clearVerifyCode($field);
                 break;
-//            case 'phone':
-//
-//                break;
-//            case 'phonecode':
-//
-//                break;
+            case 'phone':
+
+                break;
+            case 'phonecode':
+
+                break;
             default:
                 dfoxaError('account.error-login', array('sub_msg' => '"' . $type . '"是不被允许的登录方式'), 204);
                 break;
@@ -306,6 +306,7 @@ abstract class sign
                 }
                 break;
             case 'phone':
+
                 break;
             case 'phonecode':
                 break;

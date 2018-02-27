@@ -19,6 +19,5 @@ class in extends sign
         ));
 
         dfoxaGateway($request);
-
     }
 }

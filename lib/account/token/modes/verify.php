@@ -85,7 +85,7 @@ class verify extends token
             $access_token = self::_getAccessToken();
 
         // 从缓存中根据 accesstoken 获取 onlytoken
-        $onlytoken = $cacheDriver->get($access_token, 'access_token');
+        $onlytoken = $cacheDriver->get($access_token, '_access_token');
 
         if (empty($onlytoken))
             dfoxaError('account.expired-accesstoken');
@@ -98,16 +98,16 @@ class verify extends token
         if ($onlytoken != parent::_creatOnlyToken($userid))
             dfoxaError('account.expired-accesstoken');
 
-        $group_key = 'access_token_' . $userid;
-        if ($cacheDriver->get($onlytoken, $group_key) !== 'yes') {
-            $limit = '';
-            $cacheDriver->delete($access_token, $group_key);
+        $group_key = '_access_token_' . $userid;
+        if ($cacheDriver->get($onlytoken, $group_key) !== 1) {
+            // 如果用户的 group_key 不存在，则清空 access_token 的值
+            $cacheDriver->delete($access_token, '_access_token');
             dfoxaError('account.distance-accesstoken');
         }
 
         // 更新 access_token 过期时间
         $expire = $expire === null ? parent::_expireTime() : (int)$expire;
-        $cacheDriver->set($access_token, $onlytoken, 'access_token', $expire);
+        $cacheDriver->set($access_token, $onlytoken, '_access_token', $expire);
 
         return $userid;
     }

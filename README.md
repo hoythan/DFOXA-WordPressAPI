@@ -39,8 +39,8 @@ WordPress API 扩展插件,允许使用 WordPres 开发标准的API接口,为基
 
 #### 缓存系统设置
 
-DFOXA 暂时只支持 WordPress 自带缓存 ,它基于 <code>Memcache（d）</code>。
-未来将扩展开发基于 文件缓存、Redis 的缓存功能,但现阶段你只能这么选。
+DFOXA 暂时只支持 WordPress 自带缓存 ,它基于 <code>Memcache（d）或 Redis Object Cache</code>
+你必须为他提供一个"[持久性](https://codex.wordpress.org/Class_Reference/WP_Object_Cache#Persistent_Caching)[?](https://wordpress.stackexchange.com/questions/48643/how-wp-cache-is-supposed-to-work-and-does-it-help-with-performance)"的缓存。
 你必须配置 Memcache（d）,并安装相关的 WordPress 内存缓存插件,因为接口将大量使用缓存系统,如果你不做这一步,你将无法继续使用该插件
 
 #### 日志记录

@@ -36,6 +36,10 @@ function dfoxa_account_page(){
       array(
           'key' => 'phonecode',
           'name' => '手机验证码'
+      ),
+      array(
+          'key' => 'wechat',
+          'name' => '微信'
       )
     );
     $signup_types = array(
@@ -80,11 +84,14 @@ function dfoxa_account_page(){
                             <select name="dfoxa_account_signin_limit" data-bind-select='[{"event":"change","not":"disable","bind":"._select_account_signin_limit"}]'>
                                 <option <?php if($data['dfoxa_account_signin_limit'] == 'disable') echo 'selected="selected"'; ?> value="disable">禁止登陆</option>
                                 <option <?php if($data['dfoxa_account_signin_limit'] == 'single') echo 'selected="selected"'; ?> value="single">只允许单一设备</option>
+                                <option <?php if($data['dfoxa_account_signin_limit'] == 'single_device') echo 'selected="selected"'; ?> value="single">只允许单一端设备</option>
                                 <option <?php if($data['dfoxa_account_signin_limit'] == 'ip') echo 'selected="selected"'; ?> value="ip">允许同IP多设备</option>
-                                <option <?php if($data['dfoxa_account_signin_limit'] == 'open') echo 'selected="selected"'; ?> value="open">允许多设备登录</option>
+                                <option <?php if($data['dfoxa_account_signin_limit'] == 'open') echo 'selected="selected"'; ?> value="open">开放登录限制</option>
                             </select>
                         </label>
                         <p>不满足条件时,前者会被后者强制下线(AccessToken 验证不通过),后者无任何感知.</p>
+                        <p>只允许单一端设备:支持 PC 端和移动端两端同时在线,但每端只允许一个登录.</p>
+                        <p>开放登录限制:允许同一账号多个设备登录.</p>
                     </td>
                 </tr>
                 <tr class="_select_account_signin_limit <?php if($data['dfoxa_account_signin_limit'] === 'disable'){echo 'dfox-wp-none';} ?>">

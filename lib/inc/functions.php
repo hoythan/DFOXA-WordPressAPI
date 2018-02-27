@@ -220,10 +220,17 @@ function get_AppendMsg($error_code)
         return false;
     }
 }
+
 function clear_AppendMsg()
 {
     global $errorMsg;
     $errorMsg = array();
+}
+
+function dfoxa_append_message($message, $key = '_')
+{
+    global $dfoxaAppendMessages;
+    $dfoxaAppendMessages[$key][] = $message;
 }
 
 /*
@@ -231,19 +238,27 @@ function clear_AppendMsg()
  */
 function dfoxaError($sub_code, $message = array(), $httpCode = 200)
 {
-    if(is_object($message))
+    if (is_object($message))
         $message = objectToArray($message);
 
-    set_AppendMsg($sub_code, $message);
+    dfoxa_append_message($message,$sub_code);
     throw new \Exception($sub_code, $httpCode);
 }
 
 /**
  * 正确接口返回封装
  */
-use gateway\mothod as Gateway;
+use gateway\method as Gateway;
+
 function dfoxaGateway($response = '', $status = '10000', $code = '200', $arrayKey = '')
 {
+    global $dfoxaAppendMessages;
+    if (isset($dfoxaAppendMessages['_'])) {
+        foreach ($dfoxaAppendMessages['_'] as $append_message) {
+            $response = wp_parse_args($append_message, $response);
+        }
+    }
+
     Gateway::responseSuccessJSON($response, $status, $code, $arrayKey);
 }
 
@@ -459,3 +474,11 @@ function load_plugins_funfile()
 }
 
 add_action('init', 'load_plugins_funfile', 1);
+
+
+/**
+ * 注册自定义的 meta 表
+ */
+function dfoxa_regist_meta($meta_key){
+
+}

@@ -4,8 +4,6 @@ namespace media;
 
 use account\token\verify as Verify;
 use Respect\Validation\Validator as Validator;
-use gateway\mothod as Gateway;
-
 require_once(ABSPATH . 'wp-admin/includes/image.php');
 require_once(ABSPATH . 'wp-admin/includes/file.php');
 require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -24,7 +22,7 @@ class upload extends file
         } else {
             $ret['files'] = $attachments;
         }
-        Gateway::responseSuccessJSON($ret);
+        dfoxaGateway($ret);
     }
 
     public function _run()
@@ -99,7 +97,7 @@ class upload extends file
                 $file_urls[] = $file_url . $guid;
         }
 
-        Gateway::responseSuccessJSON(array(
+        dfoxaGateway(array(
             'msg' => '文件上传成功',
             'file_id' => $guids,
             'file_url' => $file_urls

@@ -2,8 +2,6 @@
 
 namespace tools;
 
-use gateway\mothod as Gateway;
-
 class func
 {
     public function run()
@@ -31,6 +29,6 @@ class func
         $result = call_user_func_array($query->function, $query->args);
         
         // 执行函数
-        Gateway::responseSuccessJSON();
+        dfoxaGateway();
     }
 }

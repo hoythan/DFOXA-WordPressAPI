@@ -25,16 +25,20 @@ class VerifyCode extends sendEmail
             dfoxaError('account.error-email');
 
         // 验证邮件发送周期
-        if ($this->CacheObj->get($email, 'EmailVerifyCodeExpire', false) != false) {
+        if ($this->CacheObj->get($email, 'EmailVerifyCodeExpire', false) !== false) {
             $verifyCodeExpireTimestamp = $this->CacheObj->get($email, 'EmailVerifyCodeExpire', false);
             dfoxaError('account.cooling-email', array('expire' => $verifyCodeExpireTimestamp, 'expire_time' => date('r', $verifyCodeExpireTimestamp)));
         }
+
         // 生成验证码
         if (empty($code))
             $code = rand(100000, 999999);
 
         $expire = 1800;
         $resend_expire = 300;
+        // 发送之前clear缓存
+        $this->clearVerifyCode($email);
+        // 发送验证码
         $this->CacheObj->set($email, $code, 'EmailVerifyCode', $expire);
         $this->CacheObj->set($email, time() + $resend_expire, 'EmailVerifyCodeExpire', $resend_expire);
 
@@ -57,7 +61,6 @@ class VerifyCode extends sendEmail
         }
 
         return true;
-
     }
 
     /**
@@ -68,11 +71,12 @@ class VerifyCode extends sendEmail
      */
     public function checkVerifyCode($email, $code)
     {
-        if ($this->CacheObj->get($email, 'EmailVerifyCode', false) === (int)$code) {
-            // 验证通过清空Code
+        echo '_';
+        echo $this->CacheObj->get($email, 'EmailVerifyCode', false);
+        exit;
+        if ((int)$this->CacheObj->get($email, 'EmailVerifyCode', false) === (int)$code) {
             return true;
         }
-
         return false;
     }
 

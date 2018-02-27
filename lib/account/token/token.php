@@ -13,20 +13,26 @@ abstract class token
         $salt = 'default';
 
         $limit = get_option('dfoxa_account_signin_limit');
+        $device = wp_is_mobile() ? 'mobile' : 'pc';
         switch ($limit) {
-            case 'disable':
+            case 'disable': // 禁止登录
                 dfoxaError('account.close-login');
                 break;
-            case 'single':
-                $salt = $userip . '#' . $useragent;
+            case 'single': // 单设备登录
+                $salt = $userip . $useragent;
                 break;
-            case 'ip':
-                $salt = $userip . '#' . '';
+            case 'single-device': // 不同端单设备登录
+                $salt = $device;
+                break;
+            case 'ip': // 同 IP 多设备登录
+                $salt = $userip;
                 break;
             case 'open':
+                // 开放限制
+                $salt = '';
                 break;
             default:
-                $salt = $userip . '#' . $useragent;
+                $salt = $userip . $useragent;
                 break;
         }
 
@@ -48,7 +54,5 @@ abstract class token
 
         return $append_time;
     }
-
 }
-
 ?>
