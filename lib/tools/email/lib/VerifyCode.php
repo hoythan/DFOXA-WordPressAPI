@@ -27,7 +27,7 @@ class VerifyCode extends sendEmail
         // 验证邮件发送周期
         if ($this->CacheObj->get($email, 'EmailVerifyCodeExpire', false) !== false) {
             $verifyCodeExpireTimestamp = $this->CacheObj->get($email, 'EmailVerifyCodeExpire', false);
-            dfoxaError('account.cooling-email', array('expire' => $verifyCodeExpireTimestamp, 'expire_time' => date('r', $verifyCodeExpireTimestamp)));
+            dfoxaError('account.cooling-email', array('expire' => (int)$verifyCodeExpireTimestamp, 'expire_time' => date('r', $verifyCodeExpireTimestamp)));
         }
 
         // 生成验证码
@@ -71,9 +71,6 @@ class VerifyCode extends sendEmail
      */
     public function checkVerifyCode($email, $code)
     {
-        echo '_';
-        echo $this->CacheObj->get($email, 'EmailVerifyCode', false);
-        exit;
         if ((int)$this->CacheObj->get($email, 'EmailVerifyCode', false) === (int)$code) {
             return true;
         }
