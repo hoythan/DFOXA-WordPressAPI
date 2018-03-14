@@ -3,7 +3,9 @@
 namespace media;
 
 use account\token\verify as Verify;
+use account\multi\blog as Blog;
 use Respect\Validation\Validator as Validator;
+
 require_once(ABSPATH . 'wp-admin/includes/image.php');
 require_once(ABSPATH . 'wp-admin/includes/file.php');
 require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -25,99 +27,27 @@ class upload extends file
         dfoxaGateway($ret);
     }
 
-    public function _run()
-    {
-        // 验证身份
-        $user = Verify::check('', true);
-        $userdata = get_userdata($user['userid']);
-
-        $role = get_option('dfoxa_media_user');
-        if($role !== 'all'){
-            $userrole = $userdata->roles[0];
-            $roles = array_keys(wp_roles()->roles);
-            $level = 99999;
-            $userlevel = 99999;
-            foreach ($roles as $i => $r) {
-                if ($r == $role) {
-                    $level = $i;
-                }
-                if ($r == $userrole) {
-                    $userlevel = $i;
-                }
-            }
-            if ($userlevel > $level)
-                dfoxaError('media.error-userlevel');
-        }
-
-        // 验证文件
-        if (!isset($_FILES))
-            dfoxaError('media.empty-file');
-
-        // 加载必备文件
-        add_filter('sanitize_file_name', 'dfoxa_make_filename_hash', 10);
-
-        // 后台限制
-        $type = get_option('dfoxa_media_type');
-
-        $types = array();
-        if (!empty($type) && $type == '*') {
-            $types = explode(',', $type);
-        }
-        // 回调配置
-        $guids = array();
-        $file_urls = array();
-        $gateway = get_option('dfoxa_gateway');
-        $file_url = home_url('/' . $gateway . '?method=media.get&file_id=');
-        // 循环上传
-        foreach ($_FILES as $fileKey => $file) {
-            // 验证文件格式
-
-            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-            if (count($types) > 0 && !in_array($ext, $types))
-                dfoxaError('media.error-uploadfiletype');
-
-            $result = media_handle_upload($fileKey, null);
-            if (is_wp_error($result)) {
-                dfoxaError('media.error-upload', array(
-                    'sub_msg' => $result->get_error_message()
-                ));
-            }
-
-            // 保存文件信息
-            $guid = get_GUIDStr();
-            update_fileMeta($guid, $result);
-            $guids[] = $guid;
-        }
-
-        if (count($guids) == 1) {
-            $guids = $guids[0];
-            $file_urls = $file_url . $guids;
-        } else {
-            foreach ($guids as $guid)
-                $file_urls[] = $file_url . $guid;
-        }
-
-        dfoxaGateway(array(
-            'msg' => '文件上传成功',
-            'file_id' => $guids,
-            'file_url' => $file_urls
-        ));
-    }
-
-
     public function update()
     {
+        /**
+         * 多站点的用户组获取方式不同,在此处进行判断区分
+         */
         $userid = Verify::getSignUserID();
-        $userdata = get_userdata($userid);
+        if (is_multisite()) {
+
+            $blog_id = Blog::get_current_blog_id();
+            $user = new \WP_User(
+                $userid,
+                '',
+                $blog_id
+            );
+        } else {
+            $user = get_userdata($userid);
+        }
+
+        $user_role = $user->roles[0];
 
         $upload_dir = wp_upload_dir();
-
-        /*
-         * 检查用户权限
-         */
-        $user_role = $userdata->roles[0];
-
-
         $type = get_option('dfoxa_media_user');
         $roles = get_option('dfoxa_media_user_role');
 
@@ -158,7 +88,7 @@ class upload extends file
              * 格式验证
              */
             $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            if (count($fileexts) > 0 && !in_array($ext, $fileexts)) {
+            if (count($fileexts) > 0 && !in_array($ext, $fileexts) && !in_array('*', $fileexts)) {
                 dfoxaError('media.error-uploadfiletype');
             }
 
@@ -179,10 +109,10 @@ class upload extends file
             $maxSize = apply_filters('dfoxa_media_upload_filesize', get_option('dfoxa_media_size'));
 
             // 没有填写单位 默认为KB
-            if((string)$maxSize === (string)(int)$maxSize)
+            if ((string)$maxSize === (string)(int)$maxSize)
                 $maxSize .= 'kb';
 
-            if (Validator::size(null,$maxSize)->validate($file)) {
+            if (Validator::size(null, $maxSize)->validate($file)) {
                 dfoxaError('media.error-maxfilesize', array(
                     'sub_msg' => "请勿超过" . get_option('dfoxa_media_size')
                 ));
@@ -204,7 +134,7 @@ class upload extends file
             $result = media_handle_upload($fileKey, null);
 
             if (is_wp_error($result)) {
-                dfoxaError('media.error-upload',array(
+                dfoxaError('media.error-upload', array(
                     'sub_msg' => $result->get_error_message()
                 ));
             }

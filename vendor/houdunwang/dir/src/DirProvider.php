@@ -14,7 +14,6 @@ use houdunwang\framework\build\Provider;
 
 class DirProvider extends Provider
 {
-
     //延迟加载
     public $defer = true;
 

@@ -42,6 +42,7 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
             'account\\token\\' => 14,
             'account\\sign\\' => 13,
             'account\\oauth\\' => 14,
+            'account\\multi\\' => 14,
         ),
         'Z' => 
         array (
@@ -128,6 +129,10 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
         'account\\oauth\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/account/oauth',
+        ),
+        'account\\multi\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib/account/multi',
         ),
         'Zhuzhichao\\IpLocationZh\\' => 
         array (

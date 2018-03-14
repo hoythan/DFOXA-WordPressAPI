@@ -18,6 +18,7 @@ return array(
     'account\\token\\' => array($baseDir . '/lib/account/token', $baseDir . '/lib/account/token/modes'),
     'account\\sign\\' => array($baseDir . '/lib/account/sign'),
     'account\\oauth\\' => array($baseDir . '/lib/account/oauth'),
+    'account\\multi\\' => array($baseDir . '/lib/account/multi'),
     'Zhuzhichao\\IpLocationZh\\' => array($vendorDir . '/zhuzhichao/ip-location-zh/src'),
     'Tests\\' => array($baseDir . '/lib/Tests'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

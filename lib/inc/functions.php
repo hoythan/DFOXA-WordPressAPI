@@ -241,7 +241,7 @@ function dfoxaError($sub_code, $message = array(), $httpCode = 200)
     if (is_object($message))
         $message = objectToArray($message);
 
-    dfoxa_append_message($message,$sub_code);
+    dfoxa_append_message($message, $sub_code);
     throw new \Exception($sub_code, $httpCode);
 }
 
@@ -250,8 +250,15 @@ function dfoxaError($sub_code, $message = array(), $httpCode = 200)
  */
 use gateway\method as Gateway;
 
-function dfoxaGateway($response = '', $status = '10000', $code = '200', $arrayKey = '')
+function dfoxaGateway($response = '', $status = '10000', $code = '200', $arrayKey = '', $hideRequest = false)
 {
+    if (empty($status))
+        $status = '10000';
+
+    if (empty($code))
+        $code = '200';
+
+
     global $dfoxaAppendMessages;
     if (isset($dfoxaAppendMessages['_'])) {
         foreach ($dfoxaAppendMessages['_'] as $append_message) {
@@ -259,7 +266,7 @@ function dfoxaGateway($response = '', $status = '10000', $code = '200', $arrayKe
         }
     }
 
-    Gateway::responseSuccessJSON($response, $status, $code, $arrayKey);
+    Gateway::responseSuccessJSON($response, $status, $code, $arrayKey, $hideRequest);
 }
 
 
@@ -474,11 +481,3 @@ function load_plugins_funfile()
 }
 
 add_action('init', 'load_plugins_funfile', 1);
-
-
-/**
- * 注册自定义的 meta 表
- */
-function dfoxa_regist_meta($meta_key){
-
-}

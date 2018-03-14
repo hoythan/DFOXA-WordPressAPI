@@ -60,7 +60,6 @@ class method
         if ($pagename != $gateway && strpos($pagename, $gateway) !== 0)
             dfoxaError('gateway.undefined', array(), -1);
 
-
         return true;
     }
 
@@ -105,7 +104,6 @@ class method
 
             for ($i = 1; $i < $num; $i++) {
                 $methodClass .= '\\' . $class[$i];
-
                 if ($i < $num - 1)
                     $methodNameSpace .= $methodNameSpace == '' ? $class[$i] : '\\' . $class[$i];
             }
@@ -129,7 +127,7 @@ class method
                         include_once(str_replace('\\', DFOXA_SEP, DFOXA_PLUGINS . $methodClass . '.php'));
                 }
             }
-            
+
             if (!class_exists($methodClass)) {
                 apply_filters('dfoxa_wpapi_method_exists_class', $pagename);
                 dfoxaError('gateway.empty-method');
@@ -202,7 +200,7 @@ class method
         }
 
         header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Accept');
+        header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Access-Token, Blog-ID');
         header('Access-Control-Allow-Credentials:true'); // 接收 Cookie
         header('Content-type: application/json');
 
@@ -214,11 +212,11 @@ class method
      * 输出 json 格式结果,在成功的情况下执行
      * $arrkey 如果填写，则拼接到code之下
      */
-    public static function responseSuccessJSON($response = '', $status = '10000', $code = '200', $arrayKey = '')
+    public static function responseSuccessJSON($response = '', $status = '10000', $code = '200', $arrayKey = '', $hideRequest = false)
     {
         status_header($code);
         header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Allow-Headers:Origin, X-Requested-With, Content-Type, Accept');
+        header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Access-Token, Blog-ID');
         header('Access-Control-Allow-Credentials:true'); // 接收 Cookie
         header('Content-type: application/json');
         // 清理空的返回内容
@@ -233,18 +231,23 @@ class method
         }
 
         // 将用户的请求包含在返回的内容中
-        global $bizContent;
-        $response['request'] = $bizContent;
+
+        if (!$hideRequest){
+            global $bizContent;
+            $response['request'] = $bizContent;
+        }
+
         if ($arrayKey == '') {
             $echo_array = array_merge(code::_e($status), $response);
         } else {
             $echo_array = array_merge(code::_e($status), array($arrayKey => $response));
         }
+
         /**
          * 强制关闭所有报错信息
          * https://developer.wordpress.org/reference/functions/wp_debug_mode/
          */
-        ini_set( 'display_errors', 0 );
+        ini_set('display_errors', 0);
         ob_clean();
         echo json_encode($echo_array);
         exit;

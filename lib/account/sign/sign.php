@@ -26,15 +26,15 @@ abstract class sign
      *          - type = 'emailcode' value 留空表示获取登录验证码,不为空表示验证验证码
      *          - type = 'phonecode' value 留空表示获取登录验证码,不为空表示验证验证码
      *
-     * @param bool $checkPassword   是否检查密码,false 表示Value不需要输入登录密码 （emailcode 和 phonecode除外）
-     * @param bool $checkSignType   是否检查登录类型,false
+     * @param bool $checkPassword 是否检查密码,false 表示Value不需要输入登录密码 （emailcode 和 phonecode除外）
+     * @param bool $checkSignType 是否检查登录类型,false
      * @param bool $refreshAccessToken 刷新当前登录用户的AccessToken . 私有参数!!!用于 Verify Token 时获取用户信息所用
      */
     public static function signInAccount($args = array(
         'type' => '',
         'field' => '',
         'value' => ''
-    ), $checkPassword = true, $checkSignType = true,$refreshAccessToken = true)
+    ), $checkPassword = true, $checkSignType = true, $refreshAccessToken = true)
     {
         $type = strtolower($args['type']);
         $field = $args['field'];
@@ -51,6 +51,9 @@ abstract class sign
         // 判断是否允许登录
         if ($limit === 'disable')
             dfoxaError('account.close-login');
+
+        if (!isset($type) || empty($type))
+            dfoxaError('account.error-login', array('sub_msg' => '你必须配置一个登陆方式'));
 
         if (!in_array($type, $types) && $checkSignType)
             dfoxaError('account.error-login', array('sub_msg' => '"' . $type . '"是不被允许的登录方式'), 204);
@@ -71,6 +74,8 @@ abstract class sign
                 self::_checkUserPassword($user, $value, $checkPassword);
                 break;
             case 'login':
+                if (empty($field))
+                    dfoxaError('account.empty-account');
                 // 验证登录账号是否存在
                 if (empty($field) || !Validator::stringType()->validate($field))
                     dfoxaError('account.warning-login', array('sub_msg' => '登录账号格式有误'));
@@ -152,7 +157,7 @@ abstract class sign
 
 
         // 注册登录filter
-        $ret = apply_filters('dfoxa_account_signin_response', $responseData);
+        $ret = apply_filters('dfoxa_account_signin_response', $responseData, $user);
         return $ret;
     }
 
@@ -228,9 +233,9 @@ abstract class sign
                 }
 
                 // 邮箱验证
-                if(empty($create_user['email'])){
+                if (empty($create_user['email'])) {
                     $create_user['email'] = '';
-                }else{
+                } else {
                     // 验证邮箱格式是否符合规范
 
                     // 验证邮箱是否存在
@@ -360,10 +365,10 @@ abstract class sign
             return true;
 
         if (empty($password))
-            dfoxaError('account.warning-login', array('sub_msg' => '登录密码不可为空'));
+            dfoxaError('account.empty-password');
 
         if (!wp_check_password($password, $user->data->user_pass, $user->ID))
-            dfoxaError('account.warning-login', array('sub_msg' => '账号或密码有误'));
+            dfoxaError('account.error-password');
 
         return true;
     }

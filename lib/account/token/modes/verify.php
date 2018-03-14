@@ -99,7 +99,7 @@ class verify extends token
             dfoxaError('account.expired-accesstoken');
 
         $group_key = '_access_token_' . $userid;
-        if ($cacheDriver->get($onlytoken, $group_key) !== 1) {
+        if ($cacheDriver->get($onlytoken, $group_key) != 1) {
             // 如果用户的 group_key 不存在，则清空 access_token 的值
             $cacheDriver->delete($access_token, '_access_token');
             dfoxaError('account.distance-accesstoken');
@@ -133,6 +133,11 @@ class verify extends token
         // 从 Cookie 中获取
         if (isset($_COOKIE['access_token']))
             return $_COOKIE['access_token'];
+
+        // 从 请求头 获取
+        if(isset($_SERVER['HTTP_ACCESS_TOKEN'])){
+            return $_SERVER['HTTP_ACCESS_TOKEN'];
+        }
 
         // ...
 

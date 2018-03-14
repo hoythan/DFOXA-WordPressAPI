@@ -9,6 +9,7 @@
 ^DangDang
 ^DavClnt
 ^FDM 
+^Grabber
 ^git\/
 ^Goose\/
 ^HTTPClient\/
@@ -40,6 +41,7 @@ adbeat
 AddThis
 ADmantX
 adressendeutschland
+adscanner\/
 Advanced Email Extractor v
 agentslug
 AHC
@@ -56,12 +58,15 @@ alyze\.info
 amagit
 AndroidDownloadManager
 Anemone
+AngleSharp\/
 Ant\.com
 Anturis Agent
 AnyEvent-HTTP\/
+Apache Droid
 ApacheBench\/
 Apache-HttpAsyncClient\/
 Apache-HttpClient\/
+APIs-Google
 AportWorm\/[0-9]
 AppBeat\/[0-9]
 AppEngine-Google
@@ -106,6 +111,7 @@ Branch-Passthrough
 Brodie\/
 Browsershots
 BUbiNG
+Burf Search
 Butterfly\/
 BuzzSumo
 CAAM\/[0-9]
@@ -137,6 +143,7 @@ CloudFlare-AlwaysOnline
 Cloudinary\/[0-9]
 cmcm\.com
 coccoc
+colly -
 CommaFeed
 Commons-HttpClient
 Comodo SSL Checker
@@ -153,6 +160,7 @@ curl
 cuwhois\/[0-9]
 cybo\.com
 DareBoost
+help@dataminr\.com
 DataparkSearch
 dataprovider
 Daum(oa)?[ \/][0-9]
@@ -168,6 +176,7 @@ docoloc
 Dolphin http client\/
 DomainAppender
 Donuts Content Explorer
+dotMailer content retrieval
 dotSemantic
 downforeveryoneorjustme
 downnotifier\.com
@@ -186,6 +195,7 @@ eContext\/
 ElectricMonk
 elefent
 EMail Exractor
+Email%20Extractor%20Lite
 EmailWolf
 Embed PHP Library
 Embedly
@@ -249,6 +259,7 @@ GetURLInfo\/[0-9]
 Ghost Inspector
 GigablastOpenSource
 GIS-LABS
+github-camo
 github\.com\/
 Go [\d\.]* package http
 Go-http-client
@@ -288,10 +299,12 @@ Grammarly
 grouphigh
 grokkit
 grub-client
+gSOAP\/
 GTmetrix
 GuzzleHttp
 gvfs\/
 HAA(A)?RTLAND http client
+hackney\/
 Hatena
 hawkReader
 HEADMasterSEO
@@ -318,6 +331,7 @@ HttpComponents
 httphr
 HTTPMon
 PEAR HTTPRequest
+http\.rb\/
 httpscheck
 httpssites_power
 httpunit
@@ -326,8 +340,7 @@ httrack
 hosterstats
 huaweisymantec
 HubPages.*crawlingpolicy
-HubSpot Connect
-HubSpot Marketing Grader
+HubSpot 
 HyperZbozi.cz Feeder
 i2kconnect\/
 ichiro
@@ -370,9 +383,12 @@ Jaunt\/
 Jersey\/
 Jigsaw
 Jobboerse
+JobFeed discovery
 Jobg8 URL Monitor
 jobo
 Jobrapido
+Jobsearch1\.5
+JoinVision Generic
 JS-Kit
 Kaspersky Lab CFR link resolver
 KeepRight OpenStreetMap Checker
@@ -406,6 +422,7 @@ linkdex
 LinkExaminer
 linkfluence
 linkpeek
+LinkPreviewGenerator
 LinkTiger
 LinkWalker
 Lipperhey
@@ -438,6 +455,7 @@ Microsoft-WebDAV-MiniRedir
 Microsoft Data Access Internet Publishing Provider Protocol
 Microsoft Office 
 Microsoft Windows Network Diagnostics
+Miniature.io\/
 Mindjet
 Miniflux
 mixdata dot com
@@ -457,6 +475,7 @@ MovableType
 Mrcgiguy
 mShots
 MxToolbox\/
+MuckRack\/
 MVAClient
 nagios
 Najdi\.si\/
@@ -471,15 +490,18 @@ NetTrack
 Netvibes
 Neustar WPM
 NeutrinoAPI
+NewRelicPinger\/1.0 \(\d+\)
 NewsBlur .*Finder
 NewsGator
 newsme
 newspaper\/
+Nexgate Ruby Client
 NG-Search
 nineconnections\.com
 NLNZ_IAHarvester
 Nmap Scripting Engine
 node-superagent
+node-urllib\/
 node\.io
 nominet\.org\.uk
 Norton-Safeweb
@@ -492,6 +514,7 @@ nWormFeedFinder
 Nymesis
 Ocelli\/[0-9]
 oegp
+Offline Explorer
 okhttp
 Omea Reader
 omgili
@@ -521,6 +544,7 @@ Pcore-HTTP
 Pearltrees
 peerindex
 Peew
+Perlu -
 PhantomJS\/
 PhantomJS Screenshoter
 Photon\/
@@ -547,6 +571,7 @@ postrank
 PowerPoint\/
 Priceonomics Analysis Engine
 PritTorrent\/[0-9]
+PrintFriendly\.com
 Prlog
 probethenet
 Project 25499
@@ -590,6 +615,7 @@ RPT-HTTPClient
 RSSOwl
 safe-agent-scanner
 SalesIntelligent
+Saleslift
 SauceNAO
 SBIder
 scalaj-http
@@ -607,6 +633,7 @@ Seeker
 semanticdiscovery
 semanticjuice
 Semiocast HTTP client
+sentry\/
 SEO Browser
 Seo Servis
 seo-nastroj.cz
@@ -616,6 +643,7 @@ SeoCheck
 SeopultContentAnalyzer
 Server Density Service Monitoring
 servernfo\.com
+SetCronJob\/
 Seznam screenshot-generator
 Shelob
 Shoppimon Analyzer
@@ -627,6 +655,7 @@ SilverReader
 Sideqik
 SimplePie
 SimplyFast
+Sitebulb\/
 SiteIndexed
 Site-Shot\/
 Site24x7
@@ -651,6 +680,7 @@ Snappy
 SniffRSS
 sniptracker
 Snoopy
+SnowHaze Search
 sogou web
 SortSite
 sovereign\.ai
@@ -689,6 +719,7 @@ teoma
 terrainformatica\.com
 Test Certificate Info
 Tetrahedron\/[0-9]
+Thinklab
 The Drop Reaper
 The Expert HTML Source Viewer
 theinternetrules
@@ -705,6 +736,7 @@ TrapitAgent
 trendspottr\.com
 truwoGPS
 TulipChain
+Twisted PageGetter
 tweetedtimes\.com
 Tweetminster
 Tweezler\/
@@ -715,9 +747,11 @@ uclassify
 uCrawlr\/
 UdmSearch
 UniversalFeedParser
+Unshorten\.It\!\/[0-9]
 Untiny
 UnwindFetchor
 updated
+updown\.io daemon
 Upflow
 Uptimia
 URL Verifier
@@ -744,6 +778,7 @@ W3C-mobileOK
 W3C_I18n-Checker
 W3C_Unicorn
 wangling
+Wappalyzer
 WatchMouse
 WbSrch\/
 web-capture\.net
@@ -754,6 +789,7 @@ WebCapture
 WebClient\/
 webcollage
 WebCookies
+WebCopier
 WebCorp
 WebDoc
 WebFetch
@@ -820,6 +856,7 @@ Yoleo Consumer
 yoogliFetchAgent
 YottaaMonitor
 yourls\.org
+Your-Website-Sucks\/[0-9]
 Zao
 Zemanta Aggregator
 Zend\\Http\\Client
@@ -827,4 +864,4 @@ Zend_Http_Client
 zgrab
 ZnajdzFoto
 ZyBorg
-[a-z0-9\-_]*((?<!cu)bot|crawler|archiver|transcoder|spider|uptime|validator|fetcher)
+[a-z0-9\-_]*(bot|crawler|archiver|transcoder|spider|uptime|validator|fetcher)

@@ -103,7 +103,7 @@ class code extends method
                 'solution' => '重新设置有关账户配置中的相关登录配置'
             ),
             'account.warning-login' => array(
-                'code' => 11004,
+                'code' => 11003,
                 'msg' => '登录失败',
                 'sub_msg' => '',
                 'solution' => '请稍后再试'
@@ -118,6 +118,24 @@ class code extends method
                 'code' => 11005,
                 'msg' => '登录接口出错',
                 'sub_msg' => '',
+                'solution' => '请稍后再试'
+            ),
+            'account.empty-account' => array(
+                'code' => 11006,
+                'msg' => '登录接口出错',
+                'sub_msg' => '请填写登陆账号',
+                'solution' => '请稍后再试'
+            ),
+            'account.empty-password' => array(
+                'code' => 11007,
+                'msg' => '登录接口出错',
+                'sub_msg' => '登录密码不能留空',
+                'solution' => '请稍后再试'
+            ),
+            'account.error-password' => array(
+                'code' => 11008,
+                'msg' => '登录密码有误',
+                'sub_msg' => '糟糕，密码不正确。请重试！',
                 'solution' => '请稍后再试'
             ),
             'account.empty-register-api' => array(
@@ -384,6 +402,18 @@ class code extends method
                 'sub_msg' => '当前用户媒体库权限还未配置或格式有误,请联系相关人员修复',
                 'solution' => '请检查后再试'
             ),
+            'multi.empty-blogid' => array(
+                'code' => 14500,
+                'msg' => '站点 ID 有误',
+                'sub_msg' => '请检查您提交的参数是否具有 blog_id 相关内容',
+                'solution' => '请稍后再试'
+            ),
+            'multi.error-blogid' => array(
+                'code' => 14501,
+                'msg' => '站点 ID 有误',
+                'sub_msg' => '你没有此站点的操作权限',
+                'solution' => '请稍后再试'
+            ),
             'sms.empyt-service' => array(
                 'code' => 15001,
                 'msg' => '短信接口未配置或无效',
@@ -433,10 +463,6 @@ class code extends method
             }
             unset($dfoxaAppendMessages[$sub_code]);
         }
-
-        // 将用户的请求包含在返回的内容中
-        global $bizContent;
-        $code['request'] = $bizContent;
 
         return $code;
 

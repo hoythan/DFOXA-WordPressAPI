@@ -85,16 +85,16 @@
         },
         {
             "name": "houdunwang/dir",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/houdunwang/dir.git",
-                "reference": "cc0aeb304a050b91a7916345a4ca6354cc63e2e4"
+                "reference": "372a64e63edc2893177ed53b8fa300647373277c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/houdunwang/dir/cc0aeb304a050b91a7916345a4ca6354cc63e2e4.zip",
-                "reference": "cc0aeb304a050b91a7916345a4ca6354cc63e2e4",
+                "url": "https://files.phpcomposer.com/files/houdunwang/dir/372a64e63edc2893177ed53b8fa300647373277c.zip",
+                "reference": "372a64e63edc2893177ed53b8fa300647373277c",
                 "shasum": ""
             },
             "require": {
@@ -130,20 +130,20 @@
                 "向军老师",
                 "目录管理"
             ],
-            "time": "2017-12-12T04:37:35+00:00"
+            "time": "2018-02-27T06:28:10+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.54",
+            "version": "v1.2.60",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "9af25770d9382917b680009a88497162405bbe48"
+                "reference": "6e9abfe7100f1c8febfa600b3568192989f10c2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/JayBizzle/Crawler-Detect/9af25770d9382917b680009a88497162405bbe48.zip",
-                "reference": "9af25770d9382917b680009a88497162405bbe48",
+                "url": "https://files.phpcomposer.com/files/JayBizzle/Crawler-Detect/6e9abfe7100f1c8febfa600b3568192989f10c2e.zip",
+                "reference": "6e9abfe7100f1c8febfa600b3568192989f10c2e",
                 "shasum": ""
             },
             "require": {
@@ -179,7 +179,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2017-10-28T13:05:55+00:00"
+            "time": "2018-03-05T20:50:06+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -249,16 +249,16 @@
         },
         {
             "name": "mobiledetect/mobiledetectlib",
-            "version": "2.8.30",
+            "version": "2.8.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "5500bbbf312fe77ef0c7223858dad84fe49ee0c3"
+                "reference": "adb882ea3b9d154f087ecb2c333180dad6f4dd37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/serbanghita/Mobile-Detect/5500bbbf312fe77ef0c7223858dad84fe49ee0c3.zip",
-                "reference": "5500bbbf312fe77ef0c7223858dad84fe49ee0c3",
+                "url": "https://files.phpcomposer.com/files/serbanghita/Mobile-Detect/adb882ea3b9d154f087ecb2c333180dad6f4dd37.zip",
+                "reference": "adb882ea3b9d154f087ecb2c333180dad6f4dd37",
                 "shasum": ""
             },
             "require": {
@@ -297,7 +297,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2017-12-18T10:38:51+00:00"
+            "time": "2018-02-26T19:39:55+00:00"
         },
         {
             "name": "respect/validation",
@@ -364,16 +364,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296"
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/polyfill-mbstring/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296.zip",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+                "url": "https://files.phpcomposer.com/files/symfony/polyfill-mbstring/78be803ce01e55d3491c1397cf1c64beb9c1b63b.zip",
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b",
                 "shasum": ""
             },
             "require": {
@@ -385,7 +385,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -419,7 +419,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-10-11T12:05:26+00:00"
+            "time": "2018-01-30T19:27:44+00:00"
         },
         {
             "name": "zhuzhichao/ip-location-zh",

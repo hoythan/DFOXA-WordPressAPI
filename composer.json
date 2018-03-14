@@ -30,6 +30,9 @@
         "lib/account/token",
         "lib/account/token/modes"
       ],
+      "account\\multi\\": [
+        "lib/account/multi"
+      ],
       "gateway\\": "lib/gateway",
       "tools\\": "lib/tools",
       "tools\\sms\\": "lib/tools/sms",
