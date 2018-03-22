@@ -13,6 +13,10 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
     );
 
     public static $prefixLengthsPsr4 = array (
+        'w' => 
+        array (
+            'wapmorgan\\FileTypeDetector\\' => 27,
+        ),
         't' => 
         array (
             'tools\\sql\\' => 10,
@@ -75,6 +79,10 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
     );
 
     public static $prefixDirsPsr4 = array (
+        'wapmorgan\\FileTypeDetector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wapmorgan/file-type-detector/src',
+        ),
         'tools\\sql\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/tools/sql',

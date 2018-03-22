@@ -4,6 +4,7 @@ namespace media;
 
 use account\token\verify as Verify;
 use Respect\Validation\Validator as Validator;
+use wapmorgan\FileTypeDetector\Detector as FileTypeDetector;
 
 require_once(ABSPATH . 'wp-admin/includes/image.php');
 require_once(ABSPATH . 'wp-admin/includes/file.php');
@@ -86,6 +87,9 @@ class upload
             /*
              * 格式验证
              */
+            // 过滤文件名
+            $file['name'] = sanitize_file_name($file['name']);
+
             $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
             if (count($fileexts) > 0 && !in_array($ext, $fileexts) && !in_array('*', $fileexts)) {
                 dfoxaError('media.error-uploadfiletype');
@@ -94,13 +98,10 @@ class upload
             /*
              * 类型验证
              */
-            $type = wp_check_filetype($file['name']);
-            $filedata = getimagesize($file['tmp_name']);
-
-            if ($filedata['mime'] != $type['type']) {
+            $fileMime = wp_check_filetype($file['name']);
+            if (FileTypeDetector::getMimeType($file['tmp_name']) != $fileMime['type']) {
                 dfoxaError('media.error-uploadfiletype');
             }
-
 
             /*
              * 尺寸验证

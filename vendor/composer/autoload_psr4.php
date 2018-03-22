@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'wapmorgan\\FileTypeDetector\\' => array($vendorDir . '/wapmorgan/file-type-detector/src'),
     'tools\\sql\\' => array($baseDir . '/lib/tools/sql'),
     'tools\\sms\\' => array($baseDir . '/lib/tools/sms'),
     'tools\\logs\\' => array($baseDir . '/lib/tools/logs', $baseDir . '/lib/tools/logs/set', $baseDir . '/lib/tools/logs/get', $baseDir . '/lib/tools/logs/update'),

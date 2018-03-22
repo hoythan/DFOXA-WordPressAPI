@@ -6,7 +6,8 @@
     "jenssegers/agent": "^2.5",
     "houdunwang/dir": "^1.0",
     "zhuzhichao/ip-location-zh": "^2.4",
-    "bupt1987/html-parser": "^3.0"
+    "bupt1987/html-parser": "^3.0",
+    "wapmorgan/file-type-detector": "^1.1"
   },
   "repositories": {
     "packagist": {

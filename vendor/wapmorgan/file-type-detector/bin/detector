@@ -1,0 +1,46 @@
+#!/usr/bin/env php
+<?php
+require __DIR__.'/../vendor/autoload.php';
+
+use wapmorgan\FileTypeDetector\Detector;
+use wapmorgan\FileTypeDetector\TerminalInfo;
+
+if ($argc == 1)
+    die('Specify file names to perform detection');
+
+if (TerminalInfo::isInteractive()) {
+    $width = (TerminalInfo::getWidth() - 42) / 2;
+} else {
+    $width = 19; // (80 - 40) / 2
+}
+
+function performDetection($filename) {
+    global $width;
+    $type_ext = Detector::detectByFilename($filename);
+    // open string as an URL if it's not readable
+    $type_bin = Detector::detectByContent(!is_readable($filename) ? fopen($filename, 'r') : $filename);
+    echo sprintf('%34s | %-'.$width.'s | %-'.$width.'s', substrIfLonger(basename($filename), 34), $type_ext === false ? 'fail' : substrIfLonger($type_ext[0].': '  .$type_ext[1].' ('.$type_ext[2].')', $width), $type_bin === false ? 'fail' : substrIfLonger($type_bin[0].': '.$type_bin[1].' ('.$type_bin[2].')', $width)).PHP_EOL;
+}
+
+array_shift($argv);
+echo sprintf('%34s | %-'.$width.'s | %-'.$width.'s', 'File name', 'By extension', 'By content').PHP_EOL;
+foreach ($argv as $arg) {
+    if (strpos($arg, '*')) {
+        foreach (glob($arg) as $f) {
+            if (is_file($f))
+                performDetection($f);
+        }
+    } else if (is_dir($arg)) {
+        foreach (glob(rtrim($arg, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'*') as $f) {
+            if (is_file($f))
+                performDetection($f);
+        }
+    } else
+        performDetection($arg);
+}
+
+function substrIfLonger($string, $maxLength) {
+    if (strlen($string) > $maxLength)
+        return '...'.substr($string, strlen($string) - $maxLength + 3);
+    return $string;
+}

@@ -1,0 +1,58 @@
+#!/usr/bin/env php
+<?php
+require __DIR__.'/../vendor/autoload.php';
+
+use wapmorgan\FileTypeDetector\Detector;
+
+$class = new ReflectionClass('wapmorgan\FileTypeDetector\Detector');
+$properties = $class->getDefaultProperties();
+
+$all_formats = $properties['extensions'];
+$all_types = $properties['types'];
+
+if (isset($argv[1]) && in_array($argv[1], array('types', 'support'))) {
+	$table = $argv[1];
+} else {
+	echo 'Table type (write "types" or "support"): ';
+	$input = trim(fgets(STDIN));
+	if (!in_array($input, array('types', 'support')))
+		die('Sorry, but input is invalid'.PHP_EOL);
+	$table = $input;
+}
+
+switch ($table) {
+	case 'types':
+
+		$i = 0;
+		foreach ($all_types as $type => $type_formats) {
+			echo ($i++ > 0 ? ',' : null).ucfirst($type);
+			sort($type_formats);
+			$all_types[$type] = $type_formats;
+		}
+		echo PHP_EOL;
+
+		$max_count = max(array_map(function ($formats) { return count($formats); }, $all_types));
+
+		for ($i = 0; $i < $max_count; $i++) {
+			$j = 0;
+			foreach ($all_types as $type => $type_formats) {
+				echo ($j++ > 0 ? ',' : null).(isset($type_formats[$i]) ? $type_formats[$i] : null);
+			}
+			echo PHP_EOL;
+		}
+
+		break;
+
+	case 'support':
+
+		$mimetypes = $properties['mimeTypes'];
+		$signatures = $properties['signatures'];
+
+		echo 'Format,Extension,"Detection by content",MimeType'.PHP_EOL;
+
+		foreach ($all_formats as $extension => $format) {
+			echo ucfirst($format).','.$extension.','.(isset($signatures[$format]) ? '+' : '-').','.(isset($mimetypes[$format]) ? $mimetypes[$format] : '-').PHP_EOL;
+		}
+
+		break;
+}
