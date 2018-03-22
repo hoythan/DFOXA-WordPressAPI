@@ -3,14 +3,13 @@
 namespace media;
 
 use account\token\verify as Verify;
-use account\multi\blog as Blog;
 use Respect\Validation\Validator as Validator;
 
 require_once(ABSPATH . 'wp-admin/includes/image.php');
 require_once(ABSPATH . 'wp-admin/includes/file.php');
 require_once(ABSPATH . 'wp-admin/includes/media.php');
 
-class upload extends file
+class upload
 {
     public function run()
     {
@@ -35,7 +34,7 @@ class upload extends file
         $userid = Verify::getSignUserID();
         if (is_multisite()) {
 
-            $blog_id = Blog::get_current_blog_id();
+            $blog_id = get_current_blog_id();
             $user = new \WP_User(
                 $userid,
                 '',

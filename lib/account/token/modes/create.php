@@ -28,8 +28,12 @@ class create extends token
         if (!openssl_private_encrypt($onlytoken, $encrypted, $private_key))
             dfoxaError('account.error-private');
 
-        $encrypted = str_replace(array('=', '/', '-', '+', '&', '*', '?'), array(''), base64_encode($encrypted));
-        $access_token = substr($encrypted, -33, -1);
+        // 混淆 access_token，使每次产生不同的 token 值
+        $access_token = "";
+        if (!openssl_private_encrypt(get_GUIDStr(), $access_token, $private_key))
+            dfoxaError('account.error-private');
+        $access_token = str_replace(array('=', '/', '-', '+', '&', '*', '?'), array(''), base64_encode($access_token));
+        $access_token = substr($access_token, -33, -1);
 
         $cacheDriver = new \cached\cache();
         $res = $cacheDriver->set($access_token, $onlytoken, '_access_token', parent::_expireTime());

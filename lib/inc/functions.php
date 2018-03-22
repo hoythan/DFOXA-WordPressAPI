@@ -200,33 +200,7 @@ function bizContentFilter($filters = array(), $bizContent = '')
 
 /*
  * 设置全局错误信息，为了弥补报错参数少的问题
- * 参考  alidayu.php 错误
  */
-function set_AppendMsg($error_code, $message)
-{
-    global $errorMsg;
-    $errorMsg[$error_code] = $message;
-}
-
-function get_AppendMsg($error_code)
-{
-    global $errorMsg;
-    if (!empty($errorMsg[$error_code])) {
-        if (is_array($errorMsg[$error_code])) {
-            return $errorMsg[$error_code];
-        }
-        return array($errorMsg[$error_code]);
-    } else {
-        return false;
-    }
-}
-
-function clear_AppendMsg()
-{
-    global $errorMsg;
-    $errorMsg = array();
-}
-
 function dfoxa_append_message($message, $key = '_')
 {
     global $dfoxaAppendMessages;

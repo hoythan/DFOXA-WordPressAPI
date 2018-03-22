@@ -9,8 +9,12 @@ class cache
     function __construct()
     {
         $cacheMode = get_option('dfoxa_cache_type');
+        if(isset($cacheMode) || $cacheMode == false){
+            $cacheMode = 'wordpress';
+        }
 
         $cacheMode = '\cached\\' . $cacheMode;
+
         $this->cache = new $cacheMode();
     }
 

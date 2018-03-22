@@ -27,6 +27,9 @@ class method
             // 筛选查询数据
             $this->_getRequest();
 
+            // 多站点检查
+            $this->_setupMultiSize();
+
             // 执行相关查询类
             $method = new $this->methodClass();
             $method->run();
@@ -183,6 +186,47 @@ class method
         return true;
     }
 
+
+    /**
+     * 多站点检查和切换,在多站点情况下强制检查是否有提交 BLOG_ID ，如果不存在则直接报错
+     */
+    public function _setupMultiSize()
+    {
+        if (!is_multisite()) return true;
+
+        $blog_id = 0;
+        $query = bizContentFilter(array(
+            'blog_id'
+        ));
+
+        if (!empty($query->blog_id)) {
+            // 从用户请求中获取
+            $blog_id = $query->blog_id;
+        } else if (isset($_GET['blog_id'])) {
+            // 从 URL地址 中获取
+            $blog_id = $_GET['blog_id'];
+        } else if (isset($_COOKIE['blog_id'])) {
+            // 从 Cookie 中获取
+            $blog_id = $_COOKIE['blog_id'];
+        } else if (isset($_SERVER['HTTP_BLOG_ID'])) {
+            // 从 请求头 获取
+            $blog_id = $_SERVER['HTTP_BLOG_ID'];
+        }
+
+        if (empty($blog_id) || $blog_id === 0 || get_blog_option($blog_id, 'siteurl') === false) {
+            dfoxa_append_message(array('_is_multisite_mode' => false));
+        } else {
+            dfoxa_append_message(array('_is_multisite_mode' => true));
+            switch_to_blog($blog_id);
+            /**
+             * 多站点模式下,缓存系统所保存的站点需固定,
+             * 因在用户登录的时候还没有切换站点,缓存系统使用的是默认的主站点,
+             * 如果不强制设置,这会导致登录后无法获取到缓存系统内容
+             */
+            wp_cache_switch_to_blog(get_current_network_id());
+        }
+    }
+
     /*
      * 输出 json 格式结果,在出错的情况下执行
      */
@@ -232,7 +276,7 @@ class method
 
         // 将用户的请求包含在返回的内容中
 
-        if (!$hideRequest){
+        if (!$hideRequest) {
             global $bizContent;
             $response['request'] = $bizContent;
         }
