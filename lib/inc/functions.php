@@ -4,6 +4,8 @@ date_default_timezone_set('PRC');
 
 require_once('wp_action.php');
 
+// 加载媒体查询,因为里面有 hook 需要注册
+require_once DFOXA_PLUGIN_DIR . "lib/media/query.php";
 /*
  * 获取相关 usermeta 的用户id
  */
@@ -421,7 +423,6 @@ function get_dfoxa_plugins($plugin_name = '')
 
 }
 
-
 /*
  *  获取已经激活的插件
  */
@@ -448,7 +449,10 @@ function load_plugins_funfile()
 {
     $plugins = get_dfoxa_active_plugins();
     foreach ($plugins as $pluginfile => $plugin) {
+        $indexFilePath = dirname(DFOXA_PLUGINS . DFOXA_SEP . $pluginfile) . DFOXA_SEP . 'index.php';
         $funFilePath = dirname(DFOXA_PLUGINS . DFOXA_SEP . $pluginfile) . DFOXA_SEP . 'functions.php';
+        if (file_exists($indexFilePath))
+            require_once($indexFilePath);
         if (file_exists($funFilePath))
             require_once($funFilePath);
     }

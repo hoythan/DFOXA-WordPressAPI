@@ -99,7 +99,7 @@ class upload
              * 类型验证
              */
             $fileMime = wp_check_filetype($file['name']);
-            if (FileTypeDetector::getMimeType($file['tmp_name']) != $fileMime['type']) {
+            if (FileTypeDetector::getMimeType($file['tmp_name']) != false && FileTypeDetector::getMimeType($file['tmp_name']) != $fileMime['type']) {
                 dfoxaError('media.error-uploadfiletype');
             }
 
@@ -139,12 +139,34 @@ class upload
                 ));
             }
 
-            $attachment = wp_get_attachment_metadata($result);
-            $attachment['url'] = $upload_dir['baseurl'] . DFOXA_SEP . $attachment['file'];
-            $attachment['dir'] = $upload_dir['basedir'] . DFOXA_SEP . $attachment['file'];
-            $attachment['ext'] = $ext;
+            $metadata = wp_get_attachment_metadata($result);
+            $post = get_post($result);
+            wp_update_post(array(
+                'ID' => $result,
+                'post_title' => $file['name'],
+                'post_author' => $userid
+            ));
 
-            $attachments[] = apply_filters('dfoxa_media_upload_file_attachment', $attachment);
+            $attachment = array(
+                "id" => $result,
+                "file_name" => $_FILES[$fileKey]['name'],
+                "file_type" => $fileMime['type'],
+                "url" => $post->guid,
+                "title" => $file['name'],
+                "caption" => $post->post_excerpt,
+                "alt_text" => '',
+                "description" => '',
+                "uploaded_by" => get_the_author_meta('display_name', $userid),
+                "uploaded_on" => $post->post_date,
+                "file_size" => size_format($file['size'])
+            );
+            if (wp_attachment_is_image($result)) {
+                $attachment['dimensions'] = $metadata['width'] . ' x ' . $metadata['height'];
+            } else if (empty($metadata['length_formatted'])) {
+                $attachment['length'] = $metadata['length_formatted'];
+            }
+
+            $attachments[] = apply_filters('dfoxa_media_upload_file_attachment', $attachment, $result);
 
         }
 

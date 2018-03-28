@@ -44,6 +44,7 @@ function reload_dfoxa_wpapi()
     $gateway = new \gateway\method();
     $gateway->run();
 }
+
 add_action('wp', 'reload_dfoxa_wpapi', 0);
 
 /*
@@ -67,6 +68,9 @@ $dfoxa_default = array(
     'dfoxa_account_signup_limit' => 'open',
     'dfoxa_account_signup_types' => array('emailcode'),
     'dfoxa_account_access_token_expire' => '3600',
+    'dfoxa_media_del_user' => 'oneself',
+    'dfoxa_media_user_role' => array(),
+    'dfoxa_media_del_user_role' => array(),
     // 邮箱配置
     'dfoxa_email_host' => 'smtp.exmail.qq.com',
     'dfoxa_email_port' => '465',

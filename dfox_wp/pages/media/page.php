@@ -49,7 +49,7 @@ function dfoxa_media_page()
                 </td>
             </tr>
             <tr>
-                <th scope="row">允许上传图片的用户</th>
+                <th scope="row">允许上传媒体的用户</th>
                 <td>
                     <select name="dfoxa_media_user" data-bind-select='[{"event":"change","if":"select","bind":"._select_user_role"}]'>
                         <option <?php if ($data['dfoxa_media_user'] == 'select') {
@@ -65,7 +65,7 @@ function dfoxa_media_page()
                 </td>
             </tr>
             <tr class="_select_user_role <?php if($data['dfoxa_media_user'] != 'select'){echo 'dfox-wp-none';} ?>">
-                <th scope="row">允许上传图片的用户组</th>
+                <th scope="row">允许上传媒体的用户组</th>
                 <td>
                     <?php foreach ($roles as $role) { ?>
                         <label for="<?php echo $role['key']; ?>">
@@ -74,9 +74,37 @@ function dfoxa_media_page()
                                 echo 'checked="checked"';
                             } ?> />
                             <?php echo $role['name']; ?></label>
-
                     <?php } ?>
                     <p>使用文章或商城系统的时候,如果用到传图,<b>请确定用户在允许的范围内!</b></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">允删除媒体的用户</th>
+                <td>
+                    <select name="dfoxa_media_del_user" data-bind-select='[{"event":"change","if":"select","bind":"._select_del_user_role"}]'>
+                        <option <?php if ($data['dfoxa_media_del_user'] == 'select') {
+                            echo 'selected="selected"';
+                        } ?> value="select">指定用户组
+                        </option>
+                        <option <?php if ($data['dfoxa_media_del_user'] == 'oneself') {
+                            echo 'selected="selected"';
+                        } ?> value="oneself">只允许删除自己上传的媒体
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="_select_del_user_role <?php if($data['dfoxa_media_del_user'] != 'select'){echo 'dfox-wp-none';} ?>">
+                <th scope="row">允许删除媒体的用户组</th>
+                <td>
+                    <?php foreach ($roles as $role) { ?>
+                        <label for="<?php echo $role['key']; ?>_del">
+                            <input id="<?php echo $role['key']; ?>_del" type="checkbox" name="dfoxa_media_del_user_role[]"
+                                   value="<?php echo $role['key']; ?>" <?php if (in_array($role['key'],$data['dfoxa_media_del_user_role'])) {
+                                echo 'checked="checked"';
+                            } ?> />
+                            <?php echo $role['name']; ?></label>
+                    <?php } ?>
+                    <p>请谨慎选择允许删除媒体的用户组</p>
                 </td>
             </tr>
             <tr>
@@ -101,11 +129,9 @@ function dfoxa_media_page()
                 <td>
                     <textarea name="dfoxa_media_url" rows="3" cols="50" class="large-text code"
                               placeholder="*.domain.com"><?php echo $data['dfoxa_media_url']; ?></textarea>
-                    <p>用于限制域名访问,建议设置前端和后端的网址,防止文件被外链</p>
+                    <p>用于限制域名访问,建议设置前端和后端的网址,防止文件被外链(必须使用以下拼接方式的地址)</p>
                     <p>留空表示不限制访问来源域名,可使用*作为通配符,<b>一行一个域名</b></p>
-                    <p>图片类型文件可直接使用API接口拼接ID的方式调用显示</p>
-                    <p>API调用接口:<?php echo home_url(); ?>/<?php echo get_option('dfoxa_gateway'); ?>
-                        ?method=media.file.get&id={{文件ID}}</p>
+                    <p>API调用接口:<?php echo home_url(); ?>/<?php echo get_option('dfoxa_gateway'); ?>/media/file/get?id={{文件ID}}</p>
                     <p></p>
                 </td>
             </tr>

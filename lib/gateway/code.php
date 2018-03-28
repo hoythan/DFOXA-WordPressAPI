@@ -402,6 +402,12 @@ class code extends method
                 'sub_msg' => '当前用户媒体库权限还未配置或格式有误,请联系相关人员修复',
                 'solution' => '请检查后再试'
             ),
+            'media.empty-delete-file' => array(
+                'code' => 14105,
+                'msg' => '文件不存在',
+                'sub_msg' => '待删除的文件不存在或已被删除',
+                'solution' => '请检查后再试'
+            ),
             'multi.empty-blogid' => array(
                 'code' => 14500,
                 'msg' => '站点 ID 有误',
