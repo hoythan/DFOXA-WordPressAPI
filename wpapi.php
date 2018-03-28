@@ -39,13 +39,13 @@ define('DFOXA_SEP', DIRECTORY_SEPARATOR);
 require 'dfox_wp/pages/function.php';
 require 'vendor/autoload.php';
 
-function reload_dfoxa_wpapi()
+function load_dfoxa_wpapi()
 {
     $gateway = new \gateway\method();
     $gateway->run();
 }
 
-add_action('wp', 'reload_dfoxa_wpapi', 0);
+add_action('wp', 'load_dfoxa_wpapi', -999);
 
 /*
 	后台

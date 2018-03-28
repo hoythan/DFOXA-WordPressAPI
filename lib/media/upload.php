@@ -158,7 +158,8 @@ class upload
                 "description" => '',
                 "uploaded_by" => get_the_author_meta('display_name', $userid),
                 "uploaded_on" => $post->post_date,
-                "file_size" => size_format($file['size'])
+                "file_size" => size_format($file['size']),
+                "metadata" => $metadata
             );
             if (wp_attachment_is_image($result)) {
                 $attachment['dimensions'] = $metadata['width'] . ' x ' . $metadata['height'];

@@ -18,6 +18,9 @@ class method
         */
         $method = null;
         try {
+            // 多站点切换
+            $this->setupMultiSize();
+
             // 检查网关
             $this->_setupCheckGateway();
 
@@ -27,11 +30,9 @@ class method
             // 筛选查询数据
             $this->_getRequest();
 
-            // 多站点检查
-            $this->_setupMultiSize();
-
             // 执行相关查询类
             $method = new $this->methodClass();
+
             $method->run();
 
             dfoxaError('gateway.empty-run', '', 204);
@@ -190,7 +191,7 @@ class method
     /**
      * 多站点检查和切换,在多站点情况下强制检查是否有提交 BLOG_ID ，如果不存在则直接报错
      */
-    public function _setupMultiSize()
+    private function setupMultiSize()
     {
         if (!is_multisite()) return true;
 
@@ -296,5 +297,4 @@ class method
         echo json_encode($echo_array);
         exit;
     }
-
 }
