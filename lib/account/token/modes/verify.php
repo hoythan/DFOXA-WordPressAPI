@@ -35,12 +35,17 @@ class verify extends token
     public static function check($access_token = '', $get_user = false)
     {
         $userid = self::_getID($access_token);
+
+        // 自动登录用户
+        wp_set_current_user($userid);
+        wp_set_auth_cookie($userid);
+
         if ($get_user) {
             // 登录用户账号
             return Sign::signInAccount(array(
                 'type' => 'id',
                 'field' => $userid
-            ), false, false,false);
+            ), false, false, false);
         } else {
             return $userid;
         }
@@ -81,7 +86,7 @@ class verify extends token
     {
         $cacheDriver = new \cached\cache();
 
-        if($access_token === '')
+        if ($access_token === '')
             $access_token = self::_getAccessToken();
 
         // 从缓存中根据 accesstoken 获取 onlytoken
@@ -135,7 +140,7 @@ class verify extends token
             return $_COOKIE['access_token'];
 
         // 从 请求头 获取
-        if(isset($_SERVER['HTTP_ACCESS_TOKEN'])){
+        if (isset($_SERVER['HTTP_ACCESS_TOKEN'])) {
             return $_SERVER['HTTP_ACCESS_TOKEN'];
         }
 

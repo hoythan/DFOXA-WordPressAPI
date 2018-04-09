@@ -6,7 +6,9 @@ class code extends method
 {
     /**
      * 返回message对应内容
+     *
      * @param string $sub_code
+     *
      * @return bool|mixed
      */
     public static function _e($sub_code = '')
@@ -451,8 +453,17 @@ class code extends method
                 'solution' => '请稍后再试'
             )
         );
+        // 添加新的 codesd
+        $append_codes = apply_filters('append_gateway_codes', array());
+        if (is_array($append_codes) && count($append_codes) > 0) {
+            foreach ($append_codes as $key => $val) {
+                $codes[$key] = $val;
+            }
+        }
 
+        // 更新所有 codes
         $codes = apply_filters('update_gateway_codes', $codes);
+
 
         $code = [
             'code' => 90001
@@ -463,6 +474,7 @@ class code extends method
         $code['sub_code'] = $sub_code;
 
         global $dfoxaAppendMessages;
+
         if (isset($dfoxaAppendMessages[$sub_code])) {
             foreach ($dfoxaAppendMessages[$sub_code] as $append_message) {
                 $code = array_merge($code, $append_message);
@@ -471,6 +483,5 @@ class code extends method
         }
 
         return $code;
-
     }
 }

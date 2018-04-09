@@ -18,14 +18,21 @@ class method
         */
         $method = null;
         try {
-            // 多站点切换
-            $this->setupMultiSize();
-
             // 检查网关
             $this->_setupCheckGateway();
 
+            // OPTIONS 一律直接返回正确
+            if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
+                dfoxaError('gateway.options-success');
+
+            // 自动设置多站点博客 ID
+            dfoxa_auto_set_mulitsite_blog();
+
             // 检查并设置查询类
             $this->_setupCheckMethod();
+
+            global $is_api_query;
+            $is_api_query = true;
 
             // 筛选查询数据
             $this->_getRequest();
@@ -146,11 +153,6 @@ class method
      */
     public function _getRequest()
     {
-        // OPTIONS 一律直接返回正确
-        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
-            dfoxaError('gateway.options-success');
-
-
         global $bizContent;
         // 过滤GET POST以外的请求
         $request_method = array('GET', 'POST');
@@ -188,46 +190,6 @@ class method
     }
 
 
-    /**
-     * 多站点检查和切换,在多站点情况下强制检查是否有提交 BLOG_ID ，如果不存在则直接报错
-     */
-    private function setupMultiSize()
-    {
-        if (!is_multisite()) return true;
-
-        $blog_id = 0;
-        $query = bizContentFilter(array(
-            'blog_id'
-        ));
-
-        if (!empty($query->blog_id)) {
-            // 从用户请求中获取
-            $blog_id = $query->blog_id;
-        } else if (isset($_GET['blog_id'])) {
-            // 从 URL地址 中获取
-            $blog_id = $_GET['blog_id'];
-        } else if (isset($_COOKIE['blog_id'])) {
-            // 从 Cookie 中获取
-            $blog_id = $_COOKIE['blog_id'];
-        } else if (isset($_SERVER['HTTP_BLOG_ID'])) {
-            // 从 请求头 获取
-            $blog_id = $_SERVER['HTTP_BLOG_ID'];
-        }
-
-        if (empty($blog_id) || $blog_id === 0 || get_blog_option($blog_id, 'siteurl') === false) {
-            dfoxa_append_message(array('_is_multisite_mode' => false));
-        } else {
-            dfoxa_append_message(array('_is_multisite_mode' => true));
-            switch_to_blog($blog_id);
-            /**
-             * 多站点模式下,缓存系统所保存的站点需固定,
-             * 因在用户登录的时候还没有切换站点,缓存系统使用的是默认的主站点,
-             * 如果不强制设置,这会导致登录后无法获取到缓存系统内容
-             */
-            wp_cache_switch_to_blog(get_current_network_id());
-        }
-    }
-
     /*
      * 输出 json 格式结果,在出错的情况下执行
      */
@@ -244,9 +206,6 @@ class method
             status_header(200);
         }
 
-        header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Access-Token, Blog-ID');
-        header('Access-Control-Allow-Credentials:true'); // 接收 Cookie
         header('Content-type: application/json');
 
         echo json_encode(code::_e($e->getMessage()));
@@ -260,9 +219,6 @@ class method
     public static function responseSuccessJSON($response = '', $status = '10000', $code = '200', $arrayKey = '', $hideRequest = false)
     {
         status_header($code);
-        header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Access-Token, Blog-ID');
-        header('Access-Control-Allow-Credentials:true'); // 接收 Cookie
         header('Content-type: application/json');
         // 清理空的返回内容
         if (is_object($response))

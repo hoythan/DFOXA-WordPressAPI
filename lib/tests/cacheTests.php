@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace tests;
 class cacheTests
 {
     public function run()

@@ -45,7 +45,7 @@ class upload
             $user = get_userdata($userid);
         }
 
-        $user_role = $user->roles[0];
+        $user_roles = $user->roles;
 
         $upload_dir = wp_upload_dir();
         $type = get_option('dfoxa_media_user');
@@ -57,7 +57,7 @@ class upload
             case "select":
                 $check = false;
                 foreach ($roles as $role) {
-                    if ($user_role == $role) {
+                    if (in_array($role, $user_roles)) {
                         $check = true;
                         break;
                     }
@@ -158,11 +158,11 @@ class upload
                 "description" => '',
                 "uploaded_by" => get_the_author_meta('display_name', $userid),
                 "uploaded_on" => $post->post_date,
-                "file_size" => size_format($file['size']),
-                "metadata" => $metadata
+                "file_size" => size_format($file['size'])
             );
             if (wp_attachment_is_image($result)) {
                 $attachment['dimensions'] = $metadata['width'] . ' x ' . $metadata['height'];
+                $attachment['sizes'] = $metadata['sizes'];
             } else if (empty($metadata['length_formatted'])) {
                 $attachment['length'] = $metadata['length_formatted'];
             }

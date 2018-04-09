@@ -13,8 +13,9 @@ function dfoxa_media_page()
         }
     }
 
+    $wp_roles = new WP_Roles();
     // 用户组
-    foreach (wp_roles()->roles as $role_key => $role) {
+    foreach ($wp_roles->roles as $role_key => $role) {
         $roles[] = array('key' => $role_key, 'name' => $role['name']);
     }
     ?>

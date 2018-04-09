@@ -16,10 +16,6 @@
     }
   },
   "autoload": {
-    "files": [
-      "lib/inc/global.php",
-      "lib/inc/functions.php"
-    ],
     "psr-4": {
       "account\\oauth\\": [
         "lib/account/oauth"
@@ -50,7 +46,7 @@
         "lib/cached",
         "lib/cached/modes"
       ],
-      "Tests\\": "lib/Tests"
+      "tests\\": "lib/tests"
     }
   }
 }

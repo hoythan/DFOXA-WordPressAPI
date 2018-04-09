@@ -13,16 +13,21 @@ class query
         $query = bizContentFilter(array(
             'paged',
             'post_mime_types',
-            'posts_per_page'
+            'posts_per_page',
+            'post__in',
+            'orderby'
         ));
 
-        $paged = isset($query->paged) ? absint($query->paged) > 0 ? absint($query->paged) : 1 : 1;
-        $posts_per_page = isset($query->posts_per_page) ? absint($query->posts_per_page) > 0 ? absint($query->posts_per_page) : 20 : 20;
+        $paged = isset($query->paged) ? (absint($query->paged) > 0 ? absint($query->paged) : 1) : 1;
+        $posts_per_page = isset($query->posts_per_page) ? (absint($query->posts_per_page) > 0 ? absint($query->posts_per_page) : 20) : 20;
         $post_mime_types = isset($query->post_mime_types) ? $query->post_mime_types : [];
+        $orderby = isset($query->orderby) ? $query->orderby : 'ID';
 
-        $posts = get_children(array(
+
+        $posts = get_posts(array(
             'paged' => $paged,
             'posts_per_page' => $posts_per_page,
+            'orderby' => $orderby,
             'post_type' => 'attachment',
             'post_mime_type' => $post_mime_types
         ));
@@ -47,6 +52,7 @@ class query
 
             if (wp_attachment_is_image($post->ID)) {
                 $attachment['dimensions'] = $metadata['width'] . ' x ' . $metadata['height'];
+                $attachment['sizes'] = $metadata['sizes'];
             } else if (empty($metadata['length_formatted'])) {
                 $attachment['length'] = $metadata['length_formatted'];
             }
@@ -55,7 +61,7 @@ class query
         }
 
         $attachments = apply_filters('dfoxa_media_query', $attachments);
-        dfoxaGateway(array('files' => $attachments, 'count' => $this->get_media_count($post_mime_types)));
+        dfoxaGateway(array('files' => $attachments, 'count' => (int)$this->get_media_count($post_mime_types)));
     }
 
     /**

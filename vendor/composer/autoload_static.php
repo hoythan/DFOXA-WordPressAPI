@@ -8,8 +8,6 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'e0e9e8ffd44d1638bac729fcb1047225' => __DIR__ . '/../..' . '/lib/inc/global.php',
-        '9faa1b1cbd98fdc9418298845ee2d883' => __DIR__ . '/../..' . '/lib/inc/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -24,6 +22,7 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
             'tools\\logs\\' => 11,
             'tools\\email\\' => 12,
             'tools\\' => 6,
+            'tests\\' => 6,
         ),
         'm' => 
         array (
@@ -50,10 +49,6 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
         'Z' => 
         array (
             'Zhuzhichao\\IpLocationZh\\' => 24,
-        ),
-        'T' => 
-        array (
-            'Tests\\' => 6,
         ),
         'S' => 
         array (
@@ -107,6 +102,10 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
         array (
             0 => __DIR__ . '/../..' . '/lib/tools',
         ),
+        'tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib/tests',
+        ),
         'media\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib/media',
@@ -140,10 +139,6 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
         'Zhuzhichao\\IpLocationZh\\' => 
         array (
             0 => __DIR__ . '/..' . '/zhuzhichao/ip-location-zh/src',
-        ),
-        'Tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/lib/Tests',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
