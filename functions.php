@@ -45,7 +45,7 @@ function get_RandStr($minlength = 10, $maxlength = 16)
 /*
  * 获取与时间有关(唯一性)的字符串
  */
-function get_MicroTimeStr()
+function get_micro_time_str()
 {
     list($usec, $sec) = explode(" ", microtime());
     $msec = round($usec * 1000);
@@ -512,12 +512,6 @@ function dfoxa_auto_set_mulitsite_blog()
     } else {
         dfoxa_append_message(array('_is_multisite_mode' => true));
         switch_to_blog($blog_id);
-        /**
-         * 多站点模式下,缓存系统所保存的站点需固定,
-         * 因在用户登录的时候还没有切换站点,缓存系统使用的是默认的主站点,
-         * 如果不强制设置,这会导致登录后无法获取到缓存系统内容
-         */
-        wp_cache_switch_to_blog(get_current_network_id());
     }
 
     return $blog_id;
@@ -551,7 +545,7 @@ function dfoxa_get_query_mulitsite_blog_id()
         $blog_id = $_SERVER['HTTP_BLOG_ID'];
     }
 
-    return $blog_id;
+    return absint($blog_id);
 }
 
 /**
@@ -561,7 +555,15 @@ function dfoxa_rewrite_headers($headers, $wp)
 {
     $headers['Access-Control-Allow-Origin'] = '*';
     $headers['Access-Control-Allow-Credentials'] = 'true';
+    $headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS';
     $headers['Access-Control-Allow-Headers'] = 'Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Access-Token, Blog-ID';
     return $headers;
 }
 add_filter('wp_headers', 'dfoxa_rewrite_headers', 10, 2);
+
+/**
+ * 屏蔽 REST API
+ * http://blog.wpjam.com/m/disable-wordpress-rest-api/
+ */
+add_filter('rest_enabled', '__return_false');
+add_filter('rest_jsonp_enabled', '__return_false');

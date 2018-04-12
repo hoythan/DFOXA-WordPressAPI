@@ -3,10 +3,8 @@
 namespace account\token;
 class create extends token
 {
-
-    public function run()
+    function __construct()
     {
-        dfoxaError('gateway.close-api');
     }
 
     public static function get($userid)

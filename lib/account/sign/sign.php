@@ -30,15 +30,25 @@ abstract class sign
      * @param bool $checkSignType 是否检查登录类型,false
      * @param bool $refreshAccessToken 刷新当前登录用户的AccessToken . 私有参数!!!用于 Verify Token 时获取用户信息所用
      */
+
+    /**
+     * 多站点模式下,缓存系统所保存的站点需固定,
+     * 因在用户登录的时候还没有切换站点,缓存系统使用的是默认的主站点,
+     * 如果不强制设置,这会导致登录后无法获取到缓存系统内容
+     *
+     * wp_cache_switch_to_blog
+     */
     public static function signInAccount($args = array(
         'type' => '',
         'field' => '',
         'value' => ''
     ), $checkPassword = true, $checkSignType = true, $refreshAccessToken = true)
     {
+        wp_cache_switch_to_blog(1);
+
         $type = strtolower($args['type']);
-        $field = $args['field'];
-        $value = $args['value'];
+        $field = isset($args['field']) ? $args['field'] : '';
+        $value = isset($args['value']) ? $args['value'] : '';
         $user = false;
 
         // 判断是否后台配置了登录相关设置
@@ -158,6 +168,7 @@ abstract class sign
 
         // 注册登录filter
         $ret = apply_filters('dfoxa_account_signin_response', $responseData, $user);
+        wp_cache_switch_to_blog(get_current_blog_id());
         return $ret;
     }
 
@@ -325,7 +336,6 @@ abstract class sign
                 'field' => $user_id,
             ),
             false, false);
-
         return $ret;
     }
 

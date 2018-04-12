@@ -10,13 +10,13 @@ class verify extends token
     {
         $expire = parent::_expireTime();
         $userid = self::_getID('', $expire);
-
         if (self::_isGetUser()) {
             $ret = Sign::signInAccount(array(
                 'type' => 'id',
                 'field' => $userid
             ), false, false);
             $ret['expire'] = time() + $expire;
+
             dfoxaGateway($ret);
         } else {
             dfoxaGateway(array(
@@ -42,10 +42,12 @@ class verify extends token
 
         if ($get_user) {
             // 登录用户账号
-            return Sign::signInAccount(array(
+            $account =  Sign::signInAccount(array(
                 'type' => 'id',
                 'field' => $userid
             ), false, false, false);
+
+            return $account;
         } else {
             return $userid;
         }
@@ -84,6 +86,13 @@ class verify extends token
      */
     private static function _getID($access_token = '', $expire = null)
     {
+        /**
+         * 多站点模式下,缓存系统所保存的站点需固定,
+         * 因在用户登录的时候还没有切换站点,缓存系统使用的是默认的主站点,
+         * 如果不强制设置,这会导致登录后无法获取到缓存系统内容
+         */
+        wp_cache_switch_to_blog(1);
+
         $cacheDriver = new \cached\cache();
 
         if ($access_token === '')
@@ -114,6 +123,7 @@ class verify extends token
         $expire = $expire === null ? parent::_expireTime() : (int)$expire;
         $cacheDriver->set($access_token, $onlytoken, '_access_token', $expire);
 
+        wp_cache_switch_to_blog(get_current_blog_id());
         return $userid;
     }
 

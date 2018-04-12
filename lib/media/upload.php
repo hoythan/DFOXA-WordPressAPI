@@ -121,7 +121,7 @@ class upload
             /*
              * 重写文件名
              */
-            $filename = get_MicroTimeStr();
+            $filename = get_micro_time_str();
             $_FILES[$fileKey]['name'] = $filename . ".{$ext}";
             $_FILES[$fileKey]['ext'] = $ext;
             $_FILES[$fileKey] = apply_filters('dfoxa_media_upload_file', $_FILES[$fileKey]);

@@ -21,18 +21,18 @@ class method
             // 检查网关
             $this->_setupCheckGateway();
 
+            global $is_api_query;
+            $is_api_query = true;
+
             // OPTIONS 一律直接返回正确
             if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
                 dfoxaError('gateway.options-success');
 
-            // 自动设置多站点博客 ID
+            // 切换多站点 blog
             dfoxa_auto_set_mulitsite_blog();
 
             // 检查并设置查询类
             $this->_setupCheckMethod();
-
-            global $is_api_query;
-            $is_api_query = true;
 
             // 筛选查询数据
             $this->_getRequest();
@@ -208,7 +208,7 @@ class method
 
         header('Content-type: application/json');
 
-        echo json_encode(code::_e($e->getMessage()));
+        echo urldecode(json_encode(code::_e($e->getMessage())));
         exit;
     }
 
@@ -250,7 +250,7 @@ class method
          */
         ini_set('display_errors', 0);
         ob_clean();
-        echo json_encode($echo_array);
+        echo urldecode(json_encode($echo_array));
         exit;
     }
 }

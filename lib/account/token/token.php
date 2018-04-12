@@ -4,7 +4,6 @@ namespace account\token;
 
 abstract class token
 {
-
     protected static function _creatOnlyToken($userid)
     {
         $userip = get_ClientIP();

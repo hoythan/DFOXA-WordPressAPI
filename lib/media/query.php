@@ -61,7 +61,10 @@ class query
         }
 
         $attachments = apply_filters('dfoxa_media_query', $attachments);
-        dfoxaGateway(array('files' => $attachments, 'count' => (int)$this->get_media_count($post_mime_types)));
+        dfoxaGateway(array(
+            'files' => $attachments,
+            'count' => (int)$this->get_media_count($post_mime_types)
+        ));
     }
 
     /**

@@ -41,12 +41,10 @@ require 'functions.php';
 require 'vendor/autoload.php';
 
 function load_dfoxa_wpapi() {
-	$gateway = new \gateway\method();
-	$gateway->run();
+    $gateway = new \gateway\method();
+    $gateway->run();
 }
-
-add_action( 'wp', 'load_dfoxa_wpapi', -999 );
-
+add_action( 'wp', 'load_dfoxa_wpapi', -1);
 /*
 	后台
  */
