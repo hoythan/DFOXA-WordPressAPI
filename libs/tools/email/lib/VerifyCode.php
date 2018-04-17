@@ -42,7 +42,7 @@ class VerifyCode extends sendEmail
         $this->CacheObj->set($email, $code, 'EmailVerifyCode', $expire);
         $this->CacheObj->set($email, time() + $resend_expire, 'EmailVerifyCodeExpire', $resend_expire);
 
-        $subject = '您的 ' . get_option('dfoxa_t_email_param_appname') . ' 账户验证码';
+        $subject = '您的 ' . get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_appname') . ' 账户验证码';
         $sendTo = $email;
         $sendBody = parent::filterParam(dirname(__DIR__) . '/templates/verifycode.theme', array(
             'user_nickname' => $user_nickname,

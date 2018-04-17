@@ -54,7 +54,7 @@ class method
     private function _setupCheckGateway()
     {
         global $wp_query;
-        $gateway = get_option('dfoxa_gateway');
+        $gateway = get_blog_option(get_main_site_id(), 'dfoxa_gateway');
 
         if (!isset($wp_query->query['pagename']))
             dfoxaError('gateway.empty-gateway', array(), -1);
@@ -67,7 +67,7 @@ class method
 
 
         // 检查是否匹配网关
-        $gateway = get_option('dfoxa_gateway');
+        $gateway = get_blog_option(get_main_site_id(), 'dfoxa_gateway');
         if ($pagename != $gateway && strpos($pagename, $gateway) !== 0)
             dfoxaError('gateway.undefined', array(), -1);
 

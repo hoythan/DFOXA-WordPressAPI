@@ -18,35 +18,32 @@
   "autoload": {
     "psr-4": {
       "account\\oauth\\": [
-        "lib/account/oauth"
+        "libs/account/oauth"
       ],
       "account\\sign\\": [
-        "lib/account/sign"
+        "libs/account/sign"
       ],
       "account\\token\\": [
-        "lib/account/token",
-        "lib/account/token/modes"
+        "libs/account/token",
+        "libs/account/token/modes"
       ],
-      "gateway\\": "lib/gateway",
-      "tools\\": "lib/tools",
-      "tools\\sms\\": "lib/tools/sms",
+      "gateway\\": "libs/gateway",
+      "tools\\": "libs/tools",
+      "tools\\sms\\": "libs/tools/sms",
       "tools\\email\\": [
-        "lib/tools/email",
-        "lib/tools/email/lib"
+        "libs/tools/email",
+        "libs/tools/email/lib"
       ],
-      "tools\\sql\\": "lib/tools/sql",
+      "tools\\sql\\": "libs/tools/sql",
       "tools\\logs\\":[
-        "lib/tools/logs",
-        "lib/tools/logs/set",
-        "lib/tools/logs/get",
-        "lib/tools/logs/update"
+        "libs/tools/logs",
+        "libs/tools/logs/set",
+        "libs/tools/logs/get",
+        "libs/tools/logs/update"
       ],
-      "media\\": "lib/media",
-      "cached\\": [
-        "lib/cached",
-        "lib/cached/modes"
-      ],
-      "tests\\": "lib/tests"
+      "media\\": "libs/media",
+      "posts\\": "libs/posts",
+      "tests\\": "libs/tests"
     }
   }
 }

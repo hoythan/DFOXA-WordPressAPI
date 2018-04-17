@@ -6,6 +6,12 @@ use account\sign\sign as Sign;
 
 class verify extends token
 {
+    /**
+     * 多站点模式下,缓存系统所保存的站点需固定,
+     * 因在用户登录的时候还没有切换站点,缓存系统使用的是默认的主站点,
+     * 如果不强制设置,这会导致登录后无法获取到缓存系统内容
+     */
+
     public function run()
     {
         $expire = parent::_expireTime();
@@ -38,11 +44,10 @@ class verify extends token
 
         // 自动登录用户
         wp_set_current_user($userid);
-        wp_set_auth_cookie($userid);
 
         if ($get_user) {
             // 登录用户账号
-            $account =  Sign::signInAccount(array(
+            $account = Sign::signInAccount(array(
                 'type' => 'id',
                 'field' => $userid
             ), false, false, false);
@@ -86,20 +91,12 @@ class verify extends token
      */
     private static function _getID($access_token = '', $expire = null)
     {
-        /**
-         * 多站点模式下,缓存系统所保存的站点需固定,
-         * 因在用户登录的时候还没有切换站点,缓存系统使用的是默认的主站点,
-         * 如果不强制设置,这会导致登录后无法获取到缓存系统内容
-         */
-        wp_cache_switch_to_blog(1);
-
-        $cacheDriver = new \cached\cache();
-
+        switch_to_blog(1);
         if ($access_token === '')
             $access_token = self::_getAccessToken();
 
         // 从缓存中根据 accesstoken 获取 onlytoken
-        $onlytoken = $cacheDriver->get($access_token, '_access_token');
+        $onlytoken = wp_cache_get($access_token, '_access_token');
 
         if (empty($onlytoken))
             dfoxaError('account.expired-accesstoken');
@@ -113,17 +110,17 @@ class verify extends token
             dfoxaError('account.expired-accesstoken');
 
         $group_key = '_access_token_' . $userid;
-        if ($cacheDriver->get($onlytoken, $group_key) != 1) {
+        if (absint(wp_cache_get($onlytoken, $group_key)) !== 1) {
             // 如果用户的 group_key 不存在，则清空 access_token 的值
-            $cacheDriver->delete($access_token, '_access_token');
+            wp_cache_delete($access_token, '_access_token');
             dfoxaError('account.distance-accesstoken');
         }
 
         // 更新 access_token 过期时间
         $expire = $expire === null ? parent::_expireTime() : (int)$expire;
-        $cacheDriver->set($access_token, $onlytoken, '_access_token', $expire);
+        wp_cache_set($access_token, $onlytoken, '_access_token', $expire);
 
-        wp_cache_switch_to_blog(get_current_blog_id());
+        switch_to_blog(dfoxa_get_query_mulitsite_blog_id());
         return $userid;
     }
 

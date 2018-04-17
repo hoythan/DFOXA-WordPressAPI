@@ -3,18 +3,17 @@
 // 时区设置
 date_default_timezone_set('PRC');
 
-require_once('lib/inc/global.php');
-require_once('lib/inc/wp_action.php');
+require_once('libs/inc/global.php');
+require_once('libs/inc/wp_action.php');
 
 // 加载媒体查询,因为里面有 hook 需要注册
-require_once "lib/media/query.php";
+require_once "libs/media/query.php";
 
 /*
  * 获取相关 usermeta 的用户id
  */
 function get_usermeta_userid($key, $value)
 {
-
     global $wpdb;
     $request = $wpdb->get_row($wpdb->prepare("SELECT `user_id` FROM $wpdb->usermeta WHERE `meta_key` = %s AND `meta_value` = %s", array(
         $key,
@@ -186,7 +185,7 @@ function bizContentFilter($filters = array(), $bizContent = '')
     }
 
     // 过滤 usermeta
-    $metaFilter = get_option('dfoxa_t_account_edit_usermetakey');
+    $metaFilter = get_blog_option(get_main_site_id(), 'dfoxa_t_account_edit_usermetakey');
 
     if (trim($metaFilter) === '*' || !isset($query->usermeta)) {
         return $query;
@@ -470,7 +469,7 @@ function get_dfoxa_active_plugins()
 
     foreach ($plugins as $plugin_name => $plugin) {
         $plugin_key = 'dfoxa_' . $plugin_name;
-        $active = get_option($plugin_key) == '1' ? true : false;
+        $active = absint(get_blog_option(get_main_site_id(), $plugin_key)) === 1 ? true : false;
         if ($active) {
             $active_plugins[$plugin_name] = $plugin;
         }
@@ -559,6 +558,7 @@ function dfoxa_rewrite_headers($headers, $wp)
     $headers['Access-Control-Allow-Headers'] = 'Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Access-Token, Blog-ID';
     return $headers;
 }
+
 add_filter('wp_headers', 'dfoxa_rewrite_headers', 10, 2);
 
 /**

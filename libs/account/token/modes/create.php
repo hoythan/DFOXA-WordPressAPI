@@ -9,7 +9,7 @@ class create extends token
 
     public static function get($userid)
     {
-        $private_key = get_option('dfoxa_t_rsa_private');
+        $private_key = get_blog_option(get_main_site_id(), 'dfoxa_t_rsa_private');
         // 检查私钥格式
         if (empty($private_key))
             dfoxaError('account.empty-privatekey');
@@ -33,14 +33,17 @@ class create extends token
         $access_token = str_replace(array('=', '/', '-', '+', '&', '*', '?'), array(''), base64_encode($access_token));
         $access_token = substr($access_token, -33, -1);
 
-        $cacheDriver = new \cached\cache();
-        $res = $cacheDriver->set($access_token, $onlytoken, '_access_token', parent::_expireTime());
-        $cacheDriver->set($onlytoken, 1, '_access_token_' . $userid);
+        // 切换缓存系统至主站点
+        switch_to_blog(1);
+        $res = wp_cache_set($access_token, $onlytoken, '_access_token', parent::_expireTime());
+        wp_cache_set($onlytoken, 1, '_access_token_' . $userid);
 
         // 是否成功写入缓存
         if ($res !== true)
             dfoxaError('cache.empyt-cachetype');
 
+        // 恢复缓存系统站点
+        switch_to_blog(dfoxa_get_query_mulitsite_blog_id());
         return $access_token;
     }
 }

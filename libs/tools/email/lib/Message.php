@@ -17,7 +17,7 @@ class Message extends sendEmail
             dfoxaError('account.error-email');
 
 
-        $subject = '欢迎加入我们！来自' . get_option('dfoxa_t_email_param_appname') . '的问候';
+        $subject = '欢迎加入我们！来自' . get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_appname') . '的问候';
         $sendTo = $email;
 
         if($password === null){

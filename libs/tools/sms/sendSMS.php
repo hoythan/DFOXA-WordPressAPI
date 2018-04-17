@@ -15,7 +15,7 @@ class sendSMS
 
     function __construct()
     {
-        $this->sms_service = get_option('dfoxa_sms_service');
+        $this->sms_service = get_blog_option(get_main_site_id(), 'dfoxa_sms_service');
 
         // 检查环境是否允许
         $this->_setupCheckOptions();
@@ -106,9 +106,9 @@ class sendSMS
      */
     private function _setupCheckOptions()
     {
-        $appkey = get_option('dfoxa_sms_appkey');
-        $appsecret = get_option('dfoxa_sms_appsecret');
-        $sms_cycle = get_option('dfoxa_sms_cycle');
+        $appkey = get_blog_option(get_main_site_id(), 'dfoxa_sms_appkey');
+        $appsecret = get_blog_option(get_main_site_id(), 'dfoxa_sms_appsecret');
+        $sms_cycle = get_blog_option(get_main_site_id(), 'dfoxa_sms_cycle');
 
         if ($this->sms_service == 'alidayu') {
             if (empty($appkey) || empty($appsecret) || (int)$sms_cycle < 10)

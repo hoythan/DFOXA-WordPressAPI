@@ -44,16 +44,14 @@ abstract class sign
         'value' => ''
     ), $checkPassword = true, $checkSignType = true, $refreshAccessToken = true)
     {
-        wp_cache_switch_to_blog(1);
-
         $type = strtolower($args['type']);
         $field = isset($args['field']) ? $args['field'] : '';
         $value = isset($args['value']) ? $args['value'] : '';
         $user = false;
 
         // 判断是否后台配置了登录相关设置
-        $limit = get_option('dfoxa_account_signin_limit');
-        $types = get_option('dfoxa_account_signin_types');
+        $limit = get_blog_option(get_main_site_id(), 'dfoxa_account_signin_limit');
+        $types = get_blog_option(get_main_site_id(), 'dfoxa_account_signin_types');
 
         if (empty($limit) || empty($types))
             dfoxaError('account.empty-login-api');
@@ -168,7 +166,6 @@ abstract class sign
 
         // 注册登录filter
         $ret = apply_filters('dfoxa_account_signin_response', $responseData, $user);
-        wp_cache_switch_to_blog(get_current_blog_id());
         return $ret;
     }
 
@@ -200,8 +197,8 @@ abstract class sign
         $send_password = false; // 是否需要在欢迎邮件中发送密码给用户
 
         // 判断是否后台配置了登录相关设置
-        $limit = get_option('dfoxa_account_signup_limit');
-        $types = get_option('dfoxa_account_signup_types');
+        $limit = get_blog_option(get_main_site_id(), 'dfoxa_account_signup_limit');
+        $types = get_blog_option(get_main_site_id(), 'dfoxa_account_signup_types');
 
         if (empty($limit) || empty($types))
             dfoxaError('account.empty-register-api');

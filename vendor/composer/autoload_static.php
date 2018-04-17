@@ -24,6 +24,10 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
             'tools\\' => 6,
             'tests\\' => 6,
         ),
+        'p' => 
+        array (
+            'posts\\' => 6,
+        ),
         'm' => 
         array (
             'media\\' => 6,
@@ -35,10 +39,6 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
         'g' => 
         array (
             'gateway\\' => 8,
-        ),
-        'c' => 
-        array (
-            'cached\\' => 7,
         ),
         'a' => 
         array (
@@ -80,35 +80,39 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
         ),
         'tools\\sql\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/tools/sql',
+            0 => __DIR__ . '/../..' . '/libs/tools/sql',
         ),
         'tools\\sms\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/tools/sms',
+            0 => __DIR__ . '/../..' . '/libs/tools/sms',
         ),
         'tools\\logs\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/tools/logs',
-            1 => __DIR__ . '/../..' . '/lib/tools/logs/set',
-            2 => __DIR__ . '/../..' . '/lib/tools/logs/get',
-            3 => __DIR__ . '/../..' . '/lib/tools/logs/update',
+            0 => __DIR__ . '/../..' . '/libs/tools/logs',
+            1 => __DIR__ . '/../..' . '/libs/tools/logs/set',
+            2 => __DIR__ . '/../..' . '/libs/tools/logs/get',
+            3 => __DIR__ . '/../..' . '/libs/tools/logs/update',
         ),
         'tools\\email\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/tools/email',
-            1 => __DIR__ . '/../..' . '/lib/tools/email/lib',
+            0 => __DIR__ . '/../..' . '/libs/tools/email',
+            1 => __DIR__ . '/../..' . '/libs/tools/email/lib',
         ),
         'tools\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/tools',
+            0 => __DIR__ . '/../..' . '/libs/tools',
         ),
         'tests\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/tests',
+            0 => __DIR__ . '/../..' . '/libs/tests',
+        ),
+        'posts\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/libs/posts',
         ),
         'media\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/media',
+            0 => __DIR__ . '/../..' . '/libs/media',
         ),
         'houdunwang\\dir\\' => 
         array (
@@ -116,25 +120,20 @@ class ComposerStaticInitb16d4d7fbbf67e0117572c600b09dd9c
         ),
         'gateway\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/gateway',
-        ),
-        'cached\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/lib/cached',
-            1 => __DIR__ . '/../..' . '/lib/cached/modes',
+            0 => __DIR__ . '/../..' . '/libs/gateway',
         ),
         'account\\token\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/account/token',
-            1 => __DIR__ . '/../..' . '/lib/account/token/modes',
+            0 => __DIR__ . '/../..' . '/libs/account/token',
+            1 => __DIR__ . '/../..' . '/libs/account/token/modes',
         ),
         'account\\sign\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/account/sign',
+            0 => __DIR__ . '/../..' . '/libs/account/sign',
         ),
         'account\\oauth\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib/account/oauth',
+            0 => __DIR__ . '/../..' . '/libs/account/oauth',
         ),
         'Zhuzhichao\\IpLocationZh\\' => 
         array (
