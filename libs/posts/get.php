@@ -12,7 +12,10 @@ class get
             'query'
         ));
 
-        $posts = get_posts($query->query);
+        // 检查或修改用户查询内容
+        $query->query = apply_filters('dfoxa_query_posts_query', $query->query);
+
+        $posts = get_posts(objectToArray($query->query));
         $rets = [];
         foreach ($posts as $post) {
             // 在此 hook 修改对用户返回的 post , 返回 false 将排除此文章

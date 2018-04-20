@@ -498,6 +498,39 @@ function load_plugins_funfile()
 
 add_action('init', 'load_plugins_funfile', 1);
 
+
+/**
+ * 创建日志系统数据表结构
+ * *在插件启动时运行
+ */
+function dfoxa_create_logs_table()
+{
+    if(!function_exists('maybe_create_table')){
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+    }
+    global $wpdb;
+    $wpdb->logs = $wpdb->get_blog_prefix() . 'logs';
+    $wpdb_collate = $wpdb->collate;
+
+    maybe_create_table($wpdb->logs,
+        "CREATE TABLE `{$wpdb->logs}` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `group` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '群组',
+  `event` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '事件',
+  `level` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'INFO' COMMENT 'DEBUG,INFO, NOTICE,WARNING,ERROR, ALERT ,EMERGENCY',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL COMMENT '描述',
+  `log` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci COMMENT '详细',
+  `user_ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `level` (`level`) USING BTREE,
+  KEY `create_date` (`create_date`) USING BTREE,
+  KEY `event` (`event`(191)) USING BTREE
+) COLLATE {$wpdb_collate} COMMENT='日志';
+");
+}
+
 /**
  * 自动设置多站点模式
  * @return bool

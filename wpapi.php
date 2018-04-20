@@ -39,7 +39,7 @@ define( 'DFOXA_SEP', DIRECTORY_SEPARATOR );
 require 'dfox_wp/pages/function.php';
 require 'functions.php';
 require 'vendor/autoload.php';
-
+register_activation_hook(__FILE__, 'dfoxa_create_logs_table');
 function load_dfoxa_wpapi() {
     $gateway = new \gateway\method();
     $gateway->run();

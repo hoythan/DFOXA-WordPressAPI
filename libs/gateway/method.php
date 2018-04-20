@@ -5,7 +5,6 @@ namespace gateway;
 class method
 {
     private $methodClass;
-
     public function run()
     {
         // 定义中国时区
@@ -33,6 +32,9 @@ class method
 
             // 检查并设置查询类
             $this->_setupCheckMethod();
+
+            // 清空前面所有报错等信息
+            ob_start();
 
             // 筛选查询数据
             $this->_getRequest();
@@ -244,13 +246,8 @@ class method
             $echo_array = array_merge(code::_e($status), array($arrayKey => $response));
         }
 
-        /**
-         * 强制关闭所有报错信息
-         * https://developer.wordpress.org/reference/functions/wp_debug_mode/
-         */
-        ini_set('display_errors', 0);
         ob_clean();
-        echo urldecode(json_encode($echo_array));
+        echo json_encode($echo_array);
         exit;
     }
 }

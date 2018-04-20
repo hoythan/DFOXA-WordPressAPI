@@ -2,8 +2,6 @@
 
 namespace media;
 
-use cached\cache;
-
 class query
 {
     private $cache_group = 'query_media_count';
@@ -74,35 +72,14 @@ class query
      */
     private function get_media_count($post_mime_types = array())
     {
-        $cacheObj = new cache();
+        $types_count = wp_count_attachments($post_mime_types);
+        // 排除被删除的
+        unset($types_count->trash);
 
-        $key = implode(',', $post_mime_types);
-        $count = $cacheObj->get($key, $this->cache_group, false);
-        if (!$count) {
-            $count = 0;
-            $countObj = wp_count_attachments($post_mime_types);
-
-            unset($countObj->trash); // 不需要统计被删除的资源
-
-            foreach ($countObj as $key => $val) {
-                $count += (int)$val;
-            }
-            $cacheObj->set(implode(',', $post_mime_types), $count, $this->cache_group);
-        }
+        $count = 0;
+        foreach ($types_count as $key => $value)
+            $count += (int)$value;
 
         return $count;
     }
-
-    /**
-     * 清空统计缓存
-     */
-    public function clear_media_count($file = '')
-    {
-        $cacheObj = new cache();
-        $cacheObj->clearGroup($this->cache_group);
-        return $file;
-    }
 }
-
-add_filter('wp_handle_upload', array(new \media\query(), 'clear_media_count'), 10, 1);
-add_filter('wp_delete_file', array(new \media\query(), 'clear_media_count'), 10, 1);
