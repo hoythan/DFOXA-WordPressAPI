@@ -583,9 +583,10 @@ function dfoxa_get_query_mulitsite_blog_id()
 /**
  * 添加跨域以及请求头允许范围
  */
-function dfoxa_rewrite_headers($headers, $wp)
+function dfoxa_rewrite_headers($headers)
 {
     $headers['Access-Control-Allow-Origin'] = '*';
+    $headers['Access-Control-Max-Age'] = '604800';
     $headers['Access-Control-Allow-Credentials'] = 'true';
     $headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS';
     $headers['Access-Control-Allow-Headers'] = 'Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Access-Token, Blog-ID';
