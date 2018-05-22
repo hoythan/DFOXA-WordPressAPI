@@ -166,6 +166,8 @@ abstract class sign
 
         // 注册登录filter
         $ret = apply_filters('dfoxa_account_signin_response', $responseData, $user);
+        // 登录 hook
+        do_action('dfoxa_account_signin', $user);
         return $ret;
     }
 

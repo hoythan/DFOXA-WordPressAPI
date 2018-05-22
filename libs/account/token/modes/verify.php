@@ -44,6 +44,7 @@ class verify extends token
 
         // 自动登录用户
         wp_set_current_user($userid);
+        wp_set_auth_cookie( $userid );
 
         if ($get_user) {
             // 登录用户账号
@@ -56,7 +57,6 @@ class verify extends token
         } else {
             return $userid;
         }
-
     }
 
     /**

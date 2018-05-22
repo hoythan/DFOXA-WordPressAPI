@@ -19,14 +19,13 @@ class delete
         }
 
         if (!is_array($attachment_ids))
-            dfoxaError('media.empty-delete-file');
+        dfoxaError('media.empty-delete-file');
 
         /**
          * 多站点的用户组获取方式不同,在此处进行判断区分
          */
         $userid = Verify::getSignUserID();
         if (is_multisite()) {
-
             $blog_id = get_current_blog_id();
             $user = new \WP_User(
                 $userid,

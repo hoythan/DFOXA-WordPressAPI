@@ -509,7 +509,7 @@ function dfoxa_create_logs_table()
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
     }
     global $wpdb;
-    $wpdb->logs = $wpdb->get_blog_prefix() . 'logs';
+    $wpdb->logs = $wpdb->base_prefix . 'logs';
     $wpdb_collate = $wpdb->collate;
 
     maybe_create_table($wpdb->logs,
