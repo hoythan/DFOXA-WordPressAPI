@@ -103,6 +103,9 @@ function dfoxa_plugins_page()
         <ul>
             <?php
             $plugins = get_dfoxa_plugins();
+            if(!is_array($plugins) || count($plugins) === 0)
+                return false;
+
             foreach ($plugins as $plugin_name => $plugin) {
                 $plugin_key = 'dfoxa_' . $plugin_name;
                 $active = get_option($plugin_key) == '1' ? true : false;
