@@ -58,7 +58,7 @@ class query
             $attachments[] = apply_filters('dfoxa_media_query_file_attachment', $attachment, $post->ID);
         }
 
-        $attachments = apply_filters('dfoxa_media_query', $attachments);
+        $attachments = apply_filters('dfoxa_medias_query', $attachments);
         dfoxaGateway(array(
             'files' => $attachments,
             'count' => (int)$this->get_media_count($post_mime_types)
