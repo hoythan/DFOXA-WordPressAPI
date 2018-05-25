@@ -469,7 +469,11 @@ function get_dfoxa_active_plugins()
 
     foreach ($plugins as $plugin_name => $plugin) {
         $plugin_key = 'dfoxa_' . $plugin_name;
-        $active = absint(get_blog_option(get_main_site_id(), $plugin_key)) === 1 ? true : false;
+        if(is_multisite()){
+            $active = absint(get_blog_option(get_main_site_id(), $plugin_key)) === 1 ? true : false;
+        }else{
+            $active = absint(get_option($plugin_key)) === 1 ? true : false;
+        }
         if ($active) {
             $active_plugins[$plugin_name] = $plugin;
         }

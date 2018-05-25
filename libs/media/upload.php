@@ -170,7 +170,7 @@ class upload
             $attachments[] = apply_filters('dfoxa_media_upload_file_attachment', $attachment, $result);
 
         }
-        
+
         $attachments = apply_filters('dfoxa_medias_query', $attachments);
         return apply_filters('dfoxa_media_upload_files', $attachments);
     }
