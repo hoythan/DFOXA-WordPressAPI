@@ -185,7 +185,11 @@ function bizContentFilter($filters = array(), $bizContent = '')
     }
 
     // 过滤 usermeta
-    $metaFilter = get_blog_option(get_main_site_id(), 'dfoxa_t_account_edit_usermetakey');
+    if (is_multisite()) {
+        $metaFilter = get_blog_option(get_main_site_id(), 'dfoxa_t_account_edit_usermetakey');
+    } else {
+        $metaFilter = get_option('dfoxa_t_account_edit_usermetakey');
+    }
 
     if (trim($metaFilter) === '*' || !isset($query->usermeta)) {
         return $query;
@@ -239,6 +243,7 @@ function dfoxaError($sub_code, $message = array(), $httpCode = 200)
 /**
  * 正确接口返回封装
  */
+
 use gateway\method as Gateway;
 
 function dfoxaGateway($response = '', $status = '10000', $code = '200', $arrayKey = '', $hideRequest = false)
@@ -354,6 +359,7 @@ function load_fileContent($meta_key, $size = 'full')
 /*
  * 删除目录以及目录下的所有文件
  */
+
 use houdunwang\dir\Dir;
 
 function dfoxa_removeDirFiles($path)
@@ -469,9 +475,9 @@ function get_dfoxa_active_plugins()
 
     foreach ($plugins as $plugin_name => $plugin) {
         $plugin_key = 'dfoxa_' . $plugin_name;
-        if(is_multisite()){
+        if (is_multisite()) {
             $active = absint(get_blog_option(get_main_site_id(), $plugin_key)) === 1 ? true : false;
-        }else{
+        } else {
             $active = absint(get_option($plugin_key)) === 1 ? true : false;
         }
         if ($active) {
@@ -509,7 +515,7 @@ add_action('init', 'load_plugins_funfile', 1);
  */
 function dfoxa_create_logs_table()
 {
-    if(!function_exists('maybe_create_table')){
+    if (!function_exists('maybe_create_table')) {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
     }
     global $wpdb;
@@ -541,6 +547,9 @@ function dfoxa_create_logs_table()
  */
 function dfoxa_auto_set_mulitsite_blog()
 {
+    if(!is_multisite())
+        return false;
+
     $blog_id = dfoxa_get_query_mulitsite_blog_id();
 
     if (empty($blog_id) || $blog_id === 0 || get_blog_option($blog_id, 'siteurl') === false) {

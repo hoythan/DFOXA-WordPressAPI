@@ -9,7 +9,7 @@ class create extends token
 
     public static function get($userid)
     {
-        $private_key = get_blog_option(get_main_site_id(), 'dfoxa_t_rsa_private');
+        $private_key = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_t_rsa_private') : get_option('dfoxa_t_rsa_private');
         // 检查私钥格式
         if (empty($private_key))
             dfoxaError('account.empty-privatekey');

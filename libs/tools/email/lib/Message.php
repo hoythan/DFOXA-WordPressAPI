@@ -17,12 +17,13 @@ class Message extends sendEmail
             dfoxaError('account.error-email');
 
 
-        $subject = '欢迎加入我们！来自' . get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_appname') . '的问候';
+        $appname = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_appname') : get_option('dfoxa_t_email_param_appname');
+        $subject = '欢迎加入我们！来自' . $appname . '的问候';
         $sendTo = $email;
 
-        if($password === null){
+        if ($password === null) {
             $theme = dirname(__DIR__) . '/templates/welcome.theme';
-        }else{
+        } else {
             $theme = dirname(__DIR__) . '/templates/welcome_pw.theme';
         }
 

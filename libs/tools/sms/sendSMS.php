@@ -15,7 +15,7 @@ class sendSMS
 
     function __construct()
     {
-        $this->sms_service = get_blog_option(get_main_site_id(), 'dfoxa_sms_service');
+        $this->sms_service = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_sms_service') : get_option('dfoxa_sms_service');
 
         // 检查环境是否允许
         $this->_setupCheckOptions();
@@ -42,15 +42,15 @@ class sendSMS
      * 发送短信
      */
 
-    public function send($phone,$data)
+    public function send($phone, $data)
     {
         // 验证手机号
-        if(!self::_verifyPhoneNumber($phone))
+        if (!self::_verifyPhoneNumber($phone))
             dfoxaError('sms.error-phonenumber');
 
         // 验证 data
 
-        return $this->SMSObj->send($phone,$data);
+        return $this->SMSObj->send($phone, $data);
     }
 
 
@@ -106,9 +106,9 @@ class sendSMS
      */
     private function _setupCheckOptions()
     {
-        $appkey = get_blog_option(get_main_site_id(), 'dfoxa_sms_appkey');
-        $appsecret = get_blog_option(get_main_site_id(), 'dfoxa_sms_appsecret');
-        $sms_cycle = get_blog_option(get_main_site_id(), 'dfoxa_sms_cycle');
+        $appkey = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_sms_appkey') : get_option('dfoxa_sms_appkey');
+        $appsecret = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_sms_appsecret') : get_option('dfoxa_sms_appsecret');
+        $sms_cycle = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_sms_cycle') : get_option('dfoxa_sms_cycle');
 
         if ($this->sms_service == 'alidayu') {
             if (empty($appkey) || empty($appsecret) || (int)$sms_cycle < 10)

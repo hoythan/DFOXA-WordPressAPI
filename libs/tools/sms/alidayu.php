@@ -10,10 +10,16 @@ use Flc\Alidayu\Requests\IRequest;
 class alidayu
 {
     public $config;
+
     function __construct()
     {
-        $appkey = get_blog_option(get_main_site_id(), 'dfoxa_sms_appkey');
-        $appsecret = get_blog_option(get_main_site_id(), 'dfoxa_sms_appsecret');
+        if (is_multisite()) {
+            $appkey = get_blog_option(get_main_site_id(), 'dfoxa_sms_appkey');
+            $appsecret = get_blog_option(get_main_site_id(), 'dfoxa_sms_appsecret');
+        } else {
+            $appkey = get_option('dfoxa_sms_appkey');
+            $appsecret = get_option('dfoxa_sms_appsecret');
+        }
 
         $this->config = array(
             'app_key' => $appkey,
@@ -44,7 +50,7 @@ class alidayu
             ->setSmsTemplateCode($data['template_code']);
 
         $response = $client->execute($request);
-        if(empty($response->sub_code) && $response->result->code == 0)
+        if (empty($response->sub_code) && $response->result->code == 0)
             return true;
 
         return self::_getErrorTest($response->sub_code);

@@ -50,8 +50,13 @@ abstract class sign
         $user = false;
 
         // 判断是否后台配置了登录相关设置
-        $limit = get_blog_option(get_main_site_id(), 'dfoxa_account_signin_limit');
-        $types = get_blog_option(get_main_site_id(), 'dfoxa_account_signin_types');
+        if (is_multisite()) {
+            $limit = get_blog_option(get_main_site_id(), 'dfoxa_account_signin_limit');
+            $types = get_blog_option(get_main_site_id(), 'dfoxa_account_signin_types');
+        } else {
+            $limit = get_option('dfoxa_account_signin_limit');
+            $types = get_option('dfoxa_account_signin_types');
+        }
 
         if (empty($limit) || empty($types))
             dfoxaError('account.empty-login-api');
@@ -199,8 +204,14 @@ abstract class sign
         $send_password = false; // 是否需要在欢迎邮件中发送密码给用户
 
         // 判断是否后台配置了登录相关设置
-        $limit = get_blog_option(get_main_site_id(), 'dfoxa_account_signup_limit');
-        $types = get_blog_option(get_main_site_id(), 'dfoxa_account_signup_types');
+        if (is_multisite()) {
+            $limit = get_blog_option(get_main_site_id(), 'dfoxa_account_signup_limit');
+            $types = get_blog_option(get_main_site_id(), 'dfoxa_account_signup_types');
+        } else {
+            $limit = get_option('dfoxa_account_signup_limit');
+            $types = get_option('dfoxa_account_signup_types');
+        }
+
 
         if (empty($limit) || empty($types))
             dfoxaError('account.empty-register-api');

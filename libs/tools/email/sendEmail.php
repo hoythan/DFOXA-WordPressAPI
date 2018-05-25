@@ -61,17 +61,17 @@ class sendEmail
     public function _phpmailer_smtp($phpmailer)
     {
         $phpmailer->Mailer = "smtp";
-        $phpmailer->From = get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_sendfrom_email');
-        $phpmailer->FromName = get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_sendfrom_name');
+        $phpmailer->From = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_sendfrom_email') : get_option('dfoxa_t_email_param_sendfrom_email');
+        $phpmailer->FromName = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_sendfrom_name') : get_option('dfoxa_t_email_param_sendfrom_name');
         $phpmailer->Sender = $phpmailer->From; //Return-Path
         $phpmailer->AddReplyTo($phpmailer->From, $phpmailer->FromName); //Reply-To
-        $phpmailer->Host = get_blog_option(get_main_site_id(), 'dfoxa_email_host');
-        $phpmailer->SMTPSecure = get_blog_option(get_main_site_id(), 'dfoxa_email_secure');
-        $phpmailer->Port = get_blog_option(get_main_site_id(), 'dfoxa_email_port');
-        $phpmailer->SMTPAuth = (get_blog_option(get_main_site_id(), 'dfoxa_email_smtpauth') == "yes") ? TRUE : FALSE;
+        $phpmailer->Host = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_email_host') : get_option('dfoxa_email_host');
+        $phpmailer->SMTPSecure = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_email_secure') : get_option('dfoxa_email_secure');
+        $phpmailer->Port = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_email_port') : get_option('dfoxa_email_port');
+        $phpmailer->SMTPAuth = ((is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_email_smtpauth') : get_option('dfoxa_email_smtpauth')) == "yes") ? true : false;
         if ($phpmailer->SMTPAuth) {
-            $phpmailer->Username = get_blog_option(get_main_site_id(), 'dfoxa_email_username');
-            $phpmailer->Password = get_blog_option(get_main_site_id(), 'dfoxa_email_password');
+            $phpmailer->Username = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_email_username') : get_option('dfoxa_email_username');
+            $phpmailer->Password = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_email_password') : get_option('dfoxa_email_password');
         }
     }
 
@@ -109,26 +109,48 @@ class sendEmail
             $params['query_addessip'] = get_ClientIP();
         }
 
-        if (empty($params['app_name']))
-            $params['app_name'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_appname'));
-
-        if (empty($params['logo']))
-            $params['logo'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_logo'));
-
         if (empty($params['time_year']))
             $params['time_year'] = date('Y');
 
-        if (empty($params['welcome']))
-            $params['welcome'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_welcome'));
+        if(is_multisite()){
+            if (empty($params['app_name']))
+                $params['app_name'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_appname'));
 
-        if (empty($params['inscription']))
-            $params['inscription'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_inscription'));
+            if (empty($params['logo']))
+                $params['logo'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_logo'));
 
-        if (empty($params['copyright']))
-            $params['copyright'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_copyright'));
+            if (empty($params['welcome']))
+                $params['welcome'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_welcome'));
 
-        if (empty($params['footerlinks']))
-            $params['footerlinks'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_footlinks'));
+            if (empty($params['inscription']))
+                $params['inscription'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_inscription'));
+
+            if (empty($params['copyright']))
+                $params['copyright'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_copyright'));
+
+            if (empty($params['footerlinks']))
+                $params['footerlinks'] = stripslashes(get_blog_option(get_main_site_id(), 'dfoxa_t_email_param_footlinks'));
+        }else{
+            if (empty($params['app_name']))
+                $params['app_name'] = stripslashes(get_option('dfoxa_t_email_param_appname'));
+
+            if (empty($params['logo']))
+                $params['logo'] = stripslashes(get_option('dfoxa_t_email_param_logo'));
+
+            if (empty($params['welcome']))
+                $params['welcome'] = stripslashes(get_option( 'dfoxa_t_email_param_welcome'));
+
+            if (empty($params['inscription']))
+                $params['inscription'] = stripslashes(get_option('dfoxa_t_email_param_inscription'));
+
+            if (empty($params['copyright']))
+                $params['copyright'] = stripslashes(get_option( 'dfoxa_t_email_param_copyright'));
+
+            if (empty($params['footerlinks']))
+                $params['footerlinks'] = stripslashes(get_option('dfoxa_t_email_param_footlinks'));
+        }
+
+
 
         foreach ($params as $key => $param) {
             $html = str_replace('{{' . $key . '}}', $param, $html);

@@ -11,7 +11,7 @@ abstract class token
 
         $salt = 'default';
 
-        $limit = get_blog_option(get_main_site_id(), 'dfoxa_account_signin_limit');
+        $limit = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_account_signin_limit') : get_option('dfoxa_account_signin_limit');
         $device = wp_is_mobile() ? 'mobile' : 'pc';
         switch ($limit) {
             case 'disable': // 禁止登录
@@ -44,7 +44,8 @@ abstract class token
      */
     public static function _expireTime()
     {
-        $append_time = (int)get_blog_option(get_main_site_id(), 'dfoxa_account_access_token_expire');
+        $token_expire = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_account_access_token_expire') : get_option('dfoxa_account_access_token_expire');
+        $append_time = (int)$token_expire;
         if (empty($append_time)) {
             $append_time = 3600;
         } elseif ($append_time <= 60) {
@@ -54,4 +55,5 @@ abstract class token
         return $append_time;
     }
 }
+
 ?>

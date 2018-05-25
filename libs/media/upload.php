@@ -48,8 +48,14 @@ class upload
         $user_roles = $user->roles;
 
         $upload_dir = wp_upload_dir();
-        $type = get_blog_option(get_main_site_id(), 'dfoxa_media_user');
-        $roles = get_blog_option(get_main_site_id(), 'dfoxa_media_user_role');
+        if (is_multisite()) {
+            $type = get_blog_option(get_main_site_id(), 'dfoxa_media_user');
+            $roles = get_blog_option(get_main_site_id(), 'dfoxa_media_user_role');
+        } else {
+            $type = get_option('dfoxa_media_user');
+            $roles = get_option('dfoxa_media_user_role');
+        }
+
 
         switch ($type) {
             case "all":
@@ -77,7 +83,13 @@ class upload
             dfoxaError('media.empty-file');
 
         // 文件格式
-        $fileexts = apply_filters('dfoxa_media_upload_fileext', explode(',', get_blog_option(get_main_site_id(), 'dfoxa_media_type')));
+        if (is_multisite()) {
+            $media_type = get_blog_option(get_main_site_id(), 'dfoxa_media_type');
+        } else {
+            $media_type = get_option('dfoxa_media_type');
+        }
+
+        $fileexts = apply_filters('dfoxa_media_upload_fileext', explode(',', $media_type));
         foreach ($fileexts as $k => $ext) {
             $fileexts[$k] = strtolower($ext);
         }
@@ -106,15 +118,17 @@ class upload
             /*
              * 尺寸验证
              */
-            $maxSize = apply_filters('dfoxa_media_upload_filesize', get_blog_option(get_main_site_id(), 'dfoxa_media_size'));
+            $media_size = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_media_size') : get_option('dfoxa_media_size');
+            $maxSize = apply_filters('dfoxa_media_upload_filesize', $media_size);
 
             // 没有填写单位 默认为KB
             if ((string)$maxSize === (string)(int)$maxSize)
                 $maxSize .= 'kb';
 
             if (Validator::size(null, $maxSize)->validate($file)) {
+                $media_size = is_multisite() ? get_blog_option(get_main_site_id(), 'dfoxa_media_size') : get_option('dfoxa_media_size');
                 dfoxaError('media.error-maxfilesize', array(
-                    'sub_msg' => "请勿超过" . get_blog_option(get_main_site_id(), 'dfoxa_media_size')
+                    'sub_msg' => "请勿超过" . $media_size
                 ));
             }
 
