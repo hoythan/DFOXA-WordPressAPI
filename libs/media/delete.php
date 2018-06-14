@@ -19,7 +19,7 @@ class delete
         }
 
         if (!is_array($attachment_ids))
-        dfoxaError('media.empty-delete-file');
+            dfoxaError('media.empty-delete-file');
 
         /**
          * 多站点的用户组获取方式不同,在此处进行判断区分
@@ -35,5 +35,10 @@ class delete
         } else {
             $user = get_userdata($userid);
         }
+
+        foreach ($attachment_ids as $attachment_id) {
+//            $response = wp_delete_attachment($attachment_id);
+        }
+
     }
 }
